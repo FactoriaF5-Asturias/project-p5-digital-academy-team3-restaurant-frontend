@@ -1,9 +1,9 @@
 <script setup>
     import { ref } from 'vue';
 
-    import restaurantLogo from '../assets/bella_vita_logo.png'
-    import cartIcon from '../assets/cart.svg'
-    import profileIcon from '../assets/profile.svg'
+    import restaurantLogo from '../../assets/bella_vita_logo.png'
+    import cartIcon from '../../assets/cart.svg'
+    import profileIcon from '../../assets/profile.svg'
 
     const counter = ref(0)
 </script>
@@ -33,13 +33,13 @@
                 <li>
                     <RouterLink class="relative rounded-full h-7 w-7 flex items-center justify-center" to="/cart" aria-label="Ir al carrito">
                         <img class="h-5" :src="cartIcon" alt="">
-                        <span class="absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs font-semibold flex items-center justify-center">
+                        <span class="absolute -top-1 -right-1 w-4 h-4 rounded-full text-xs font-semibold flex items-center justify-center">
                             {{ counter }}
                         </span>
                     </RouterLink>
                 </li>
                 <li>
-                    <RouterLink class="relative rounded-full h-7 w-7 flex items-center justify-center" to="/profile" aria-label="Ir al perfil">
+                    <RouterLink class="rounded-full h-7 w-7 flex items-center justify-center" to="/profile" aria-label="Ir al perfil">
                         <img class="h-5" :src="profileIcon" alt="">
                     </RouterLink>
                 </li>
