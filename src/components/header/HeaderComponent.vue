@@ -3,7 +3,10 @@
 
 <template>
     <header>
-
+        <div>
+            <img src="">
+            <h1>Bella Vista</h1>
+        </div>
     </header>
 </template>
 
