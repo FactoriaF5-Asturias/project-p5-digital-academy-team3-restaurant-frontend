@@ -1,13 +1,17 @@
 <script setup>
+    import { ref } from 'vue';
+
     import restaurantLogo from '../assets/bella_vita_logo.png'
     import cartIcon from '../assets/cart.svg'
     import profileIcon from '../assets/profile.svg'
+
+    const counter = ref(0)
 </script>
 
 <template>
     <header>
         <div>
-            <RouterLink to="/home" aria-label="Logo del restaurante, ir a página principal">
+            <RouterLink to="/home" aria-label="Ir a página principal">
                 <img :src="restaurantLogo" alt="">
                 <span>Bella Vita</span>
             </RouterLink>
@@ -29,6 +33,7 @@
                 <li>
                     <RouterLink to="/cart" aria-label="Ir al carrito">
                         <img :src="cartIcon" alt="">
+                        <span>{{ counter }}</span>
                     </RouterLink>
                 </li>
                 <li>
