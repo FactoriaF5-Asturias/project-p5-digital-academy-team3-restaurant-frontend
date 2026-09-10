@@ -16,8 +16,8 @@
                 <span>Bella Vita</span>
             </RouterLink>
         </div>
-        <nav>
-            <ul>
+        <nav class="flex items-center gap-4">
+            <ul class="flex items-center gap-2">
                 <li>
                     <RouterLink to="/login">
                         Login
@@ -29,16 +29,18 @@
                     </RouterLink>
                 </li>
             </ul>
-            <ul>
+            <ul class="flex items-center gap-2">
                 <li>
-                    <RouterLink to="/cart" aria-label="Ir al carrito">
-                        <img :src="cartIcon" alt="">
-                        <span>{{ counter }}</span>
+                    <RouterLink class="relative inline-block" to="/cart" aria-label="Ir al carrito">
+                        <img class="h-4" :src="cartIcon" alt="">
+                        <span class="absolute -top-1 -right-1 w-4 h-5 rounded-full flex items-center justify-center">
+                            {{ counter }}
+                        </span>
                     </RouterLink>
                 </li>
                 <li>
                     <RouterLink to="/profile" aria-label="Ir al perfil">
-                        <img :src="profileIcon" alt="">
+                        <img class="h-4" :src="profileIcon" alt="">
                     </RouterLink>
                 </li>
             </ul>
