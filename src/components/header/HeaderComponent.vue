@@ -4,32 +4,32 @@
 <template>
     <header>
         <div>
-            <img src="">
-            <h1>Bella Vista</h1>
+            <!-- <img src=""> /** -->
+            <span>Bella Vita</span>
         </div>
         <nav>
             <ul>
                 <li>
-                    <router-link>
+                    <RouterLink>
                         Login
-                    </router-link>
+                    </RouterLink>
                 </li>
                 <li>
-                    <router-link>
+                    <RouterLink>
                         Register
-                    </router-link>
+                    </RouterLink>
                 </li>
             </ul>
             <ul>
                 <li>
-                    <router-link>
+                    <RouterLink>
 
-                    </router-link>
+                    </RouterLink>
                 </li>
                 <li>
-                    <router-link>
+                    <RouterLink>
                         
-                    </router-link>
+                    </RouterLink>
                 </li>
             </ul>
         </nav>
