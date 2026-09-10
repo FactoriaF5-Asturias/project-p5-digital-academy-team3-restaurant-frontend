@@ -1,12 +1,14 @@
 <script setup>
-    
+    import restaurantLogo from '../assets/bella_vita_logo.png'
+    import cartIcon from '../assets/cart.svg'
+    import profileIcon from '../assets/profile.svg'
 </script>
 
 <template>
     <header>
         <div>
-            <RouterLink to="/home">
-                <img src="/src/assets/bella_vita_logo.png" alt="Logotipo de Bella Vita">
+            <RouterLink to="/home" aria-label="Logo del restaurante, ir a página principal">
+                <img :src="restaurantLogo" alt="">
                 <span>Bella Vita</span>
             </RouterLink>
         </div>
@@ -25,13 +27,13 @@
             </ul>
             <ul>
                 <li>
-                    <RouterLink to="/cart">
-                        <img src="/src/assets/cart.svg" alt="Icono de carrito">
+                    <RouterLink to="/cart" aria-label="Ir al carrito">
+                        <img :src="cartIcon" alt="">
                     </RouterLink>
                 </li>
                 <li>
-                    <RouterLink to="/profile">
-                        <img src="/src/assets/profile.svg" alt="">
+                    <RouterLink to="/profile" aria-label="Ir al perfil">
+                        <img :src="profileIcon" alt="">
                     </RouterLink>
                 </li>
             </ul>
