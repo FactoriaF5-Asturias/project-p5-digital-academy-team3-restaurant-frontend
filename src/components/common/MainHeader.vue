@@ -11,7 +11,7 @@
 <template>
     <header class="flex justify-between items-center p-4">
         <div>
-            <RouterLink to="/home" aria-label="Ir a página principal">
+            <RouterLink class="flex items-center gap-2" to="/home" aria-label="Ir a página principal">
                 <img :src="restaurantLogo" alt="">
                 <span>Bella Vita</span>
             </RouterLink>
