@@ -1,7 +1,7 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import KitchenDashboardView from './views/KitchenDashboardView.vue'
 </script>
 
 <template>
-  <HelloWorld />
+  <KitchenDashboardView />
 </template>
