@@ -4,30 +4,32 @@
 <template>
     <header>
         <div>
-            <!-- <img src=""> /** -->
-            <span>Bella Vita</span>
+            <RouterLink to="/home">
+                <!-- <img src=""> /** -->
+                <span>Bella Vita</span>
+            </RouterLink>
         </div>
         <nav>
             <ul>
                 <li>
-                    <RouterLink>
+                    <RouterLink to="/login">
                         Login
                     </RouterLink>
                 </li>
                 <li>
-                    <RouterLink>
+                    <RouterLink to="/register">
                         Register
                     </RouterLink>
                 </li>
             </ul>
             <ul>
                 <li>
-                    <RouterLink>
+                    <RouterLink to="/cart">
 
                     </RouterLink>
                 </li>
                 <li>
-                    <RouterLink>
+                    <RouterLink to="/profile">
                         
                     </RouterLink>
                 </li>
