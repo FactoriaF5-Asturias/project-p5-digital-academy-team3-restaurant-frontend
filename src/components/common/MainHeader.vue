@@ -9,7 +9,7 @@
 </script>
 
 <template>
-    <header class="flex justify-between items-center p-4">
+    <header class="flex justify-between items-center p-14">
         <div>
             <RouterLink class="flex items-center gap-2" to="/home" aria-label="Ir a página principal">
                 <img class="h-7" :src="restaurantLogo" alt="">
