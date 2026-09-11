@@ -9,21 +9,21 @@
 </script>
 
 <template>
-    <header class="flex justify-between items-center p-14 bg-bg-container text-text-brand">
+    <header class="flex justify-between items-center p-10 bg-bg-container text-text-brand">
         <div>
             <RouterLink class="flex items-center gap-2" to="/home" aria-label="Ir a página principal">
                 <img class="h-10" :src="restaurantLogo" alt="">
-                <span>Bella Vita</span>
+                <span class="font-['Playfair-Display'] text-3xl font-bold">Bella Vita</span>
             </RouterLink>
         </div>
         <nav class="flex items-center gap-6">
-            <ul class="flex items-center gap-6">
-                <li>
+            <ul class="flex items-center divide-x divide-border-brand">
+                <li class="px-3">
                     <RouterLink to="/login">
                         Login
                     </RouterLink>
                 </li>
-                <li>
+                <li class="px-3">
                     <RouterLink to="/register">
                         Register
                     </RouterLink>
@@ -47,6 +47,3 @@
         </nav>
     </header>
 </template>
-
-<style scoped>
-</style>
