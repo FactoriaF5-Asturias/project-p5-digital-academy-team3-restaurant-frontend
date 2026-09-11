@@ -9,15 +9,15 @@
 </script>
 
 <template>
-    <header class="flex justify-between items-center p-14 bg-bg-body text-text-brand">
+    <header class="flex justify-between items-center p-14 bg-bg-container text-text-brand">
         <div>
             <RouterLink class="flex items-center gap-2" to="/home" aria-label="Ir a página principal">
-                <img class="h-7" :src="restaurantLogo" alt="">
+                <img class="h-10" :src="restaurantLogo" alt="">
                 <span>Bella Vita</span>
             </RouterLink>
         </div>
-        <nav class="flex items-center gap-4">
-            <ul class="flex items-center gap-2">
+        <nav class="flex items-center gap-6">
+            <ul class="flex items-center gap-6">
                 <li>
                     <RouterLink to="/login">
                         Login
@@ -29,17 +29,17 @@
                     </RouterLink>
                 </li>
             </ul>
-            <ul class="flex items-center gap-2">
+            <ul class="flex items-center gap-6">
                 <li>
-                    <RouterLink class="relative rounded-full h-9 w-9 flex items-center justify-center bg-bg-container-high p-2" to="/cart" aria-label="Ir al carrito">
-                        <img class="h-8" :src="cartIcon" alt="">
+                    <RouterLink class="relative rounded-full h-9 w-9 flex items-center justify-center bg-bg-container-high" to="/cart" aria-label="Ir al carrito">
+                        <img class="h-5" :src="cartIcon" alt="">
                         <span class="absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs font-semibold bg-bg-brand text-text-on-brand flex items-center justify-center">
                             {{ counter }}
                         </span>
                     </RouterLink>
                 </li>
                 <li>
-                    <RouterLink class="relative rounded-full h-9 w-9 flex items-center justify-center bg-bg-brand p-2" to="/profile" aria-label="Ir al perfil">
+                    <RouterLink class="relative rounded-full h-9 w-9 flex items-center justify-center bg-bg-brand" to="/profile" aria-label="Ir al perfil">
                         <img class="h-4" :src="profileIcon" alt="">
                     </RouterLink>
                 </li>
