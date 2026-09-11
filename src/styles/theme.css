@@ -1,0 +1,61 @@
+@theme inline {
+    --color-bg-body: var(--bg-body);
+    --color-bg-surface: var(--bg-surface);
+    --color-bg-container: var(--bg-container);
+    --color-bg-container-high: var(--bg-container-high);
+    --color-bg-input: var(--bg-input);
+
+    --color-bg-brand: var(--bg-brand);
+    --color-bg-brand-darker: var(--bg-brand-darker);
+    --color-bg-brand-hover: var(--bg-brand-hover);
+
+    --color-bg-special: var(--bg-special);
+    --color-bg-special-hover: var(--bg-special-hover);
+
+    --color-bg-process: var(--bg-process);
+
+    --color-bg-error: var(--bg-error);
+
+    --color-text-default: var(--text-default);
+    --color-text-brand: var(--text-brand);
+    --color-text-on-brand: var(--text-on-brand);
+    --color-text-special: var(--text-special);
+    --color-text-on-special: var(--text-on-special);
+    --color-text-muted: var(--text-muted);
+    --color-text-error: var(--text-error);
+
+    --color-border-default: var(--border-default);
+    --color-border-brand: var(--border-brand);
+    --color-border-strong: var(--border-strong)
+}
+
+:root {
+    --bg-body: #fffdf5;
+    --bg-surface: #fcf9f8;
+    --bg-container: #ffffff;
+    --bg-container-high: #f5f5dc;
+    --bg-input: #fffdf5;
+
+    --bg-brand: #8b0000;
+    --bg-brand-darker: #610000;
+    --bg-brand-hover: #030000;
+
+    --bg-special: #556b2f;
+    --bg-special-hover: #64802f;
+
+    --bg-process: #dbeafe;
+
+    --bg-error: #ffdad6;
+
+    --text-default: #1a1a1a;
+    --text-brand: #8b0000;
+    --text-on-brand: #ffffff;            /* Texto sobre fondo */
+    --text-special: #556b2f;       
+    --text-on-special: #ffffff;          /* Texto sobre fondo */
+    --text-muted: #5a403c;
+    --text-error: #93000a;
+
+    --border-default: #e5e7eb;
+    --border-brand: #8b0000;
+    --border-strong: #8e706b;
+}
