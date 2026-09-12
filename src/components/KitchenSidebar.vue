@@ -6,9 +6,9 @@
       </div>
 
       <nav class="kitchen-sidebar__nav" aria-label="Navegación principal">
-        <a class="kitchen-sidebar__link" href="#">
+        <div class="kitchen-sidebar__link">
           Dashboard
-        </a>
+        </div>
       </nav>
     </div>
 
