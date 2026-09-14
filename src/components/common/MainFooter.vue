@@ -11,6 +11,8 @@
                 <span class="font-['Playfair-Display'] text-3xl font-bold">Bella Vita</span>
             </RouterLink>
         </div>
-        
+        <span>
+            © 2026 Bella Vita Gastronomía Italiana
+        </span>
     </footer>
 </template>
