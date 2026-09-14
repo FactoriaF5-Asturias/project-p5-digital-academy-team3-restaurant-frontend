@@ -87,3 +87,23 @@
         </div>
     </div>
 </template>
+
+<style scoped>
+@reference '../main.css';
+
+.cart-page {
+    @apply
+    min-h-screen bg-bg-body px-8 py-12;
+}
+
+.cart-page_layout {
+    @apply
+    mx-auto grid max-w-5xl grid-cols-1
+    items-start gap-10 md:grid-cols-[1.6fr_1fr];
+}
+
+.cart-page_status {
+    @apply
+    font-body text-text-muted;
+}
+</style>
