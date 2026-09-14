@@ -1,3 +1,63 @@
+<script setup>
+
+    import { ref, computed, onMounted } from 'vue'
+    import { fetchCartItems } from '../services/CartService.js'
+    import CartItemsSection from '../components/CartItemsSection.vue'
+
+    // import the rest of the components. not needed now.
+
+    const props = defineProps({
+        shippingCost: {
+            type: Number,
+            default: 3.5
+        }
+    })
+
+    const items = ref([])
+    const isLoading = ref(true)
+    const loadError = ref(null)
+    const deliveryMethod = ref('delivery')
+
+    async function loadItems() {
+        isLoading.value = true
+        loadError.value = null
+        try {
+            items.value = await fetchCartItems()
+        } catch (err) {
+            loadError.value = err
+        } finally {
+            isLoading.value = false
+        }
+    }
+
+    onMounted(loadItems)
+
+    function incrementQty(id) {
+        const item = items.value.find((i) => iid === id)
+        if (item) item.quantity++
+    }
+
+    function decrementQty(id) {
+        const item = items.value.find((i) => i.id === id)
+        if (item && item.quantity > 1) item.quantity--
+    }
+
+    function removeItem(id) {
+        items.value = items.value.filter((item) => item.id !== id)
+    }
+
+    const subtotal = computed(() =>
+        items.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
+    )
+
+    const shipping = computed(() =>
+        deliveryMethod.value === 'delivery' ? props.shippingCost : 0
+    )
+
+    const total = computed(() => subtotal.value + shipping.value)
+
+</script>
+
 <template>
     <div class="cart-page">
         <div class="cart-page_layout">
