@@ -1,52 +1,74 @@
 <script setup>
-import clockIcon from '../assets/clock.svg';
+import { computed } from 'vue'
+import clockIcon from '../assets/clock.svg'
 
-defineProps({
+const props = defineProps({
   order: {
     type: Object,
     required: true,
   },
 })
+
+const emit = defineEmits(['accept', 'reject', 'update-status'])
+
+const orderType = computed(() => {
+  if (props.order.orderType) return props.order.orderType
+  if (props.order.tabletId) return `Mesa ${props.order.tabletId}`
+
+  return ''
+})
+
+const orderItems = computed(() => props.order.items || [])
+const orderTime = computed(() => {
+  if (!props.order.createdAt) return ''
+
+  return new Intl.DateTimeFormat('es-ES', {
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(new Date(props.order.createdAt))
+})
+const orderStatus = computed(() => props.order.statusName)
+const isNewOrder = computed(() => orderStatus.value === 'PENDING')
 </script>
 
 <template>
-  <article class="inter w-72 rounded-lg border-l-4 border-card-red bg-white p-4 shadow-md">
-    <header class="mb-4 flex items-start justify-between gap-4">
-        <h2 class="text-lg font-bold text-stone-900">
+  <article class="order-card">
+    <header class="order-card__header">
+        <h2 class="order-card__title">
           Pedido #{{ order.id }}
         </h2>
 
-        <div class="flex flex-col items-end">
-            <div class="rounded-md bg-stone-100 px-3 py-1 text-sm font-semibold text-stone-700">
-                {{ order.type }}
+        <div class="order-card__meta">
+            <div class="order-card__type">
+                {{ orderType }}
             </div>
 
-            <div class="mt-1 flex items-center justify-end gap-1 text-xs text-stone-500">
+            <div class="order-card__time">
                 <img
                     :src="clockIcon"
                     alt=""
-                    class="h-3 w-3"
+                    class="order-card__time-icon"
                 />
 
-                <span>{{ order.time }}</span>
+                <span>{{ orderTime }}</span>
             </div>
         </div>
     </header>
 
-    <div class="mb-5 border-t border-card-soft"></div>
+    <div class="order-card__divider"></div>
 
-    <ul class="space-y-3">
+    <ul class="order-card__items">
       <li
-        v-for="item in order.items"
-        :key="item.name"
-        class="flex items-start gap-3"
+        v-for="item in orderItems"
+        :key="item.id || item.name"
+        class="order-card__item"
       >
-        <span class="flex h-7 min-w-8 shrink-0 items-center justify-center rounded bg-soft-red px-2 text-sm font-semibold text-brand-red">
+        <span class="order-card__quantity">
           {{ item.quantity }}x
         </span>
 
         <div>
-          <p class="text-sm font-medium text-stone-900">
+          <p class="order-card__item-name">
             {{ item.name }}
           </p>
         </div>
@@ -54,33 +76,223 @@ defineProps({
     </ul>
 
     <div
-        v-if="order.status !== 'Nuevo'"
-        class="mt-4 border-t border-card-soft pt-3"
+        v-if="!isNewOrder"
+        class="order-card__status"
         >
-        <label class="mb-1 block text-[10px] text-stone-500">
+        <label class="order-card__status-label">
             Cambiar Estado:
         </label>
 
         <select
-            class="w-full rounded-md border border-card-soft bg-stone-50 px-2 py-1 text-xs"
-            :value="order.status"
+          class="order-card__status-select"
+          :value="orderStatus"
+          @change="emit('update-status', order.id, $event.target.value)"
         >
-            <option>En proceso</option>
-            <option>Listo</option>
+            <option value="ACCEPTED">En proceso</option>
+            <option value="DELAYED">Con retraso</option>
+            <option value="COMPLETED">Listo</option>
         </select>
     </div>
 
     <div
-      v-if="order.status === 'Nuevo'"
-      class="mt-4 flex gap-3 border-t border-card-soft pt-4"
+      v-if="isNewOrder"
+      class="order-card__actions"
     >
-      <button class="h-10 flex-1 rounded-xl border-1-5 border-brand-red px-4 py-2 text-xs font-semibold text-brand-red">
+      <button
+        class="order-card__button order-card__button--reject"
+        type="button"
+        @click="emit('reject', order.id)"
+      >
         Rechazar
       </button>
 
-      <button class="h-10 flex-1 rounded-xl bg-brand-green px-4 py-2 text-xs font-semibold text-white">
+      <button
+        class="order-card__button order-card__button--accept"
+        type="button"
+        @click="emit('accept', order.id)"
+      >
         Aceptar
       </button>
     </div>
   </article>
 </template>
+
+<style scoped>
+@reference "../main.css";
+
+.order-card {
+  @apply 
+    w-72
+    rounded-lg
+    border-l-4 
+    border-border-brand 
+    bg-bg-container 
+    p-6 
+    shadow-md;
+}
+
+.order-card__header {
+  @apply
+    mb-3
+    flex
+    items-start
+    justify-between
+    gap-4;
+}
+
+.order-card__title {
+  @apply
+    text-xl
+    font-bold
+    text-text-default;
+}
+
+.order-card__meta {
+  @apply 
+    flex
+    flex-col
+    items-end;
+}
+
+.order-card__type {
+  @apply
+    text-base
+    font-semibold
+    text-text-muted;
+}
+
+.order-card__time {
+  @apply
+    flex
+    items-center
+    justify-end
+    gap-1
+    text-xs
+    text-text-muted;
+}
+
+.order-card__time-icon {
+  @apply
+    h-3
+    w-3;
+}
+
+.order-card__divider {
+  @apply
+    mb-3
+    border-t
+    border-border-default;
+}
+
+.order-card__items {
+  @apply
+    space-y-3;
+}
+
+.order-card__item {
+  @apply
+    flex
+    items-start
+    gap-3;
+}
+
+.order-card__quantity {
+  @apply
+    flex
+    h-7
+    min-w-8
+    shrink-0
+    items-center
+    justify-center
+    rounded-md
+    bg-bg-error
+    px-3
+    py-1
+    text-sm
+    font-semibold
+    text-text-error;
+}
+
+.order-card__item-name {
+  @apply
+    text-base
+    font-medium
+    text-text-default;
+}
+
+.order-card__status {
+  @apply
+    mt-6
+    border-t
+    border-border-default
+    pt-6;
+}
+
+.order-card__status-label {
+  @apply
+    mb-1
+    block
+    text-xs
+    text-text-muted;
+}
+
+.order-card__status-select {
+  @apply
+    w-full
+    cursor-pointer
+    rounded-md
+    border
+    border-border-default
+    bg-bg-input
+    px-3
+    py-1
+    text-xs
+    text-text-default
+    outline-none
+    focus:border-border-strong
+    focus:ring-1
+    focus:ring-border-strong;
+}
+
+.order-card__actions {
+  @apply
+    mt-6
+    flex
+    gap-4
+    border-t
+    border-border-default
+    pt-6;
+}
+
+.order-card__button {
+  @apply
+    flex
+    h-10
+    flex-1
+    cursor-pointer
+    items-center
+    justify-center
+    rounded-xl
+    px-4
+    text-base
+    font-semibold
+    leading-none;
+}
+
+.order-card__button--reject {
+  @apply
+    border-2
+    border-border-brand
+    text-text-brand
+    hover:bg-bg-error;
+}
+
+.order-card__button--accept {
+  @apply
+    bg-bg-special
+    text-text-on-special
+    hover:bg-bg-special-hover;
+}
+
+
+</style>
