@@ -4,7 +4,7 @@
 </script>
 
 <template>
-    <footer class="flex justify-between items-center px-10 py-5 bg-bg-container text-text-brand shadow-sm">
+    <footer class="flex justify-between items-center px-10 py-5 bg-bg-container text-text-muted shadow-sm">
         <div>
             <RouterLink class="flex items-center gap-2" to="/home" aria-label="Ir a página principal">
                 <img class="h-7" :src="restaurantLogo" alt="">
