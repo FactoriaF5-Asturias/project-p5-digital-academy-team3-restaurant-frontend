@@ -6,7 +6,7 @@
 <template>
     <footer class="flex justify-between items-center px-10 py-5 bg-bg-container text-text-muted shadow-sm">
         <div>
-            <RouterLink class="flex items-center gap-2" to="/home" aria-label="Ir a página principal">
+            <RouterLink class="flex items-center gap-2 hover:underline underline-offset-2 active:text-text-brand" to="/home" aria-label="Ir a página principal">
                 <img class="h-7" :src="restaurantLogo" alt="">
                 <span class="font-['Playfair-Display'] text-xl font-bold">Bella Vita</span>
             </RouterLink>
