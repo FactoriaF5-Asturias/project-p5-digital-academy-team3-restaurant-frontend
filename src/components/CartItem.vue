@@ -76,7 +76,68 @@
     @apply
     flex flex-col gap-4
     rounded-lg border border-border-default
-    bg-bg-container p-4 sm:flex-row
+    bg-bg-container p-4 sm:flex-row;
 }
 
+.cart-item_img {
+    @apply
+    h-36 w-full shrink-0
+    rounded-default object-cover
+    sm:h-20 sm:w-20;
+}
+
+.cart-item_body {
+    @apply
+    min-w-0 flex-1;
+}
+
+.cart-item_top {
+    @apply
+    flex items-start justify-between gap-2;
+}
+
+.cart-item_top h2 {
+    @apply
+    font-display text-lg text-text-default;
+}
+
+.cart-item_remove {
+    @apply
+    cursor-pointer border-none bg-transparent px-1
+    text-xl leading-none text-text-muted
+    transition-colorso hover:text-text-brand;
+}
+
+.cart-item_desc {
+    @apply
+    mb-3 mt-1 truncate font-body text-sm text-text-muted;
+}
+
+.cart-item_bottom {
+    @apply
+    flex items-center justify-between;
+}
+
+.cart-item_price {
+    @apply
+    font-display font-bold text-text-brand;
+}
+
+.qty-control {
+    @apply
+    flex items-center gap-2.5
+    rounded-full bg-bg-container-high px-2.5 py-1;
+}
+
+.qty-control_btn {
+    @apply
+    flex h-5.5 w-5.5 cursor-pointer items-center justify-center
+    rounded-full border-none bg-transparent text-base leading-none
+    text-text-default disabled:cursor-not-allowed disabled:opacity-35;
+}
+
+.qty-control_value {
+    @apply
+    min-w-3.5 text-center font-body text-sm text-text-default;
+}
 </style>
