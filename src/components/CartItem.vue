@@ -20,20 +20,17 @@
 </script>
 
 <template>
-    <article class="flex flex-col gap-4
-                    rounded-2xl border border-stone-200 bg-white
-                    p-4 sm:flex-row">
+    <article class="cart-item">
         <img
             :src="item.image"
             :alt="item.name"
-            class="h-36 w-full shrink-0 rounded-xl object-cover sm:h-20 sm:w-20"
-        />
+            class="cart-item_img"/>
 
-        <div class="min-w-0 flex-1">
-            <div class="flex items-start justify-between gap-2">
-                <h2 class="font-serif text-lg">{{ item.name }}</h2>
+        <div class="cart-item_body">
+            <div class="cart-item_top">
+                <h2>{{ item.name }}</h2>
                 <button
-                    class="cursor-pointer border-none bg-transparent px-1 text-xl leading-none text-stone-400 transition-colors hover:text-red-900"
+                    class="cart-item_remove"
                     type="button"
                     :aria-label="`Quitar ${item.name} de la cesta`"
                     @click="$emit('remove', item.id)"
@@ -42,30 +39,26 @@
                 </button>
             </div>
 
-            <p class="mb-3 mt-1 truncate text-sm text-stone-500">{{ item.description }}</p>
+            <p class="cart-item_desc">{{ item.description }}</p>
 
-            <div class="flex items-center justify-between">
-                <span class="font-serif font-bold text-red-900">{{ formatPrice(item.price) }}</span>
+            <div class="cart-item_bottom">
+                <span class="cart-item_price">{{ formatPrice(item.price) }}</span>
 
-                <div class="flex items-center gap-2.5 rounded-full bg-stone-100 px-2.5 py-1">
+                <div class="qty-control">
                     <button
                         type="button"
-                        class="flex h-5.5 w-5.5 cursor-pointer items-center justify-center
-                        rounded-full border-none bg-transparent text-base leading-none
-                        text-stone-900 disabled:cursor-not-allowed disabled:opacity-35"
+                        class="qty-control_btn"
                         :disabled="item.quantity <= 1"
                         :aria-label="`Reducir cantidad de ${item.name}`"
-                        @click="$emit('decremente', item.id)"
+                        @click="$emit('decrement', item.id)"
                     >
                         -
                     </button>
-                    <span class="min-w-3.5 text-center text-sm">{{ item.quantity }}</span>
+                    <span class="qty-control_value">{{ item.quantity }}</span>
                     <button
                         type="button"
-                        class="flex h-5.5 w-5.5 cursor pointer items-center justify-center
-                        rounded-full border-none bg-transparent text-base leading-none
-                        text-stone-900"
-                        :aria-lable="`Aumentar cantidad de ${item.name}`"
+                        class="qty-control_btn"
+                        :aria-label="`Aumentar cantidad de ${item.name}`"
                         @click="$emit('increment', item.id)"
                     >
                         +
@@ -75,3 +68,76 @@
         </div>
     </article>
 </template>
+
+<style scoped>
+@reference '../src/main.css';
+
+.cart-item {
+    @apply
+    flex flex-col gap-4
+    rounded-lg border border-border-default
+    bg-bg-container p-4 sm:flex-row;
+}
+
+.cart-item_img {
+    @apply
+    h-36 w-full shrink-0
+    rounded-default object-cover
+    sm:h-20 sm:w-20;
+}
+
+.cart-item_body {
+    @apply
+    min-w-0 flex-1;
+}
+
+.cart-item_top {
+    @apply
+    flex items-start justify-between gap-2;
+}
+
+.cart-item_top h2 {
+    @apply
+    font-display text-lg text-text-default;
+}
+
+.cart-item_remove {
+    @apply
+    cursor-pointer border-none bg-transparent px-1
+    text-xl leading-none text-text-muted
+    transition-colorso hover:text-text-brand;
+}
+
+.cart-item_desc {
+    @apply
+    mb-3 mt-1 truncate font-body text-sm text-text-muted;
+}
+
+.cart-item_bottom {
+    @apply
+    flex items-center justify-between;
+}
+
+.cart-item_price {
+    @apply
+    font-display font-bold text-text-brand;
+}
+
+.qty-control {
+    @apply
+    flex items-center gap-2.5
+    rounded-full bg-bg-container-high px-2.5 py-1;
+}
+
+.qty-control_btn {
+    @apply
+    flex h-5.5 w-5.5 cursor-pointer items-center justify-center
+    rounded-full border-none bg-transparent text-base leading-none
+    text-text-default disabled:cursor-not-allowed disabled:opacity-35;
+}
+
+.qty-control_value {
+    @apply
+    min-w-3.5 text-center font-body text-sm text-text-default;
+}
+</style>
