@@ -1,3 +1,9 @@
+<script setup>
+
+    defineEmits(['continue-shopping'])
+
+</script>
+
 <template>
     <div class="empty-cart">
         <img src="../assets/cart.svg" alt="cart">
