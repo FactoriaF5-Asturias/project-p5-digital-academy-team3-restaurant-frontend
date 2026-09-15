@@ -1,3 +1,45 @@
+<script setup>
+
+    const props = defineProps({
+        subtotal: {
+            type: Number,
+            required: true
+        },
+        shipping: {
+            type: Number,
+            required: true
+        },
+        total: {
+            type: Number,
+            required: true
+        },
+        deliveryMethod: {
+            type: String,
+            required: true
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        }
+    })
+
+    defineEmits(['update:deliveryMethod', 'checkout'])
+
+    const deliveryOptions = [
+        { value: 'dine-in', label: 'Comer en el restaurante' },
+        { value: 'takeaway', label: 'Para llevar' },
+        { value: 'delivery', label: 'Envío a domicilio' }
+    ]
+
+    function formatPrice(value) {
+        return new Intl.NumberFormat('es-ES', {
+            style: 'currency',
+            currency: 'EUR'
+        }).format(value)
+    }
+
+</script>
+
 <template>
     <aside class="cart-summary">
         <div class="cart-summary_card">
