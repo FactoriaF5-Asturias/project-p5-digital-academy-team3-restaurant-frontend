@@ -1,8 +1,9 @@
 <script setup>
 import { ref } from 'vue';
 
+const quantity = ref(1)
 
-const counter = ref(0)
+
 
 </script>
 
@@ -21,7 +22,7 @@ const counter = ref(0)
                     -
                 </button>
                 <span>
-                    {{ counter }}
+                    {{ quantity }}
                 </span>
                 <button type="button">
                     +
