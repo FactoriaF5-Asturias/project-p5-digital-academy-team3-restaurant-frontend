@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import addToCartIcon from '../../assets/addtocart.svg'
 
 const props = defineProps({
     id: {
@@ -73,6 +74,7 @@ function decrease() {
             </p>
         </div>
         <button type="button" @click="addToCart">
+            <img :src="addToCartIcon" alt="">
             Añadir a la cesta
         </button>
     </article>
