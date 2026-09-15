@@ -30,6 +30,10 @@ const props = defineProps({
 
 const emit = defineEmits(['add-to-cart'])
 
+function addToCart() {
+    emit('add-to-cart', { id: props.id, quantity: quantity.value })
+}
+
 const quantity = ref(1)
 
 function increase() {
