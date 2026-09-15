@@ -72,7 +72,7 @@ function decrease() {
 
             </p>
         </div>
-        <button type="button">
+        <button type="button" @click="addToCart">
             Añadir a la cesta
         </button>
     </article>
