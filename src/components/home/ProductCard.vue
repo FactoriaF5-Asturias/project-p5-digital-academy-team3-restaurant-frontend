@@ -3,7 +3,11 @@ import { ref } from 'vue';
 
 const quantity = ref(1)
 
+function increase() {
+    quantity.value++;
+}
 
+const decrease =
 
 </script>
 
@@ -18,13 +22,13 @@ const quantity = ref(1)
         </p>
         <div>
             <div>
-                <button type="button">
+                <button type="button" @click="decrease">
                     -
                 </button>
                 <span>
                     {{ quantity }}
                 </span>
-                <button type="button">
+                <button type="button" @click="increase">
                     +
                 </button>
             </div>
