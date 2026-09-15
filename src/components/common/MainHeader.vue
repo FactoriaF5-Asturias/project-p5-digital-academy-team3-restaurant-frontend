@@ -11,7 +11,7 @@
 <template>
     <header class="flex justify-between items-center px-10 py-5 bg-bg-container text-text-brand shadow-sm">
         <div>
-            <RouterLink class="flex items-center gap-2 hover:underline underline-offset-2 active:text-text-brand-darker" to="/home" aria-label="Ir a página principal">
+            <RouterLink class="flex items-center gap-2 hover:underline underline-offset-2 active:text-text-brand-darker" to="/" aria-label="Ir a página principal">
                 <img class="h-10" :src="restaurantLogo" alt="">
                 <span class="font-['Playfair-Display'] text-3xl font-bold">Bella Vita</span>
             </RouterLink>
