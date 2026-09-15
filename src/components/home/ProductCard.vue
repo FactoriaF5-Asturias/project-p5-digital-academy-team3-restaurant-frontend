@@ -49,12 +49,12 @@ function decrease() {
 
 <template>
     <article>
-        <img src="" alt="">
+        <img :src="imageUrl" :alt="name">
         <h3>
-
+            {{ name }}
         </h3>
         <p>
-
+            {{ description }}
         </p>
         <div>
             <div>
@@ -69,7 +69,7 @@ function decrease() {
                 </button>
             </div>
             <p>
-
+                {{ price }} €
             </p>
         </div>
         <button type="button" @click="addToCart">
