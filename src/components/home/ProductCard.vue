@@ -49,7 +49,7 @@ function decrease() {
 </script>
 
 <template>
-    <article>
+    <article class="bg-bg-container rounded-xl shadow-sm overflow-hidden">
         <img :src="imageUrl" :alt="name">
         <h3>
             {{ name }}
