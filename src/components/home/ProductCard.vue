@@ -51,31 +51,33 @@ function decrease() {
 <template>
     <article class="bg-bg-container rounded-xl shadow-sm overflow-hidden">
         <img :src="imageUrl" :alt="name">
-        <h3>
-            {{ name }}
-        </h3>
-        <p>
-            {{ description }}
-        </p>
         <div>
-            <div>
-                <button type="button" @click="decrease">
-                    -
-                </button>
-                <span>
-                    {{ quantity }}
-                </span>
-                <button type="button" @click="increase">
-                    +
-                </button>
-            </div>
+            <h3>
+                {{ name }}
+            </h3>
             <p>
-                {{ price }} €
+                {{ description }}
             </p>
+            <div>
+                <div>
+                    <button type="button" @click="decrease">
+                        -
+                    </button>
+                    <span>
+                        {{ quantity }}
+                    </span>
+                    <button type="button" @click="increase">
+                        +
+                    </button>
+                </div>
+                <p>
+                    {{ price }} €
+                </p>
+            </div>
+            <button type="button" @click="addToCart">
+                <img :src="addToCartIcon" alt="">
+                Añadir a la cesta
+            </button>
         </div>
-        <button type="button" @click="addToCart">
-            <img :src="addToCartIcon" alt="">
-            Añadir a la cesta
-        </button>
     </article>
 </template>
