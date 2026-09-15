@@ -50,13 +50,13 @@ function decrease() {
 
 <template>
     <article class="bg-bg-container rounded-xl shadow-sm overflow-hidden">
-        <img :src="imageUrl" :alt="name">
+        <img src="../../assets/lasagna.jpg" :alt="name" class="w-full object-cover">
         <div>
             <h3>
-                {{ name }}
+                {{ name }}Lasagna Tradizionale
             </h3>
             <p>
-                {{ description }}
+                {{ description }} Capas de pasta fresca al huevo, ragú de ternera de cocción lenta, bechamel de
             </p>
             <div>
                 <div>
@@ -71,7 +71,7 @@ function decrease() {
                     </button>
                 </div>
                 <p>
-                    {{ price }} €
+                    {{ price }} 15,50 €
                 </p>
             </div>
             <button type="button" @click="addToCart">
