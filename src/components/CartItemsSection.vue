@@ -23,7 +23,7 @@
         <div class="cart-items-section_list">
             <CartItem
                 v-for="item in items"
-                :key="item-id"
+                :key="item.id"
                 :item="item"
                 @increment="$emit('increment', $event)"
                 @decrement="$emit('decrement', $event)"

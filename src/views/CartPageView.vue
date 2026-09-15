@@ -14,6 +14,8 @@
         }
     })
 
+    defineEmits(['checkout'])
+
     const items = ref([])
     const isLoading = ref(true)
     const loadError = ref(null)
@@ -34,7 +36,7 @@
     onMounted(loadItems)
 
     function incrementQty(id) {
-        const item = items.value.find((i) => iid === id)
+        const item = items.value.find((i) => i.id === id)
         if (item) item.quantity++
     }
 
@@ -81,7 +83,7 @@
             />
             
             <CartSummary
-                v-if="!isLoading && !loadError && items-length > 0"
+                v-if="!isLoading && !loadError && items.length > 0"
                 :subtotal="subtotal"
                 :shipping="shipping"
                 :total="total"

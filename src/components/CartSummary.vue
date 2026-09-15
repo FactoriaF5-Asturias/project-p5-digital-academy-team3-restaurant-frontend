@@ -59,7 +59,7 @@
             </dl>
 
             <div class="cart-summary_total">
-                <span class="cart-summary_total-label">Total</span>
+                <span class="cart-summary_total-label">Total </span>
                 <span class="cart-summary_total-amount">
                     {{ formatPrice(total) }}
                     <small>IVA incluido</small>
@@ -82,13 +82,13 @@
                         :checked="deliveryMethod === option.value"
                         @change="$emit('update:deliveryMethod', option.value)"
                     >
-                    <span>{{ optionlabel }}</span>
+                    <span>{{ option.label }}</span>
                 </label>
             </fieldset>
         </div>
 
         <button
-            typde="button"
+            type="button"
             class="cart-summary_checkout"
             :disabled="disabled"
             @click="$emit('checkout')"
@@ -108,8 +108,8 @@
 
 .cart-summary_card {
     @apply
-    rounded-lg bg-bg-container p-8
-    shadow-[0_10px_30px_rgba(26, 26, 26, 0.05)];
+    rounded-lg bg-bg-container p-8;
+    box-shadow: 0 10px 30px rgba(26, 26, 26, 0.05);
 }
 
 .cart-summary_card h2 {
@@ -119,7 +119,7 @@
 
 .cart-summary_line {
     @apply
-    flex justify-between p-72
+    flex justify-between p-2
     font-body text-sm text-text-muted;
 }
 
