@@ -26,7 +26,14 @@
 
     --color-border-default: var(--border-default);
     --color-border-brand: var(--border-brand);
-    --color-border-strong: var(--border-strong)
+    --color-border-strong: var(--border-strong);
+
+    --font-display: var(--font-family-display);
+    --font-body: var(--font-family-body);
+
+    --radius-sm: var(--radius-soft);
+    --radius-DEFAULT: var(--radius-rounded);
+    --radius-lg: var(--radius-card);
 }
 
 :root {
@@ -58,4 +65,11 @@
     --border-default: #e5e7eb;
     --border-brand: #8b0000;
     --border-strong: #8e706b;
+
+    --font-family-display: 'Playfair Display', Georgia, serif;
+    --font-family-body: 'Inter', system-ui, sans-serif;
+
+    --radius-soft: 0.25rem;
+    --radius-rounded: 0.75rem;
+    --radius-card: 1.5rem
 }

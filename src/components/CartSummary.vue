@@ -187,6 +187,6 @@
     mt-5 flex w-full cursor-pointer items-center justify-center
     gap-2 rounded-lg border-none bg-bg-brand px-5 py-4
     font-body text-base text-text-on-brand transition-colors
-    hover:bg-bg-brand-darker disabled:cursor-not-allowd disabled:opacity-50;
+    hover:bg-bg-brand-darker disabled:cursor-not-allowed disabled:opacity-50;
 }
 </style>

@@ -44,7 +44,7 @@ function delay(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-export async function fetchCartItem() {
+export async function fetchCartItems() {
     if (USE_MOCK) {
         await delay(MOCK_DELAY_MS)
         return mockItems.map((item) => ({ ...item }))
