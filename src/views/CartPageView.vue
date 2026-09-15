@@ -3,6 +3,7 @@
     import { ref, computed, onMounted } from 'vue'
     import { fetchCartItems } from '../services/CartService.js'
     import CartItemsSection from '../components/CartItemsSection.vue'
+    import CartSummary from '../components/CartSummary.vue'
 
     // import the rest of the components. not needed now.
 
@@ -79,11 +80,16 @@
                 @continue-shopping="$router.push('/menu')"
             />
             
-            <aside class="cart-page_summary">
-                <p>Subtotal: {{ subtotal.toFixed(2) }}€</p>
-                <p>Envío: {{ shipping.toFixed(2) }}€</p>
-                <p>Total: {{ total.toFixed(2) }}€</p>
-            </aside>
+            <CartSummary
+                v-if="!isLoading && !loadError && items-length > 0"
+                :subtotal="subtotal"
+                :shipping="shipping"
+                :total="total"
+                :delivery-method="deliveryMethod"
+                :disabled="items.length === 0"
+                @update:delivery-method="deliveryMethod = $event"
+                @checkout="$emit('checkout', { items, deliveryMethod, total })"
+            />
         </div>
     </div>
 </template>
