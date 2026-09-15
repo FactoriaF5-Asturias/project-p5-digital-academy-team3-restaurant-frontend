@@ -30,11 +30,12 @@ const props = defineProps({
 
 const emit = defineEmits(['add-to-cart'])
 
+const quantity = ref(1)
+
 function addToCart() {
     emit('add-to-cart', { id: props.id, quantity: quantity.value })
+    quantity.value = 1
 }
-
-const quantity = ref(1)
 
 function increase() {
     quantity.value++;
