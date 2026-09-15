@@ -23,7 +23,7 @@
         <div class="cart-items-section_list">
             <CartItem
                 v-for="item in items"
-                :key="item-id"
+                :key="item.id"
                 :item="item"
                 @increment="$emit('increment', $event)"
                 @decrement="$emit('decrement', $event)"
@@ -62,8 +62,8 @@
 .cart-items-section_continue {
     @apply
     mt-6 inline-flex cursor-pointer items-center gap-2
-    rounded-default border border-border-brand bg-transparent
+    rounded border border-border-brand bg-transparent
     px-4.5 py-2.5 font-body text-sm text-text-brand
-    transition colors hover:bg-bg-container-high;
+    transition-colors hover:bg-bg-container-high;
 }
 </style>
