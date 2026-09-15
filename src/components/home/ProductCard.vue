@@ -28,6 +28,8 @@ const props = defineProps({
     }
 })
 
+const emit = defineEmits(['add-to-cart'])
+
 const quantity = ref(1)
 
 function increase() {
