@@ -50,8 +50,8 @@ function decrease() {
 
 <template>
     <article class="bg-bg-container rounded-xl shadow-sm overflow-hidden">
-        <img src="../../assets/lasagna.jpg" :alt="name" class="w-full object-cover">
-        <div>
+        <img src="../../assets/lasagna.jpg" :alt="name" class="w-full object-cover aspect-video">
+        <div class="p-4 space-y-2">
             <h3>
                 {{ name }}Lasagna Tradizionale
             </h3>
