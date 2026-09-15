@@ -7,7 +7,9 @@ function increase() {
     quantity.value++;
 }
 
-const decrease =
+function decrease() {
+    if (quantity.value > 1) quantity.value--;
+}
 
 </script>
 
