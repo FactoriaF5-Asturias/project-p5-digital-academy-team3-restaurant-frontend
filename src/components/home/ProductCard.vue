@@ -49,13 +49,13 @@ function decrease() {
 </script>
 
 <template>
-    <article class="bg-bg-container rounded-xl shadow-sm overflow-hidden">
+    <article class="bg-bg-container rounded-xl shadow-sm overflow-hidden max-w-72">
         <img src="../../assets/lasagna.jpg" :alt="name" class="w-full object-cover aspect-video">
-        <div class="p-4 space-y-2">
-            <h3>
+        <div class="p-4 space-y-1">
+            <h3 class="font-['Playfair-Display'] text-xl text-text-special font-bold">
                 {{ name }}Lasagna Tradizionale
             </h3>
-            <p>
+            <p class="text-sm line-clamp-2 text-text-brand">
                 {{ description }} Capas de pasta fresca al huevo, ragú de ternera de cocción lenta, bechamel de
             </p>
             <div>
