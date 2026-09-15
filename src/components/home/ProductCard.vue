@@ -1,6 +1,13 @@
 <script setup>
 import { ref } from 'vue';
 
+const props = defineProps({
+    id: {
+        type: Number,
+        required: true,
+    }
+})
+
 const quantity = ref(1)
 
 function increase() {
