@@ -64,7 +64,10 @@
 
 <template>
     <div class="cart-page">
-        <div class="cart-page_layout">
+        <div
+            class="cart-page_layout"
+            :class="{ 'cart-page_layout-centered' : isLoading || loadError || items.length === 0}"
+        >
             <CartLoadingState
                 v-if="isLoading"
             />
@@ -75,7 +78,7 @@
 
             <EmptyCart
                 v-else-if="items.length === 0"
-                @continue-shopping="$router.push('/home')"
+                @continue-shopping="$router.push('/')"
             />
 
             <CartItemsSection
@@ -84,7 +87,7 @@
                 @increment="incrementQty"
                 @decrement="decrementQty"
                 @remove="removeItem"
-                @continue-shopping="$router.push('/home')"
+                @continue-shopping="$router.push('/')"
             />
             
             <CartSummary
@@ -113,6 +116,11 @@
     @apply
     mx-auto grid max-w-5xl grid-cols-1
     items-start gap-10 md:grid-cols-[1.6fr_1fr];
+}
+
+.cart-page_layout-centered {
+    @apply
+    flex min-h-[70vh] items-center justify-center
 }
 
 .cart-page_status {

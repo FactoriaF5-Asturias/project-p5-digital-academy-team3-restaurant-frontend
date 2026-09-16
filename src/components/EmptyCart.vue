@@ -20,11 +20,12 @@
     </div>
 </template>
 
-<style>
+<style scoped>
 @reference '../main.css';
 
 .empty-cart {
     @apply
+    min-w-0
     flex flex-col items-center gap-2
     rounded-lg bg-bg-container px-8 py-16
     text-center;
@@ -32,10 +33,10 @@
 
 .empty-cart_icon {
     @apply
-    mb-2 text-4xl;
+    mb-2 h-10 w-10;
 }
 
-.empy-cart h2 {
+.empty-cart h2 {
     @apply
     font-display text-2xl text-text-default;
 }

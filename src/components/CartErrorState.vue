@@ -49,7 +49,7 @@
     font-body text-sm text-text-muted;
 }
 
-.cart-error_entry {
+.cart-error_retry {
     @apply
     cursor-pointer
     rounded border border-border-brand
