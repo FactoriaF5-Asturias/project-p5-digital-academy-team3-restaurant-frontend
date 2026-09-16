@@ -70,7 +70,7 @@
 </template>
 
 <style scoped>
-@reference '../src/main.css';
+@reference '../main.css';
 
 .cart-item {
     @apply
@@ -82,7 +82,7 @@
 .cart-item_img {
     @apply
     h-36 w-full shrink-0
-    rounded-default object-cover
+    rounded object-cover
     sm:h-20 sm:w-20;
 }
 
@@ -105,7 +105,7 @@
     @apply
     cursor-pointer border-none bg-transparent px-1
     text-xl leading-none text-text-muted
-    transition-colorso hover:text-text-brand;
+    transition-colors hover:text-text-brand;
 }
 
 .cart-item_desc {

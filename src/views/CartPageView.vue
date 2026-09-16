@@ -3,8 +3,10 @@
     import { ref, computed, onMounted } from 'vue'
     import { fetchCartItems } from '../services/CartService.js'
     import CartItemsSection from '../components/CartItemsSection.vue'
-
-    // import the rest of the components. not needed now.
+    import CartSummary from '../components/CartSummary.vue'
+    import EmptyCart from '../components/EmptyCart.vue'
+    import CartLoadingState from '../components/CartLoadingState.vue'
+    import CartErrorState from '../components/CartErrorState.vue'
 
     const props = defineProps({
         shippingCost: {
@@ -12,6 +14,8 @@
             default: 3.5
         }
     })
+
+    defineEmits(['checkout'])
 
     const items = ref([])
     const isLoading = ref(true)
@@ -33,7 +37,7 @@
     onMounted(loadItems)
 
     function incrementQty(id) {
-        const item = items.value.find((i) => iid === id)
+        const item = items.value.find((i) => i.id === id)
         if (item) item.quantity++
     }
 
@@ -61,14 +65,18 @@
 <template>
     <div class="cart-page">
         <div class="cart-page_layout">
-            <p v-if="isLoading" class="cart-page_status">Cargando cesta...</p>
+            <CartLoadingState
+                v-if="isLoading"
+            />
 
-            <div v-else-if="loadError" class="cart-page_status">
-                <p>No se pudo cargar tu cesta.</p>
-                <button type="button" @click="loadItems">Reintentar</button>
-            </div>
+            <CartErrorState
+                v-else-if="loadError" @retry="loadItems"
+            />
 
-            <p v-else-if="items.length === 0" class="cart-page_status">Tu cesta está vacía</p>
+            <EmptyCart
+                v-else-if="items.length === 0"
+                @continue-shopping="$router.push('/home')"
+            />
 
             <CartItemsSection
                 v-else
@@ -76,14 +84,19 @@
                 @increment="incrementQty"
                 @decrement="decrementQty"
                 @remove="removeItem"
-                @continue-shopping="$router.push('/menu')"
+                @continue-shopping="$router.push('/home')"
             />
             
-            <aside class="cart-page_summary">
-                <p>Subtotal: {{ subtotal.toFixed(2) }}€</p>
-                <p>Envío: {{ shipping.toFixed(2) }}€</p>
-                <p>Total: {{ total.toFixed(2) }}€</p>
-            </aside>
+            <CartSummary
+                v-if="!isLoading && !loadError && items.length > 0"
+                :subtotal="subtotal"
+                :shipping="shipping"
+                :total="total"
+                :delivery-method="deliveryMethod"
+                :disabled="items.length === 0"
+                @update:delivery-method="deliveryMethod = $event"
+                @checkout="$emit('checkout', { items, deliveryMethod, total })"
+            />
         </div>
     </div>
 </template>
