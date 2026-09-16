@@ -49,14 +49,14 @@ function decrease() {
 </script>
 
 <template>
-    <article class="bg-bg-container rounded-xl shadow-sm overflow-hidden max-w-72">
-        <img src="../../assets/lasagna.jpg" :alt="name" class="w-full object-cover aspect-video">
+    <article class="bg-bg-container rounded-xl shadow-sm overflow-hidden">
+        <img :src="imageUrl" :alt="name" class="w-full object-cover aspect-video">
         <div class="p-4 space-y-3">
             <h3 class="font-['Playfair-Display'] text-xl text-text-default font-bold">
-                {{ name }}Lasagna Tradizionale
+                {{ name }}
             </h3>
-            <p class="text-sm line-clamp-2 text-text-brand">
-                {{ description }} Capas de pasta fresca al huevo, ragú de ternera de cocción lenta, bechamel de
+            <p class="text-sm line-clamp-2 text-text-muted">
+                {{ description }}
             </p>
             <div class="flex justify-between items-center">
                 <div class="flex items-center h-8 justify-center bg-bg-container-high rounded-2xl overflow-hidden">
@@ -71,7 +71,7 @@ function decrease() {
                     </button>
                 </div>
                 <p class="font-['Playfair-Display'] text-xl text-text-special font-bold">
-                    {{ price }} 15,50 €
+                    {{ price }} €
                 </p>
             </div>
             <button class="w-full bg-bg-brand text-text-on-brand inline-flex items-center justify-center gap-2 rounded-xl p-2 hover:bg-bg-brand-darker active:bg-bg-brand-hover" type="button" @click="addToCart">
