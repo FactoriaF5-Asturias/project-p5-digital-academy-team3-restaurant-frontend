@@ -59,11 +59,11 @@ function decrease() {
                 {{ description }} Capas de pasta fresca al huevo, ragú de ternera de cocción lenta, bechamel de
             </p>
             <div class="flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                    <button type="button" @click="decrease">
+                <div class="flex items-center justify-center gap-4 bg-bg-container-high rounded-2xl px-5 py-1">
+                    <button class="" type="button" @click="decrease">
                         -
                     </button>
-                    <span>
+                    <span class="min-w-5 text-center">
                         {{ quantity }}
                     </span>
                     <button type="button" @click="increase">
@@ -71,10 +71,10 @@ function decrease() {
                     </button>
                 </div>
                 <p class="font-['Playfair-Display'] text-xl text-text-special font-bold">
-                    € {{ price }} 15,50
+                    {{ price }} 15,50 €
                 </p>
             </div>
-            <button type="button" @click="addToCart">
+            <button class="w-full bg-bg-brand text-text-on-brand inline-flex items-center justify-center gap-2 rounded-xl p-2" type="button" @click="addToCart">
                 <img :src="addToCartIcon" alt="">
                 Añadir a la cesta
             </button>
