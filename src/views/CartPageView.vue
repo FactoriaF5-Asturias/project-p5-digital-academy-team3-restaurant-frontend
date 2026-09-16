@@ -4,8 +4,9 @@
     import { fetchCartItems } from '../services/CartService.js'
     import CartItemsSection from '../components/CartItemsSection.vue'
     import CartSummary from '../components/CartSummary.vue'
-
-    // import the rest of the components. not needed now.
+    import EmptyCart from '../components/EmptyCart.vue'
+    import CartLoadingState from '../components/CartLoadingState.vue'
+    import CartErrorState from '../components/CartErrorState.vue'
 
     const props = defineProps({
         shippingCost: {
@@ -64,14 +65,18 @@
 <template>
     <div class="cart-page">
         <div class="cart-page_layout">
-            <p v-if="isLoading" class="cart-page_status">Cargando cesta...</p>
+            <CartLoadingState
+                v-if="isLoading"
+            />
 
-            <div v-else-if="loadError" class="cart-page_status">
-                <p>No se pudo cargar tu cesta.</p>
-                <button type="button" @click="loadItems">Reintentar</button>
-            </div>
+            <CartErrorState
+                v-else-if="loadError" @retry="loadItems"
+            />
 
-            <p v-else-if="items.length === 0" class="cart-page_status">Tu cesta está vacía</p>
+            <EmptyCart
+                v-else-if="items.length === 0"
+                @continue-shopping="$router.push('/home')"
+            />
 
             <CartItemsSection
                 v-else
@@ -79,7 +84,7 @@
                 @increment="incrementQty"
                 @decrement="decrementQty"
                 @remove="removeItem"
-                @continue-shopping="$router.push('/menu')"
+                @continue-shopping="$router.push('/home')"
             />
             
             <CartSummary

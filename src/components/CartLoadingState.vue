@@ -18,7 +18,7 @@
 
 .cart-loading {
     @apply
-    flex flex col gap-4;
+    flex flex-col gap-4;
 }
 
 .cart-loading_item {
@@ -60,7 +60,7 @@
 
 .sr-only {
     @apply
-    asolute h-px w-px overflow hidden whitespace-nowrap;
+    absolute h-px w-px overflow-hidden whitespace-nowrap;
     clip: rect(0, 0, 0);
 }
 </style>

@@ -40,12 +40,12 @@
 
 .cart-error h2 {
     @apply
-    font-display text-2xl2 text-text-default;
+    font-display text-2xl text-text-default;
 }
 
 .cart-error_message {
     @apply
-    mb-4 mx-w-sm
+    mb-4 max-w-sm
     font-body text-sm text-text-muted;
 }
 
