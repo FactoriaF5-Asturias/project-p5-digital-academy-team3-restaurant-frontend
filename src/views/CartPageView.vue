@@ -7,6 +7,8 @@
     import EmptyCart from '../components/EmptyCart.vue'
     import CartLoadingState from '../components/CartLoadingState.vue'
     import CartErrorState from '../components/CartErrorState.vue'
+    import MainHeader from '../components/common/MainHeader.vue'
+    import MainFooter from '../components/common/MainFooter.vue'
 
     const props = defineProps({
         shippingCost: {
@@ -63,6 +65,7 @@
 </script>
 
 <template>
+    <MainHeader />
     <div class="cart-page">
         <div
             class="cart-page_layout"
@@ -102,6 +105,7 @@
             />
         </div>
     </div>
+    <MainFooter />
 </template>
 
 <style scoped>
