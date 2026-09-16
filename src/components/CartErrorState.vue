@@ -1,3 +1,16 @@
+<script setup>
+
+    defineProps({
+        message: {
+            type: String,
+            default: 'No se pudo cargar tu cesta. Inténtalo de nuevo.'
+        }
+    })
+
+    defineEmits(['retry'])
+    
+</script>
+
 <template>
     <div class="cart-error" role="alert">
         <p class="cart-error_icon" aria-hidden="true">⚠️</p> <!-- Placeholder para un futuro icono. -->
