@@ -44,6 +44,11 @@
 <style scoped>
 @reference '../main.css';
 
+.cart-items-section {
+    @apply
+    min-w-0;
+}
+
 .cart-items-section_header h1 {
     @apply
     mb-1.5 font-display text-4xl text-text-brand;
