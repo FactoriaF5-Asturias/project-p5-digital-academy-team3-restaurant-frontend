@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from 'vue';
 import addToCartIcon from '../../assets/addtocart.svg'
+import { useCart } from '../../composables/useCart.js'
+
+const { addToCart } = useCart()
 
 const props = defineProps({
     id: {
@@ -33,12 +36,15 @@ function getFullImageUrl(relativePath) {
   return import.meta.env.VITE_API_URL + relativePath
 }
 
-const emit = defineEmits(['add-to-cart'])
-
 const quantity = ref(1)
 
-function addToCart() {
-    emit('add-to-cart', { id: props.id, quantity: quantity.value })
+// function addToCart() {
+//     emit('add-to-cart', { id: props.id, quantity: quantity.value })
+//     quantity.value = 1
+// }
+
+function handleAddToCart() {
+    addToCart({ id: props.id, name: props.name, price: props.price,imageUrl: props.imageUrl}, quantity.value)
     quantity.value = 1
 }
 
@@ -78,7 +84,7 @@ function decrease() {
                     {{ price }} €
                 </p>
             </div>
-            <button class="w-full bg-bg-brand-darker text-text-on-brand inline-flex items-center justify-center gap-2 rounded-xl p-2 transition-colors hover:bg-bg-brand active:bg-bg-brand-hover" type="button" @click="addToCart">
+            <button class="w-full bg-bg-brand-darker text-text-on-brand inline-flex items-center justify-center gap-2 rounded-xl p-2 transition-colors hover:bg-bg-brand active:bg-bg-brand-hover" type="button" @click="handleAddToCart">
                 <img :src="addToCartIcon" alt="">
                 Añadir a la cesta
             </button>

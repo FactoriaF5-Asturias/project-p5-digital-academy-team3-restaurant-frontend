@@ -15,7 +15,7 @@ const error = ref(null)
 
 onMounted(async () => {
     try {
-        products.value = await getProducts()
+        products.value = await getProducts('api/v1/products')
     } catch (e) {
         error.value = e.message
     } finally {
