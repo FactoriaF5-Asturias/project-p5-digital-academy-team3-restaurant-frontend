@@ -44,7 +44,7 @@ const quantity = ref(1)
 // }
 
 function handleAddToCart() {
-    addToCart({ id: props.id, name: props.name, price: props.price,imageUrl: props.imageUrl}, quantity.value)
+    addToCart({ id: props.id, name: props.name, price: props.price, image: getFullImageUrl(props.imageUrl)}, quantity.value)
     quantity.value = 1
 }
 
