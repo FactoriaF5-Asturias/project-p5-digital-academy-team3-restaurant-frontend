@@ -1,11 +1,16 @@
 <script setup>
-    import { ref } from 'vue';
+    import { ref, computed } from 'vue';
 
     import restaurantLogo from '../../assets/bella_vita_logo.png'
     import cartIcon from '../../assets/cart.svg'
     import profileIcon from '../../assets/profile.svg'
+    import { useCart } from '../../composables/useCart.js'
 
-    const counter = ref(0)
+    const { items } = useCart()
+
+    const counter = computed(() =>
+        items.value.reduce((total, items) => total + items.quantity, 0)
+    )
 </script>
 
 <template>
