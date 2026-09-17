@@ -1,7 +1,8 @@
 <script setup>
 
     import { ref, computed, onMounted } from 'vue'
-    import { fetchCartItems } from '../services/CartService.js'
+    import { useCart } from '../composables/useCart.js'
+    import { createOrder } from '../services/CartService.js'
     import CartItemsSection from '../components/CartItemsSection.vue'
     import CartSummary from '../components/CartSummary.vue'
     import EmptyCart from '../components/EmptyCart.vue'
@@ -19,48 +20,39 @@
 
     defineEmits(['checkout'])
 
-    const items = ref([])
-    const isLoading = ref(true)
-    const loadError = ref(null)
+    const { items, incrementQty, decrementQty, removeItem, clearCart } = useCart()
+
     const deliveryMethod = ref('delivery')
+    const isSubmitting = ref(false)
+    const submitError = ref(null)
 
-    async function loadItems() {
-        isLoading.value = true
-        loadError.value = null
-        try {
-            items.value = await fetchCartItems()
-        } catch (err) {
-            loadError.value = err
-        } finally {
-            isLoading.value = false
-        }
-    }
-
-    onMounted(loadItems)
-
-    function incrementQty(id) {
-        const item = items.value.find((i) => i.id === id)
-        if (item) item.quantity++
-    }
-
-    function decrementQty(id) {
-        const item = items.value.find((i) => i.id === id)
-        if (item && item.quantity > 1) item.quantity--
-    }
-
-    function removeItem(id) {
-        items.value = items.value.filter((item) => item.id !== id)
-    }
-
-    const subtotal = computed(() =>
-        items.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
-    )
+    const total = computed(() => subtotal.value + shipping.value)
 
     const shipping = computed(() =>
         deliveryMethod.value === 'delivery' ? props.shippingCost : 0
     )
 
-    const total = computed(() => subtotal.value + shipping.value)
+    const subtotal = computed(() =>
+        items.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
+    )
+
+    async function handleCheckout() {
+        isSubmitting.value = true
+        submitError.value = null
+        try {
+            await createOrder({
+                items: items.value,
+                orderTypeName: deliveryMethod.value,
+                paymentMethod: 'TODO',
+                tabletId: null
+            })
+            clearCart()
+        } catch (err) {
+            submitError.value = err
+        } finally {
+            isSunmitting.value = false
+        }
+    }
 
 </script>
 
@@ -99,11 +91,15 @@
                 :shipping="shipping"
                 :total="total"
                 :delivery-method="deliveryMethod"
-                :disabled="items.length === 0"
+                :disabled="items.length === 0 || isSubmitting"
                 @update:delivery-method="deliveryMethod = $event"
-                @checkout="$emit('checkout', { items, deliveryMethod, total })"
+                @checkout="handleCheckout"
             />
         </div>
+
+        <p v-if="submitError" class="cart-page_status">
+            No se pudo enviar el pedido. Inténtelo de nuevo
+        </p>
     </div>
     <MainFooter />
 </template>
