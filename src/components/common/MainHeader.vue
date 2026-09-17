@@ -9,11 +9,11 @@
 </script>
 
 <template>
-    <header class="flex justify-between items-center px-10 py-5 bg-bg-container text-text-brand shadow-sm">
+    <header class="flex justify-between items-center px-20 py-5 bg-bg-container text-text-brand shadow-sm">
         <div>
             <RouterLink class="flex items-center gap-2 hover:underline underline-offset-2 active:text-text-brand-darker" to="/" aria-label="Ir a página principal">
                 <img class="h-10" :src="restaurantLogo" alt="">
-                <span class="font-['Playfair-Display'] text-3xl font-bold">Bella Vita</span>
+                <span class="font-['Playfair-Display'] text-3xl font-bold">Giacobello</span>
             </RouterLink>
         </div>
         <nav class="flex items-center gap-6">
@@ -31,7 +31,7 @@
             </ul>
             <ul class="flex items-center gap-6">
                 <li>
-                    <RouterLink class="relative rounded-full h-9 w-9 flex items-center justify-center bg-bg-container-high hover:opacity-70" to="/cart" aria-label="Ir al carrito">
+                    <RouterLink class="relative rounded-full h-9 w-9 flex items-center justify-center bg-bg-container-high transition-opacity hover:opacity-70" to="/cart" aria-label="Ir al carrito">
                         <img class="h-5" :src="cartIcon" alt="">
                         <span class="absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs font-semibold bg-bg-brand text-text-on-brand flex items-center justify-center">
                             {{ counter }}
@@ -39,7 +39,7 @@
                     </RouterLink>
                 </li>
                 <li>
-                    <RouterLink class="relative rounded-full h-9 w-9 flex items-center justify-center bg-bg-brand hover:opacity-70" to="/profile" aria-label="Ir al perfil">
+                    <RouterLink class="relative rounded-full h-9 w-9 flex items-center justify-center bg-bg-brand transition-opacity hover:opacity-70" to="/profile" aria-label="Ir al perfil">
                         <img class="h-4" :src="profileIcon" alt="">
                     </RouterLink>
                 </li>
