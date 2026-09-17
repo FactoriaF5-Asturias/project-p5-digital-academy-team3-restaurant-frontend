@@ -4,11 +4,11 @@
 </script>
 
 <template>
-    <footer class="flex justify-between items-center px-10 py-5 bg-bg-container text-text-muted shadow-sm">
+    <footer class="flex justify-between items-center px-20 py-5 bg-bg-container text-text-muted shadow-sm">
         <div>
             <RouterLink class="flex items-center gap-2 hover:underline underline-offset-2 active:text-text-brand" to="/" aria-label="Ir a página principal">
                 <img class="h-7" :src="restaurantLogo" alt="">
-                <span class="font-['Playfair-Display'] text-xl font-bold">Bella Vita</span>
+                <span class="font-['Playfair-Display'] text-xl font-bold">Giacobello</span>
             </RouterLink>
         </div>
         <span>
