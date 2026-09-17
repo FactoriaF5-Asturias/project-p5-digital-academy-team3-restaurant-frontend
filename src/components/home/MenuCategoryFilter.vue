@@ -3,11 +3,10 @@ const model = defineModel()
 
 const categories = [
     { label: 'Todos', value: 'all' },
-    { label: 'Pizzas', value: 'pizzas' },
-    { label: 'Pastas', value: 'pastas' },
-    { label: 'Postres', value: 'postres' },
-    { label: 'Bebidas', value: 'bebidas' },
-    { label: 'Ofertas', value: 'ofertas' },
+    { label: 'Especialidades', value: 'Especialidades' },
+    { label: 'Postres', value: 'Postres' },
+    { label: 'Bebidas', value: 'Bebidas' },
+    // { label: 'Ofertas', value: 'ofertas' },
 ]
 </script>
 <template>
