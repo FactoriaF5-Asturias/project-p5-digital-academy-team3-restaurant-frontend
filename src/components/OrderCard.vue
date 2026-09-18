@@ -60,7 +60,7 @@ const isNewOrder = computed(() => orderStatus.value === 'PENDING')
     <ul class="order-card__items">
       <li
         v-for="item in orderItems"
-        :key="item.id || item.name"
+        :key="item.id || item.productId"
         class="order-card__item"
       >
         <span class="order-card__quantity">
@@ -69,7 +69,7 @@ const isNewOrder = computed(() => orderStatus.value === 'PENDING')
 
         <div>
           <p class="order-card__item-name">
-            {{ item.name }}
+            {{ item.productName }}
           </p>
         </div>
       </li>
