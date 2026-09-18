@@ -25,6 +25,13 @@
     const deliveryMethod = ref('delivery')
     const isSubmitting = ref(false)
     const submitError = ref(null)
+    
+    const isLoading = ref(false)
+    const loadError = ref(null)
+
+    function loadItems() {
+        loadError.value = null
+    }
 
     const total = computed(() => subtotal.value + shipping.value)
 
@@ -42,15 +49,15 @@
         try {
             await createOrder({
                 items: items.value,
-                orderTypeName: deliveryMethod.value,
-                paymentMethod: 'TODO',
-                tabletId: null
+                orderTypeName: 'DINE IN',
+                paymentMethodName: 'CASH',
+                tabletId: 2
             })
             clearCart()
         } catch (err) {
             submitError.value = err
         } finally {
-            isSunmitting.value = false
+            isSubmitting.value = false
         }
     }
 
