@@ -64,6 +64,9 @@ const filteredOrders = computed(() => {
 
     return matchesType && matchesStatus
   })
+  .sort((firstOrder, secondOrder) => {
+      return new Date(secondOrder.createdAt) - new Date(firstOrder.createdAt)
+    })
 })
 </script>
 
