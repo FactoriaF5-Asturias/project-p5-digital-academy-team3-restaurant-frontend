@@ -79,10 +79,12 @@ import phoneIcon from '../../assets/phone.svg'
 .contact-section__content {
     @apply
         grid
-        grid-cols-[420px_1fr]
+        grid-cols-1
+        md:grid-cols-[420px_1fr]
         items-center
         gap-12
-        px-20;
+        px-10
+        md:px-20;
 }
 
 .contact-section__info {
@@ -146,7 +148,8 @@ import phoneIcon from '../../assets/phone.svg'
 
 .contact-section__map {
     @apply
-        mt-23
+        mt-4
+        md:mt-23
         overflow-hidden
         rounded-3xl
         border
