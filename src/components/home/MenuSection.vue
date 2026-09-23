@@ -35,8 +35,8 @@ const emit = defineEmits(['add-to-cart'])
 </script>
 
 <template>
-    <section class="px-20 py-14">
-        <div class="flex justify-between items-center pb-10">
+    <section class="px-10 sm:px-20 py-14">
+        <div class="flex flex-col gap-4 pb-10 md:flex-row md:justify-between md:items-center">
             <MenuCategoryFilter v-model="activeCategory"/>
             <MenuSearch v-model="searchText"/>
         </div>

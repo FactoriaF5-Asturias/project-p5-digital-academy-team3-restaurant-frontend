@@ -29,7 +29,10 @@ const categories = [
 .menu-category-filter {
     @apply
         flex
-        gap-3;
+        gap-3
+        overflow-x-auto
+        [scrollbar-width:none]
+        [&::-webkit-scrollbar]:hidden;
 }
 
 .menu-category-filter__button {
@@ -44,7 +47,8 @@ const categories = [
         text-text-muted
         transition-colors
         hover:bg-bg-brand
-        hover:text-text-on-brand;
+        hover:text-text-on-brand
+        shrink-0;
 }
 
 .menu-category-filter__button--active {
