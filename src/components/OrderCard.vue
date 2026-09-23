@@ -1,6 +1,7 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import clockIcon from '../assets/clock.svg'
+import chevronDownIcon from '../assets/chevron-down.svg'
 
 const props = defineProps({
   order: {
@@ -29,6 +30,31 @@ const orderTime = computed(() => {
 })
 const orderStatus = computed(() => props.order.statusName)
 const isNewOrder = computed(() => orderStatus.value === 'PENDING')
+
+const isStatusMenuOpen = ref(false)
+
+const statusOptions = [
+  { label: 'En proceso', value: 'ACCEPTED' },
+  { label: 'Con retraso', value: 'DELAYED' },
+  { label: 'Listo', value: 'COMPLETED' },
+]
+
+const currentStatusLabel = computed(() => {
+  const currentStatus = statusOptions.find((option) => option.value === orderStatus.value)
+
+  return currentStatus ? currentStatus.label : 'Cambiar estado'
+})
+
+const statusSelectClass = computed(() => ({
+  'order-card__status-select--accepted': orderStatus.value === 'ACCEPTED',
+  'order-card__status-select--delayed': orderStatus.value === 'DELAYED',
+  'order-card__status-select--completed': orderStatus.value === 'COMPLETED',
+}))
+
+function updateStatus(status) {
+  emit('update-status', props.order.id, status)
+  isStatusMenuOpen.value = false
+}
 </script>
 
 <template>
@@ -83,15 +109,36 @@ const isNewOrder = computed(() => orderStatus.value === 'PENDING')
             Cambiar Estado:
         </label>
 
-        <select
+        <div class="order-card__status-dropdown">
+        <button
           class="order-card__status-select"
-          :value="orderStatus"
-          @change="emit('update-status', order.id, $event.target.value)"
+          :class="statusSelectClass"
+          type="button"
+          @click="isStatusMenuOpen = !isStatusMenuOpen"
         >
-            <option value="ACCEPTED">En proceso</option>
-            <option value="DELAYED">Con retraso</option>
-            <option value="COMPLETED">Listo</option>
-        </select>
+          <span>{{ currentStatusLabel }}</span>
+          <img
+            :src="chevronDownIcon"
+            alt=""
+            class="order-card__status-arrow"
+          />
+        </button>
+
+        <div
+          v-if="isStatusMenuOpen"
+          class="order-card__status-menu"
+        >
+          <button
+            v-for="option in statusOptions"
+            :key="option.value"
+            class="order-card__status-option"
+            type="button"
+            @click="updateStatus(option.value)"
+          >
+            {{ option.label }}
+          </button>
+        </div>
+      </div>
     </div>
 
     <div
@@ -121,8 +168,13 @@ const isNewOrder = computed(() => orderStatus.value === 'PENDING')
 @reference "../main.css";
 
 .order-card {
-  @apply 
-    w-72
+  @apply
+    flex
+    flex-col
+    w-full
+    max-w-96
+    min-h-[20rem]
+    md:max-w-80
     rounded-lg
     border-l-4 
     border-border-brand 
@@ -186,7 +238,29 @@ const isNewOrder = computed(() => orderStatus.value === 'PENDING')
 
 .order-card__items {
   @apply
-    space-y-3;
+    max-h-32
+    space-y-2
+    overflow-y-auto
+    pr-2;
+}
+
+.order-card__items::-webkit-scrollbar {
+  width: 6px;
+}
+
+.order-card__items::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.order-card__items::-webkit-scrollbar-thumb {
+  @apply 
+    rounded-full
+    bg-border-default;
+}
+
+.order-card__items::-webkit-scrollbar-thumb:hover {
+  @apply 
+    bg-border-brand;
 }
 
 .order-card__item {
@@ -222,10 +296,10 @@ const isNewOrder = computed(() => orderStatus.value === 'PENDING')
 
 .order-card__status {
   @apply
-    mt-6
+    mt-auto
     border-t
     border-border-default
-    pt-6;
+    pt-2;
 }
 
 .order-card__status-label {
@@ -238,6 +312,10 @@ const isNewOrder = computed(() => orderStatus.value === 'PENDING')
 
 .order-card__status-select {
   @apply
+    flex
+    items-center
+    justify-between
+    h-10
     w-full
     cursor-pointer
     rounded-md
@@ -256,27 +334,32 @@ const isNewOrder = computed(() => orderStatus.value === 'PENDING')
 
 .order-card__actions {
   @apply
-    mt-6
+    mt-auto
     flex
-    gap-4
+    gap-3
     border-t
     border-border-default
-    pt-6;
+    pt-4
+    xl:gap-4
+    xl:pt-6;
 }
 
 .order-card__button {
   @apply
     flex
-    h-10
+    h-9
     flex-1
     cursor-pointer
     items-center
     justify-center
     rounded-xl
-    px-4
-    text-base
+    px-3
+    text-sm
     font-semibold
-    leading-none;
+    leading-none
+    xl:h-10
+    xl:px-4
+    xl:text-base;
 }
 
 .order-card__button--reject {
@@ -294,5 +377,64 @@ const isNewOrder = computed(() => orderStatus.value === 'PENDING')
     hover:bg-bg-special-hover;
 }
 
+.order-card__status-dropdown {
+  @apply 
+    relative;
+}
+
+.order-card__status-menu {
+  @apply 
+    absolute
+    left-0
+    top-full
+    z-10
+    mt-1
+    w-full
+    rounded-md 
+    border 
+    border-border-default 
+    bg-bg-container 
+    shadow-md;
+}
+
+.order-card__status-option {
+  @apply 
+    w-full 
+    px-3 
+    py-2 
+    text-left 
+    text-sm 
+    text-text-default 
+    hover:bg-bg-surface;
+}
+
+.order-card__status-select--accepted {
+  @apply 
+    border-border-default 
+    bg-bg-input 
+    text-text-default;
+}
+
+.order-card__status-select--delayed {
+  @apply 
+  border-border-brand 
+  bg-bg-error 
+  text-text-brand;
+}
+
+.order-card__status-select--completed {
+  @apply 
+  border-bg-special 
+  bg-bg-container-high 
+  text-text-special;
+}
+
+.order-card__status-arrow {
+  @apply 
+  h-4 
+  w-4 
+  shrink-0 
+  text-text-muted;
+}
 
 </style>

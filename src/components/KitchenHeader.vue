@@ -65,11 +65,11 @@ defineProps({
 }
 
 .kitchen-header__content {
-  @apply flex h-full items-center justify-between px-8;
+  @apply flex h-full items-center justify-between px-6 md:px-8;
 }
 
 .kitchen-header__stats {
-  @apply flex items-center gap-8;
+  @apply flex items-center gap-4 md:gap-8;
 }
 
 .kitchen-header__stat {
@@ -97,7 +97,7 @@ defineProps({
 }
 
 .kitchen-header__status {
-  @apply min-w-36;
+  @apply hidden min-w-36 md:block;
 }
 
 .kitchen-header__status-label {
