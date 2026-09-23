@@ -28,8 +28,7 @@ const orderTime = computed(() => {
     minute: '2-digit',
   }).format(new Date(props.order.createdAt))
 })
-const selectedStatus = ref(props.order.statusName)
-const orderStatus = computed(() => selectedStatus.value)
+const orderStatus = computed(() => props.order.statusName)
 const isNewOrder = computed(() => orderStatus.value === 'PENDING')
 
 const isStatusMenuOpen = ref(false)
@@ -53,7 +52,6 @@ const statusSelectClass = computed(() => ({
 }))
 
 function updateStatus(status) {
-  selectedStatus.value = status
   emit('update-status', props.order.id, status)
   isStatusMenuOpen.value = false
 }
@@ -301,7 +299,7 @@ function updateStatus(status) {
     mt-auto
     border-t
     border-border-default
-    pt-6;
+    pt-2;
 }
 
 .order-card__status-label {

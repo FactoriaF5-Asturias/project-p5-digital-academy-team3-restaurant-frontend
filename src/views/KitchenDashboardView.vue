@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import OrderFilter from '../components/OrderFilter.vue'
 import KitchenHeader from '../components/KitchenHeader.vue'
 import KitchenSidebar from '../components/KitchenSidebar.vue'
-import { fetchOrders } from '../services/OrderService'
+import { fetchOrders, updateOrderStatus } from '../services/OrderService'
 import OrderCard from '../components/OrderCard.vue'
 
 const orders = ref([])
@@ -64,10 +64,42 @@ const filteredOrders = computed(() => {
 
     return matchesType && matchesStatus
   })
-  .sort((firstOrder, secondOrder) => {
-      return new Date(secondOrder.createdAt) - new Date(firstOrder.createdAt)
-    })
+      .sort((firstOrder, secondOrder) => {
+        const statusPriority = {
+          PENDING: 1,
+          ACCEPTED: 2,
+          DELAYED: 3,
+          COMPLETED: 4,
+          CANCELLED: 5,
+        }
+
+        const firstPriority = statusPriority[firstOrder.statusName] || 99
+        const secondPriority = statusPriority[secondOrder.statusName] || 99
+
+        if (firstPriority !== secondPriority) {
+          return firstPriority - secondPriority
+        }
+        
+        return new Date(secondOrder.createdAt) - new Date(firstOrder.createdAt)
+      })
 })
+
+async function handleUpdateStatus(orderId, statusName) {
+  try {
+    await updateOrderStatus(orderId, statusName)
+    await loadOrders()
+  } catch {
+    errorMessage.value = 'No se pudo actualizar el estado del pedido.'
+  }
+}
+
+async function handleAcceptOrder(orderId) {
+  await handleUpdateStatus(orderId, 'ACCEPTED')
+}
+
+async function handleRejectOrder(orderId) {
+  await handleUpdateStatus(orderId, 'CANCELLED')
+}
 </script>
 
 <template>
@@ -132,6 +164,9 @@ const filteredOrders = computed(() => {
             v-for="order in filteredOrders"
             :key="order.id"
             :order="order"
+            @update-status="handleUpdateStatus"
+            @accept="handleAcceptOrder"
+            @reject="handleRejectOrder"
           />
         </section>
       </div>
