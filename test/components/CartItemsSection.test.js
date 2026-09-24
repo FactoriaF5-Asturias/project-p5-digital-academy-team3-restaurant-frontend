@@ -67,4 +67,12 @@ describe('CartItemsSection', () => {
 
         expect(wrapper.emitted('remove')).toEqual([[1]])
     })
+
+    it('emits "continue-shopping" once the button "Seguir comprando" is pressed', async () => {
+        const wrapper = mount(CartItemsSection, { props: { items: makeItems() } })
+
+        await wrapper.findAllComponents(CartItem)[1].vm.$emit('decrement', 2)
+
+        expect(wrapper.emitted('decrement')).toEqual([[2]])
+    })
 })
