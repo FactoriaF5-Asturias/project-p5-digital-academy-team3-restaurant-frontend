@@ -99,5 +99,13 @@ describe('CartItem', () => {
         await wrapper.get('.cart-item_remove').trigger('click')
 
         expect(wrapper.emitted('remove')).toEqual([[7]])
+    })  
+
+    it('aria-label contains product name', () => {
+        const item = makeItem({ name: 'Pizza Margharita' })
+        const wrapper = mount(CartItem, { props: { item } })
+
+        expect(wrapper.get('.cart-item_remove').attributes('aria-label'))
+            .toBe('Quitar Pizza Margharita de la cesta')
     })
 })
