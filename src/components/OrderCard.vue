@@ -30,6 +30,7 @@ const orderTime = computed(() => {
 })
 const orderStatus = computed(() => props.order.statusName)
 const isNewOrder = computed(() => orderStatus.value === 'PENDING')
+const isCancelledOrder = computed(() => orderStatus.value === 'CANCELLED')
 
 const isStatusMenuOpen = ref(false)
 
@@ -40,25 +41,41 @@ const statusOptions = [
 ]
 
 const currentStatusLabel = computed(() => {
-  const currentStatus = statusOptions.find((option) => option.value === orderStatus.value)
+  const statusLabels = {
+    ACCEPTED: 'En proceso',
+    DELAYED: 'Con retraso',
+    COMPLETED: 'Listo',
+    CANCELLED: 'Cancelado',
+  }
 
-  return currentStatus ? currentStatus.label : 'Cambiar estado'
+  return statusLabels[orderStatus.value] || 'Cambiar estado'
 })
 
 const statusSelectClass = computed(() => ({
   'order-card__status-select--accepted': orderStatus.value === 'ACCEPTED',
   'order-card__status-select--delayed': orderStatus.value === 'DELAYED',
   'order-card__status-select--completed': orderStatus.value === 'COMPLETED',
+  'order-card__status-select--cancelled': orderStatus.value === 'CANCELLED',
+  'order-card__status-select--disabled': isCancelledOrder.value,
 }))
 
 function updateStatus(status) {
   emit('update-status', props.order.id, status)
   isStatusMenuOpen.value = false
 }
+
+function toggleStatusMenu() {
+  if (isCancelledOrder.value) return
+
+  isStatusMenuOpen.value = !isStatusMenuOpen.value
+}
 </script>
 
 <template>
-  <article class="order-card">
+  <article
+    class="order-card"
+    :class="{ 'order-card--cancelled': isCancelledOrder }"
+  >
     <header class="order-card__header">
         <h2 class="order-card__title">
           Pedido #{{ order.id }}
@@ -114,7 +131,8 @@ function updateStatus(status) {
           class="order-card__status-select"
           :class="statusSelectClass"
           type="button"
-          @click="isStatusMenuOpen = !isStatusMenuOpen"
+          :disabled="isCancelledOrder"
+          @click="toggleStatusMenu"
         >
           <span>{{ currentStatusLabel }}</span>
           <img
@@ -125,7 +143,7 @@ function updateStatus(status) {
         </button>
 
         <div
-          v-if="isStatusMenuOpen"
+          v-if="isStatusMenuOpen && !isCancelledOrder"
           class="order-card__status-menu"
         >
           <button
@@ -409,32 +427,65 @@ function updateStatus(status) {
 }
 
 .order-card__status-select--accepted {
-  @apply 
-    border-border-default 
-    bg-bg-input 
+  @apply
+    border-border-default
+    bg-bg-input
     text-text-default;
 }
 
 .order-card__status-select--delayed {
-  @apply 
-  border-border-brand 
-  bg-bg-error 
-  text-text-brand;
+  @apply
+    border-border-brand
+    bg-bg-error
+    text-text-brand;
 }
 
 .order-card__status-select--completed {
-  @apply 
-  border-bg-special 
-  bg-bg-container-high 
-  text-text-special;
+  @apply
+    border-bg-special
+    bg-bg-container-high
+    text-text-special;
 }
 
 .order-card__status-arrow {
-  @apply 
-  h-4 
-  w-4 
-  shrink-0 
-  text-text-muted;
+  @apply
+    h-4
+    w-4
+    shrink-0
+    text-text-muted;
+}
+
+.order-card__status-select--cancelled {
+  @apply
+    border-border-default
+    bg-bg-surface
+    text-text-muted;
+}
+
+.order-card__status-select--disabled {
+  @apply
+    cursor-not-allowed
+    opacity-70;
+}
+
+.order-card--cancelled {
+  @apply
+    border-border-default
+    bg-bg-surface
+    opacity-80;
+}
+
+.order-card--cancelled .order-card__title,
+.order-card--cancelled .order-card__item-name,
+.order-card--cancelled .order-card__type,
+.order-card--cancelled .order-card__time {
+  @apply
+    text-text-muted;
+}
+
+.order-card--cancelled .order-card__item-name {
+  @apply
+    line-through;
 }
 
 </style>

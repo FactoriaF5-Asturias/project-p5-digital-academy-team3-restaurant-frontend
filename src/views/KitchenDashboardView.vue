@@ -156,8 +156,10 @@ async function handleRejectOrder(orderId) {
           No hay pedidos.
         </p>
 
-        <section
+        <TransitionGroup
           v-else
+          name="orders"
+          tag="section"
           class="kitchen-dashboard__orders"
         >
           <OrderCard
@@ -168,7 +170,7 @@ async function handleRejectOrder(orderId) {
             @accept="handleAcceptOrder"
             @reject="handleRejectOrder"
           />
-        </section>
+        </TransitionGroup>
       </div>
     </main>
   </div>
@@ -207,5 +209,20 @@ async function handleRejectOrder(orderId) {
 
 .kitchen-dashboard__orders {
   @apply mt-6 grid grid-cols-1 justify-items-center gap-4 md:mt-8 md:grid-cols-2 xl:grid-cols-3 xl:gap-6;
+}
+
+.orders-enter-active,
+.orders-leave-active {
+  transition:
+    opacity 0.14s ease;
+}
+
+.orders-enter-from,
+.orders-leave-to {
+  opacity: 0;
+}
+
+.orders-move {
+  transition: none;
 }
 </style>
