@@ -45,4 +45,12 @@ describe('CartItem', () => {
 
         expect(wrapper.get('.qty-control_value').text()).toBe('3')
     })
+
+    it('disables "-" button when quantity is higher than 1', () => {
+        const item = makeItem({ quantity: 2 })
+        const wrapper = mount(CartItem, { props: { item } })
+
+        const buttons = wrapper.findAll('.qty-control_btn')
+        expect(buttons[0].attributes('disabled')).toBeUndefined()
+    })
 })
