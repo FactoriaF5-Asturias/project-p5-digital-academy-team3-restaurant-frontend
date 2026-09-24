@@ -46,11 +46,29 @@ describe('CartItem', () => {
         expect(wrapper.get('.qty-control_value').text()).toBe('3')
     })
 
+    it('disables "-" button when quantity is 1', () => {
+        const item = makeItem({ quantity: 2 })
+        const wrapper = mount(CartItem, { props: { item } })
+
+        const buttons = wrapper.findAll('.qty-control_btn')
+        expect(buttons[0].attributes('disabled')).toBeUndefined()
+    })
+
     it('disables "-" button when quantity is higher than 1', () => {
         const item = makeItem({ quantity: 2 })
         const wrapper = mount(CartItem, { props: { item } })
 
         const buttons = wrapper.findAll('.qty-control_btn')
         expect(buttons[0].attributes('disabled')).toBeUndefined()
+    })
+
+    it('emits "increment" with product id', async () => {
+        const item = makeItem({ id: 42 })
+        const wrapper = mount(CartItem, { props: { item } })
+
+        const buttons = wrapper.findAll('.qty-control_btn')
+        await buttons[1].trigger('click')
+
+        expect(wrapper.emitted('increment')).toEqual([[42]])
     })
 })
