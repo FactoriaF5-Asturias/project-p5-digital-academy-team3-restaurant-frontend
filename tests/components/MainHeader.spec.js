@@ -26,4 +26,10 @@ describe('MainHeader', () => {
         expect(wrapper.find('img').exists()).toBe(true)
     })
 
+    it('renderiza links a login y register aunque esten ocultos', () => {
+        const wrapper = mountHeader()
+        expect(wrapper.text()).toContain('Login')
+        expect(wrapper.text()).toContain('Register')
+    })
+
 })
