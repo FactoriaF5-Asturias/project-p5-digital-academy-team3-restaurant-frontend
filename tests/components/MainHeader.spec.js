@@ -66,4 +66,11 @@ describe('MainHeader', () => {
         expect(wrapper.find('[data-testid="mobile-menu"]').exists()).toBe(false)
     })
 
+    it('se cierra el menu al pulsar uno de los links', async () => {
+        const wrapper = mountHeader()
+        await wrapper.find('button[aria-label="Abrir menú"]').trigger('click')
+        await wrapper.find('[data-testid="mobile-menu"] a').trigger('click')
+        expect(wrapper.find('[data-testid="mobile-menu"]').exists()).toBe(false)
+    })
+
 })
