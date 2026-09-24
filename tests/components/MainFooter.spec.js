@@ -27,4 +27,9 @@ describe('MainFooter', () => {
         expect(wrapper.find('img').exists()).toBe(true)
     })
 
+    it('renderiza el texto de copyright', () => {
+        const wrapper = mountFooter()
+        expect(wrapper.text()).toContain('© 2026 Giacobello Gastronomía Italiana')
+    })
+
 })
