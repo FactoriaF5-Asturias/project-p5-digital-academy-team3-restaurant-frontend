@@ -33,4 +33,13 @@ describe('CartSummary', () => {
             'Envío a domicilio'
         ])
     })
+
+    it('marks as selected the radius that corresponds to deliveryMethod', () => {
+        const wrapper = mount(CartSummary, { props: makeProps({ deliveryMethod: 'delivery' }) })
+        const radios = wrapper.findAll('input[type="radio"]')
+
+        expect(radios[0].element.checked).toBe(false)
+        expect(radios[1].element.checked).toBe(false)
+        expect(radios[2].element.checked).toBe(true)
+    })
 })
