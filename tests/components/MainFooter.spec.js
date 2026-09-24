@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import { describe } from "vitest";
+import { describe, expect, it } from "vitest";
 import MainFooter from "../../src/components/common/MainFooter.vue"
 
 describe('MainFooter', () => {
@@ -16,5 +16,10 @@ describe('MainFooter', () => {
                 }
             })
         }
-        
+    
+    it('renderiza el texto del boton Home', () => {
+        const wrapper = mountFooter()
+        expect(wrapper.text()).toContain('Giacobello')
+    })
+
 })
