@@ -34,4 +34,13 @@ describe('CartItemsSection', () => {
         const wrapper = mount(CartItemsSection, { props: { items: [] } })
         expect(wrapper.findAllComponents(CartItem)).toHaveLength(0)
     })
+
+    it('it passes the correct item as a pro to each CartItem', () => {
+        const items = makeItems()
+        const wrapper = mount(CartItemsSection, { props: { items } })
+
+        const cartItems = wrapper.findAllComponents(CartItem)
+        expect(cartItems[0].props('item')).toEqual(items[0])
+        expect(cartItems[1].props('item')).toEqual(items[1])
+    })
 })
