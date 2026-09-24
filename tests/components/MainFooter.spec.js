@@ -22,4 +22,9 @@ describe('MainFooter', () => {
         expect(wrapper.text()).toContain('Giacobello')
     })
 
+    it('renderiza la imagen del boton Home', () => {
+        const wrapper = mountFooter()
+        expect(wrapper.find('img').exists()).toBe(true)
+    })
+
 })
