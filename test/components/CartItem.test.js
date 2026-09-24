@@ -38,4 +38,11 @@ describe('CartItem', () => {
 
         expect(wrapper.get('.cart-item_price').text()).toBe(expected)
     })
+    
+    it('shows actual quantity', () => {
+        const item = makeItem({ quantity: 3 })
+        const wrapper = mount(CartItem, { props: { item } })
+
+        expect(wrapper.get('.qty-control_value').text()).toBe('3')
+    })
 })
