@@ -47,4 +47,9 @@ describe('MainHeader', () => {
         expect(wrapper.text()).toContain('3')
     })
 
+    it('renderiza la imagen del boton Home', () => {
+        const wrapper = mountHeader()
+        expect(wrapper.find('button[aria-label="Abrir menú"]').exists()).toBe(true)
+    })
+
 })
