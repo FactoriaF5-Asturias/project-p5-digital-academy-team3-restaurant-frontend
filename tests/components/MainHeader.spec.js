@@ -79,4 +79,13 @@ describe('MainHeader', () => {
         expect(wrapper.find('[data-testid="mobile-menu"]').exists()).toBe(false)
     })
 
+    it('los enlaces apuntan a las rutas correctas', () => {
+        const wrapper = mountHeader()
+        expect(wrapper.find('a[href="/"]').exists()).toBe(true)
+        expect(wrapper.find('a[href="/cart"]').exists()).toBe(true)
+        expect(wrapper.find('a[href="/profile"]').exists()).toBe(true)
+        expect(wrapper.find('a[href="/login"]').exists()).toBe(true)
+        expect(wrapper.find('a[href="/register"]').exists()).toBe(true)
+    })
+
 })
