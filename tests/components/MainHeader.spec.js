@@ -17,4 +17,17 @@ describe('MainHeader', () => {
         expect(wrapper.text()).toContain('Giacobello')
     })
 
+    it('renderiza la imagen del boton Home', () => {
+        const wrapper = shallowMount(MainHeader,{
+            global: {
+                stubs: {
+                    RouterLink: {
+                        template: '<a><slot /></a>'
+                    }
+                }
+            }
+        })
+        expect(wrapper.find('img').exists()).toBe(true)
+    })
+
 })
