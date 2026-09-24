@@ -42,4 +42,11 @@ describe('CartSummary', () => {
         expect(radios[1].element.checked).toBe(false)
         expect(radios[2].element.checked).toBe(true)
     })
+
+    it('adds active class to selected option', () => {
+        const wrapper = mount(CartSummary, { props: makeProps({ deliveryMethod: 'dine-in' }) })
+        const options = wrapper.findAll('.cart-summary_delivery-option')
+
+        const(option[0].classes())
+    })
 })
