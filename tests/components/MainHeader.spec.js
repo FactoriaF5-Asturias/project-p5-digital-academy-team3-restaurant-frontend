@@ -33,6 +33,11 @@ describe('MainHeader', () => {
         expect(wrapper.text()).toContain('Register')
     })
 
-    
+    it('el numero de productos en el contador del carrito funciona', () => {
+        addToCart({ id: 1, name: 'X', price: 10 }, 2)
+        addToCart({ id: 2, name: 'Y', price: 5 }, 1)
+        const wrapper = mountHeader()
+        expect(wrapper.text()).toContain('3')
+    })
 
 })
