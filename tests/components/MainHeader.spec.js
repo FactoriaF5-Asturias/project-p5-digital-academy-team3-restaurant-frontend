@@ -1,6 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
 import { describe, expect, it } from "vitest";
 import MainHeader from "../../src/components/common/MainHeader.vue";
+import { useCart } from "../../src/composables/useCart.js";
 
 describe('MainHeader', () => {
 
@@ -31,5 +32,7 @@ describe('MainHeader', () => {
         expect(wrapper.text()).toContain('Login')
         expect(wrapper.text()).toContain('Register')
     })
+
+    
 
 })
