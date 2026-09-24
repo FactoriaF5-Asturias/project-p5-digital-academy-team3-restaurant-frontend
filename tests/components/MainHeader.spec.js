@@ -11,7 +11,7 @@ describe('MainHeader', () => {
                 stubs: {
                     RouterLink: {
                         props: ['to'],
-                        template: '<a><slot /></a>'
+                        template: '<a :href="to"><slot /></a>'
                     }
                 }
             }
