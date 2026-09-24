@@ -32,4 +32,9 @@ describe('MainFooter', () => {
         expect(wrapper.text()).toContain('© 2026 Giacobello Gastronomía Italiana')
     })
 
+    it('el enlace apunta a la ruta correcta', () => {
+        const wrapper = mountFooter()
+        expect(wrapper.find('a[href="/"]').exists()).toBe(true)
+    })
+
 })
