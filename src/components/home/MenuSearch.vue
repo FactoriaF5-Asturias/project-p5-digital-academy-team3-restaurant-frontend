@@ -27,7 +27,7 @@ const model = defineModel()
     @apply
         flex
         h-12
-        w-96
+        w-full md:w-96
         items-center
         gap-4
         rounded-xl

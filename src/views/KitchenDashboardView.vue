@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import OrderFilter from '../components/OrderFilter.vue'
 import KitchenHeader from '../components/KitchenHeader.vue'
 import KitchenSidebar from '../components/KitchenSidebar.vue'
-import { fetchOrders } from '../services/OrderService'
+import { fetchOrders, updateOrderStatus } from '../services/OrderService'
 import OrderCard from '../components/OrderCard.vue'
 
 const orders = ref([])
@@ -15,7 +15,7 @@ async function loadOrders() {
     isLoading.value = true
     errorMessage.value = ''
     orders.value = await fetchOrders()
-  } catch (error) {
+  } catch {
     errorMessage.value = 'No se pudieron cargar los pedidos.'
   } finally {
     isLoading.value = false
@@ -64,10 +64,42 @@ const filteredOrders = computed(() => {
 
     return matchesType && matchesStatus
   })
-  .sort((firstOrder, secondOrder) => {
-      return new Date(secondOrder.createdAt) - new Date(firstOrder.createdAt)
-    })
+      .sort((firstOrder, secondOrder) => {
+        const statusPriority = {
+          PENDING: 1,
+          ACCEPTED: 2,
+          DELAYED: 3,
+          COMPLETED: 4,
+          CANCELLED: 5,
+        }
+
+        const firstPriority = statusPriority[firstOrder.statusName] || 99
+        const secondPriority = statusPriority[secondOrder.statusName] || 99
+
+        if (firstPriority !== secondPriority) {
+          return firstPriority - secondPriority
+        }
+        
+        return new Date(secondOrder.createdAt) - new Date(firstOrder.createdAt)
+      })
 })
+
+async function handleUpdateStatus(orderId, statusName) {
+  try {
+    await updateOrderStatus(orderId, statusName)
+    await loadOrders()
+  } catch {
+    errorMessage.value = 'No se pudo actualizar el estado del pedido.'
+  }
+}
+
+async function handleAcceptOrder(orderId) {
+  await handleUpdateStatus(orderId, 'ACCEPTED')
+}
+
+async function handleRejectOrder(orderId) {
+  await handleUpdateStatus(orderId, 'CANCELLED')
+}
 </script>
 
 <template>
@@ -132,6 +164,9 @@ const filteredOrders = computed(() => {
             v-for="order in filteredOrders"
             :key="order.id"
             :order="order"
+            @update-status="handleUpdateStatus"
+            @accept="handleAcceptOrder"
+            @reject="handleRejectOrder"
           />
         </section>
       </div>
@@ -143,19 +178,19 @@ const filteredOrders = computed(() => {
 @reference "../main.css";
 
 .kitchen-dashboard {
-  @apply min-h-screen;
+  @apply flex min-h-screen flex-col md:block;
 }
 
 .kitchen-dashboard__main {
-  @apply min-h-screen pl-56;
+  @apply min-h-screen md:pl-56;
 }
 
 .kitchen-dashboard__content {
-  @apply px-7 py-5;
+  @apply px-4 py-5 md:px-7;
 }
 
 .kitchen-dashboard__top-row {
-  @apply mb-8 flex items-center gap-12;
+  @apply mb-6 flex flex-col items-start gap-4 md:mb-8 md:flex-row md:items-center md:gap-12;
 }
 
 .kitchen-dashboard__title {
@@ -171,6 +206,6 @@ const filteredOrders = computed(() => {
 }
 
 .kitchen-dashboard__orders {
-  @apply mt-8 grid grid-cols-3 gap-6;
+  @apply mt-6 grid grid-cols-1 justify-items-center gap-4 md:mt-8 md:grid-cols-2 xl:grid-cols-3 xl:gap-6;
 }
 </style>

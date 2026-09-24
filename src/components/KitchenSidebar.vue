@@ -23,11 +23,11 @@
 @reference "../main.css";
 
 .kitchen-sidebar {
-  @apply fixed left-0 top-0 flex h-screen w-56 flex-col justify-between bg-bg-container p-5 shadow-sm;
+  @apply order-2 border-t border-border-default bg-bg-container p-5 shadow-sm md:fixed md:left-0 md:top-0 md:order-none md:flex md:h-screen md:w-56 md:flex-col md:justify-between md:border-t-0;
 }
 
 .kitchen-sidebar__top {
-  @apply flex flex-col;
+  @apply hidden md:flex md:flex-col;
 }
 
 .kitchen-sidebar__brand {
@@ -43,7 +43,7 @@
 }
 
 .kitchen-sidebar__profile {
-  @apply rounded-lg bg-bg-surface p-3 text-sm text-text-default;
+  @apply flex items-center gap-4 rounded-none bg-transparent p-0 text-sm text-text-default md:block md:rounded-lg md:bg-bg-surface md:p-3;
 }
 
 .kitchen-sidebar__profile-name {

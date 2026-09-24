@@ -57,30 +57,36 @@ const emit = defineEmits(['update:modelValue'])
 @reference "../main.css";
 
 .order-filter {
-    @apply flex items-center gap-4;
+    @apply flex w-full flex-col items-start gap-2 overflow-hidden md:w-auto md:flex-row md:items-center md:gap-4;
 }
 
 .order-filter__label {
-  @apply flex flex-col text-sm font-semibold uppercase leading-tight text-text-muted;
+    @apply flex flex-row gap-1 text-sm font-semibold uppercase leading-tight text-text-muted md:flex-col md:gap-0;
 }
 
 .order-filter__options {
-    @apply flex rounded-full bg-bg-surface p-1 shadow-sm;
+    @apply flex max-w-full gap-1 overflow-x-auto rounded-full bg-bg-surface p-1 shadow-sm;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.order-filter__options::-webkit-scrollbar {
+    display: none;
 }
 
 .order-filter__button {
-  @apply rounded-full font-semibold text-text-muted;
+    @apply shrink-0 whitespace-nowrap rounded-full font-semibold text-text-muted;
 }
 
 .order-filter__button--primary {
-  @apply px-7 py-4 text-sm;
+    @apply px-7 py-4 text-sm;
 }
 
 .order-filter__button--secondary {
-  @apply px-5 py-1 text-sm;
+    @apply px-5 py-1 text-sm;
 }
 
 .order-filter__button--active {
-  @apply bg-bg-brand-darker text-text-on-brand shadow-md;
+    @apply bg-bg-brand-darker text-text-on-brand shadow-md;
 }
 </style>
