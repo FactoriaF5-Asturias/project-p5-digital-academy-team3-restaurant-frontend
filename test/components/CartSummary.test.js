@@ -59,4 +59,12 @@ describe('CartSummary', () => {
 
         expect(wrapper.emitted('update:deliveryMethod')).toEqual([['delivery']])
     })
+
+    it('emits "checkout" once you press "Realizar pedid" button', async () => {
+        const wrapper = mount(CartSummary, { props: makeProps() })
+
+        await wrapper.get('.cart-summary_checkout').trigger('click')
+
+        expect(wrapper.emitted('checkout')).toHaveLength(1)
+    })
 })
