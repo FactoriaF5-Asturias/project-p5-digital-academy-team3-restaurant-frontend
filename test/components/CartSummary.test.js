@@ -77,4 +77,12 @@ describe('CartSummary', () => {
         const wrapper = mount(CartSummary, { props: makeProps({ disabled: true }) })
         expect(wrapper.get('.cart-summary_checkout').attributes('disabled')).toBeDefined()
     })
+
+    it('it does not emit "checkout" if button is disabled', async () => {
+        const wrapper = mount(CartSummary, { props: makeProps({ disabled: true }) })
+
+        await wrapper.get('.cart-summary_checkout').trigger('click')
+
+        expect(wrapper.emitted('checkout')).toBeUndefined()
+    })
 })
