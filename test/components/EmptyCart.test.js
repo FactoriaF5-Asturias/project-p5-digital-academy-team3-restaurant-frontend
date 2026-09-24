@@ -14,4 +14,12 @@ describe('EmptyCart', () => {
         const icon = wrapper.get('.empty-cart_icon')
         expect(icon.attributes('alt')).toBe('cart')
     })
+
+    it('emits "continue-shoping" once the button is pressed', async () => {
+        const wrapper = mount(EmptyCart)
+        
+        await wrapper.get('.empty-cart_action').trigger('click')
+
+        expect(wrapper.emitted('continue-shopping')).toHaveLength(1)
+    })
 })
