@@ -29,4 +29,9 @@ describe('CartItemsSection', () => {
         const wrapper = mount(CartItemsSection, { props: { items: makeItems() } })
         expect(wrapper.findAllComponents(CartItem)).toHaveLength(2)
     })
+
+    it('does not render CartItem if cart is empty', () => {
+        const wrapper = mount(CartItemsSection, { props: { items: [] } })
+        expect(wrapper.findAllComponents(CartItem)).toHaveLength(0)
+    })
 })
