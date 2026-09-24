@@ -32,4 +32,9 @@ describe('HeroSection', () => {
         expect(wrapper.text()).toContain('Revisar pedido')
     })
 
+    it('el botón apunta a la ruta /cart', () => {
+        const wrapper = mountHero()
+        expect(wrapper.find('a[href="/cart"]').exists()).toBe(true)
+    })
+
 })
