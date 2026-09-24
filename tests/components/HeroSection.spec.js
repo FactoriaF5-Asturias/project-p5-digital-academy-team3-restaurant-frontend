@@ -27,4 +27,9 @@ describe('HeroSection', () => {
         expect(wrapper.text()).toContain('Recetas de herencia preparadas con ingredientes frescos y la pasión de siempre.')
     })
 
+    it('renderiza el boton de revisar pedido', () => {
+        const wrapper = mountHero()
+        expect(wrapper.text()).toContain('Revisar pedido')
+    })
+
 })
