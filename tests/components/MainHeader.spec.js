@@ -59,4 +59,11 @@ describe('MainHeader', () => {
         expect(wrapper.find('[data-testid="mobile-menu"]').exists()).toBe(true)
     })
 
+    it('cierra el menu del boton hamburguesa al pulsar de nuevo', async () => {
+        const wrapper = mountHeader()
+        await wrapper.find('button[aria-label="Abrir menú"]').trigger('click')
+        await wrapper.find('button[aria-label="Abrir menú"]').trigger('click')
+        expect(wrapper.find('[data-testid="mobile-menu"]').exists()).toBe(false)
+    })
+
 })
