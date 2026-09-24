@@ -81,4 +81,14 @@ describe('CartItem', () => {
 
         expect(wrapper.emitted('decrement')).toEqual([[42]])
     })
+
+    it('does not emit "decrement" if button is disabled', async () => {
+        const item = makeItem({ id: 42, quantity: 1 })
+        const wrapper = mount(CartItem, { props: { item } })
+
+        const buttons = wrapper.findAll('.qty-control_btn')
+        await buttons[0].trigger('click')
+
+        expect(wrapper.emitted('decrement')).toBeUndefined()
+    })
 })
