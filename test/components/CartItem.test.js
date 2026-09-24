@@ -26,4 +26,16 @@ describe('CartItem', () => {
         expect(img.attributes('src')).toBe(item.image)
         expect(img.attributes('alt')).toBe(item.name)
     })
+
+    it('formats price as euro currency (es-ES)', () => {
+        const item = makeItem({ price: 9.95 })
+        const wrapper = mount(CartItem, { props: { item } })
+
+        const expected = new Intl.NumberFormat('es-ES', {
+            style: 'currency',
+            currency: 'EUR'
+        }).format(item.price)
+
+        expect(wrapper.get('.cart-item_price').text()).toBe(expected)
+    })
 })
