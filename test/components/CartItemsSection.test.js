@@ -59,4 +59,12 @@ describe('CartItemsSection', () => {
 
         expect(wrapper.emitted('decrement')).toEqual([[2]])
     })
+
+    it('reemits "remove" from a CartItem son', async () => {
+        const wrapper = mount(CartItemsSection, { props: { items: makeItems() } })
+        
+        await wrapper.findAllComponents(CartItem)[0].vm.$emit('remove', 1)
+
+        expect(wrapper.emitted('remove')).toEqual([[1]])
+    })
 })
