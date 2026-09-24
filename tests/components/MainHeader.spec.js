@@ -47,6 +47,11 @@ describe('MainHeader', () => {
         expect(wrapper.text()).toContain('3')
     })
 
+    it('el numero de productos en el contador del carrito se inicia en 0', () => {
+        const wrapper = mountHeader()
+        expect(wrapper.text()).toContain('0')
+    })
+
     it('renderiza el boton hamburguesa', () => {
         const wrapper = mountHeader()
         expect(wrapper.find('button[aria-label="Abrir menú"]').exists()).toBe(true)
