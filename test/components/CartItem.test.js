@@ -71,4 +71,14 @@ describe('CartItem', () => {
 
         expect(wrapper.emitted('increment')).toEqual([[42]])
     })
+
+    it('emits "decrement" with product id', async () => {
+        const item = makeItem({ id: 42, quantity: 2 })
+        const wrapper = mount(CartItem, { props: { item } })
+
+        const buttons = wrapper.findAll('.qty-control_btn')
+        await buttons[0].trigger('click')
+
+        expect(wrapper.emitted('decrement')).toEqual([[42]])
+    })
 })
