@@ -52,4 +52,11 @@ describe('MainHeader', () => {
         expect(wrapper.find('button[aria-label="Abrir menú"]').exists()).toBe(true)
     })
 
+    it('renderiza el menu del boton hamburguesa al pulsar', async () => {
+        const wrapper = mountHeader()
+        expect(wrapper.find('[data-testid="mobile-menu"]').exists()).toBe(false)
+        await wrapper.find('button[aria-label="Abrir menú"]').trigger('click')
+        expect(wrapper.find('[data-testid="mobile-menu"]').exists()).toBe(true)
+    })
+
 })
