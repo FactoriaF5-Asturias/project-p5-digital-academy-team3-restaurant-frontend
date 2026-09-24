@@ -47,6 +47,16 @@ describe('CartSummary', () => {
         const wrapper = mount(CartSummary, { props: makeProps({ deliveryMethod: 'dine-in' }) })
         const options = wrapper.findAll('.cart-summary_delivery-option')
 
-        const(option[0].classes())
+        expect(options[0].classes()).toContain('cart-summary_delivery-option--active')
+        expect(options[1].classes()).not.toContain('cart-summary_delivery-option--active')
+    })
+
+    it('emits "update:deliveryMethod" when you swap options', async () => {
+        const wrapper = mount(CartSummary, { props: makeProps({ deliveryMethod: 'takeaway'}) })
+        const radios = wrapper.findAll('input[type="radio"')
+
+        await radios[2].setValue(true)
+
+        expect(wrapper.emitted('update:deliveryMethod')).toEqual([['delivery']])
     })
 })
