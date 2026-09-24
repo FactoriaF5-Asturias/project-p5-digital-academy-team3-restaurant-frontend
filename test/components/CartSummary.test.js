@@ -67,4 +67,9 @@ describe('CartSummary', () => {
 
         expect(wrapper.emitted('checkout')).toHaveLength(1)
     })
+
+    it('checkout button is not disabled by default', () => {
+        const wrapper = mount(CartSummary, { props: makeProps() })
+        expect(wrapper.get('.cart-summary_checkout').attributes('disabled')).toBeUndefined()
+    })
 })
