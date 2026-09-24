@@ -19,4 +19,12 @@ describe('CartErrorState', () => {
         })
         expect(wrapper.get('.cart-error_message').text()).toBe('Error de red, comprueba tu conexión.')
     })
+
+    it('emits "retry" once the button is pressed', async () => {
+        const wrapper = mount(CartErrorState)
+
+        await wrapper.get(".cart-error_retry").trigger('click')
+
+        expect(wrapper.emitted("retry")).toHaveLength(1)
+    })
 })
