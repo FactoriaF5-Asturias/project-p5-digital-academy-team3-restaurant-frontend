@@ -62,7 +62,7 @@
                 </button>
             </nav>
         </header>
-        <div v-if="isMenuOpen" class="md:hidden absolute top-full right-0 w-64 bg-bg-brand text-text-on-brand flex flex-col items-end gap-4 px-7 py-5 shadow-md">
+        <div v-if="isMenuOpen" class="md:hidden absolute top-full right-0 w-64 bg-bg-brand text-text-on-brand flex flex-col items-end gap-4 px-7 py-5 shadow-md" data-testid="mobile-menu">
             <RouterLink class="w-1/2 text-right active:text-text-brand-darker" to="/login" @click="isMenuOpen = false">Login</RouterLink>
             <div class="w-full h-px bg-white"></div>
             <RouterLink class="w-1/2 text-right active:text-text-brand-darker" to="/register" @click="isMenuOpen = false">Register</RouterLink>
