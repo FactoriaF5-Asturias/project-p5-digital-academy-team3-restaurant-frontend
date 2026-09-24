@@ -22,4 +22,9 @@ describe('HeroSection', () => {
         expect(wrapper.text()).toContain('Descubre nuestra auténtica carta italiana.')
     })
 
+    it('renderiza el subtítulo', () => {
+        const wrapper = mountHero()
+        expect(wrapper.text()).toContain('Recetas de herencia preparadas con ingredientes frescos y la pasión de siempre.')
+    })
+
 })
