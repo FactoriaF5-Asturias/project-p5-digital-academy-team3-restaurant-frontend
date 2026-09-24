@@ -10,6 +10,7 @@ describe('MainHeader', () => {
             global: {
                 stubs: {
                     RouterLink: {
+                        props: ['to'],
                         template: '<a><slot /></a>'
                     }
                 }
