@@ -43,4 +43,20 @@ describe('CartItemsSection', () => {
         expect(cartItems[0].props('item')).toEqual(items[0])
         expect(cartItems[1].props('item')).toEqual(items[1])
     })
+
+    it('reemits "increment" of a CartItem son', async () => {
+        const wrapper = mount(CartItemsSection, { props: { items: makeItems() } })
+
+        await wrapper.findAllComponents(CartItem)[1].vm.$emit('increment', 1)
+
+        expect(wrapper.emitted('increment')).toEqual([[1]])
+    })
+
+    it('reemits "decrement" of a CartItem son', async () => {
+        const wrapper = mount(CartItemsSection, { props: { items: makeItems() } })
+
+        await wrapper.findAllComponents(CartItem)[1].vm.$emit('decrement', 2)
+
+        expect(wrapper.emitted('decrement')).toEqual([[2]])
+    })
 })
