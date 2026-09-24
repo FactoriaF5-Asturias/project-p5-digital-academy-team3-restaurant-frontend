@@ -12,4 +12,11 @@ describe('CartErrorState', () => {
         const wrapper = mount(CartErrorState)
         expect(wrapper.get('.cart-error_message').text()).toBe('No se pudo cargar tu cesta. Inténtalo de nuevo.')
     })
+
+    it('shows personalized message received via props', () => {
+        const wrapper = mount(CartErrorState, {
+            props: { message: 'Error de red, comprueba tu conexión.' }
+        })
+        expect(wrapper.get('.cart-error_message').text()).toBe('Error de red, comprueba tu conexión.')
+    })
 })
