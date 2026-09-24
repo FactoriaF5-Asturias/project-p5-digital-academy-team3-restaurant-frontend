@@ -22,4 +22,9 @@ describe('EmptyCart', () => {
 
         expect(wrapper.emitted('continue-shopping')).toHaveLength(1)
     })
+
+    it('button is of "button" type so it does not send forms', () => {
+        const wrapper = mount(EmptyCart)
+        expect(wrapper.get('.empty-cart_action').attributes('type')).toBe('button')
+    })
 })
