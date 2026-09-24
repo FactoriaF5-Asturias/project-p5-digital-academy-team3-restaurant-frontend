@@ -1,4 +1,4 @@
-import { describe } from "vitest";
+import { describe, expect, it } from "vitest";
 import HeroSection from "../../src/components/home/HeroSection.vue";
 import { shallowMount } from "@vue/test-utils";
 
@@ -16,5 +16,10 @@ describe('HeroSection', () => {
                     }
                 })
             }
+
+    it('renderiza el título', () => {
+        const wrapper = mountHero()
+        expect(wrapper.text()).toContain('Descubre nuestra auténtica carta italiana.')
+    })
 
 })
