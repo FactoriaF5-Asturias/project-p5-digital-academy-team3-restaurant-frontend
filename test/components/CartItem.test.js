@@ -91,4 +91,13 @@ describe('CartItem', () => {
 
         expect(wrapper.emitted('decrement')).toBeUndefined()
     })
+
+    it('emits "remove" with id after presing x', async () => {
+        const item = makeItem({ id: 7 })
+        const wrapper = mount(CartItem, { props: { item } })
+
+        await wrapper.get('.cart-item_remove').trigger('click')
+
+        expect(wrapper.emitted('remove')).toEqual([[7]])
+    })
 })
