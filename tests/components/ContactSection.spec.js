@@ -16,4 +16,9 @@ describe('ContactSection', () => {
         expect(wrapper.text()).toContain('Encuéntranos')
     })
 
+    it('renderiza los subtitulos', () => {
+        const wrapper = mountContact()
+        expect(wrapper.text()).toContain('Dirección')
+    })
+
 })
