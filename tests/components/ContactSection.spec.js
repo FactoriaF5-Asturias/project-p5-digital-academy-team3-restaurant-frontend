@@ -36,4 +36,9 @@ describe('ContactSection', () => {
         expect(wrapper.text()).toContain('hola@giacobello.es')
     })
 
+    it('renderiza los iconos', () => {
+        const wrapper = mountContact()
+        expect(wrapper.findAll('img').length).toBe(3)
+    })
+
 })
