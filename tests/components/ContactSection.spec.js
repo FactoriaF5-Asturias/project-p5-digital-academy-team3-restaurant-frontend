@@ -1,6 +1,6 @@
 import { shallowMount } from "@vue/test-utils";
 import ContactSection from "../../src/components/home/ContactSection.vue";
-import { describe } from "vitest";
+import { describe, expect, it } from "vitest";
 
 describe('ContactSection', () => {
 
@@ -10,5 +10,10 @@ describe('ContactSection', () => {
 
                     }})
     }
+
+    it('renderiza el titulo', () => {
+        const wrapper = mountContact()
+        expect(wrapper.text()).toContain('Encuéntranos')
+    })
 
 })
