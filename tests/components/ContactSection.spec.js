@@ -26,4 +26,9 @@ describe('ContactSection', () => {
         expect(wrapper.text()).toContain('Calle Roma 123')
     })
 
+    it('renderiza el telefono', () => {
+        const wrapper = mountContact()
+        expect(wrapper.text()).toContain('93 123 45 67')
+    })
+
 })
