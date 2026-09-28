@@ -7,14 +7,8 @@ describe('ContactSection', () => {
     function mountContact() {
                     return shallowMount(ContactSection, {
                         global: {
-                            stubs: {
-                                RouterLink: {
-                                    props: ['to'],
-                                    template: '<a :href="to"><slot /></a>'
-                                }
-                            }
-                        }
-                    })
-                }
+
+                    }})
+    }
 
 })
