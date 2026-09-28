@@ -21,4 +21,9 @@ describe('ContactSection', () => {
         expect(wrapper.text()).toContain('Dirección')
     })
 
+    it('renderiza la direccion', () => {
+        const wrapper = mountContact()
+        expect(wrapper.text()).toContain('Calle Roma 123')
+    })
+
 })
