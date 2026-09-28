@@ -31,4 +31,9 @@ describe('ContactSection', () => {
         expect(wrapper.text()).toContain('93 123 45 67')
     })
 
+    it('renderiza el email', () => {
+        const wrapper = mountContact()
+        expect(wrapper.text()).toContain('hola@giacobello.es')
+    })
+
 })
