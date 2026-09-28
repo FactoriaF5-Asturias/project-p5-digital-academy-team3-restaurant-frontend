@@ -43,4 +43,9 @@ describe('ContactSection', () => {
         expect(wrapper.findAll('img').length).toBe(3)
     })
 
+    it('renderiza el mapa', () => {
+        const wrapper = mountContact()
+        expect(wrapper.find('iframe').exists()).toBe(true)
+    })
+
 })
