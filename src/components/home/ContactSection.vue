@@ -51,7 +51,7 @@ import phoneIcon from '../../assets/phone.svg'
                         <div>
                             <h3 class="contact-section__subtitle">Contacto</h3>
                             <p class="contact-section__text">+34 93 123 45 67</p>
-                            <p class="contact-section__text">hola@bellavita.es</p>
+                            <p class="contact-section__text">hola@giacobello.es</p>
                         </div>
                     </div>
                 </div>
