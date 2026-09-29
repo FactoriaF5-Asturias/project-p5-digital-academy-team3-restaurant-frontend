@@ -80,4 +80,11 @@ describe('ProductCard', () => {
         expect(items.value[0].price).toBe(12.5)
     })
 
+    it('resetea la cantidad a 1 después de añadir al carrito', async () => {
+        const wrapper = mountProductCard()
+        await wrapper.find('[data-testid="increase"]').trigger('click')
+        await wrapper.find('[data-testid="add-to-cart"]').trigger('click')
+        expect(wrapper.find('[data-testid="quantity"]').text()).toBe('1')
+    })
+
 })
