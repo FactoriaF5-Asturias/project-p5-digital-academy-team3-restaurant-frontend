@@ -21,28 +21,28 @@ function togglePassword() { showPassword.value = !showPassword.value }
             </div>
             <div class="flex items-center justify-center px-8 md:px-20">
                 <form class="w-full max-w-md">
-                    <h1>Iniciar sesión</h1>
-                    <p>Accede a tu cuenta para gestionar tus pedidos y disfrutar de ofertas exclusivas.</p>
-                    <div>
-                        <label for="email">EMAIL</label>
-                        <input id="email" v-model="email" type="email" placeholder="tu@email.com">
+                    <h1 class="font-display text-3xl text-text-brand font-bold mb-2">Iniciar sesión</h1>
+                    <p class="text-text-muted text-base mb-8">Accede a tu cuenta para gestionar tus pedidos y disfrutar de ofertas exclusivas.</p>
+                    <div class="flex flex-col gap-2">
+                        <label for="email" class="text-sm font-semibold text-text-default uppercase tracking-wide">EMAIL</label>
+                        <input id="email" v-model="email" type="email" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand" placeholder="tu@email.com">
                     </div>
-                    <div>
+                    <div class="flex flex-col gap-2">
                         <div>
-                            <label for="password">CONTRASEÑA</label>
+                            <label for="password" class="text-sm font-semibold text-text-default uppercase tracking-wide">CONTRASEÑA</label>
                         </div>
-                        <div>
-                            <input id="password" v-model="password" :type="showPassword ? 'text' : 'password'">
-                            <button type="button" :aria-label="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'"  @click="togglePassword">
+                        <div class="relative">
+                            <input id="password" v-model="password" :type="showPassword ? 'text' : 'password'" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand">
+                            <button type="button" :aria-label="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"  @click="togglePassword">
                                 <img :src="eyeIcon" alt="">
                             </button>
                         </div>
                     </div>
-                    <div>
-                        <input id="remember" v-model="rememberMe" type="checkbox">
-                        <label for="remember">Recordarme</label>
+                    <div class="flex items-center gap-2">
+                        <input id="remember" v-model="rememberMe" type="checkbox" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand">
+                        <label for="remember" class="text-sm font-semibold text-text-default uppercase tracking-wide">Recordarme</label>
                     </div>
-                    <button type="submit">Iniciar sesión</button>
+                    <button type="submit" class="w-full bg-bg-brand-darker text-text-on-brand py-3 rounded-md font-semibold transition-colors hover:bg-bg-brand">Iniciar sesión</button>
                 </form>
             </div>
         </div>
