@@ -17,4 +17,12 @@ describe('MenuCategoryFilter', () => {
         expect(wrapper.findAll('button').length).toBe(4)
     })
 
+    it('renderiza los textos de las categorías', () => {
+        const wrapper = mountMenuFilter()
+        expect(wrapper.text()).toContain('Todos')
+        expect(wrapper.text()).toContain('Especialidades')
+        expect(wrapper.text()).toContain('Postres')
+        expect(wrapper.text()).toContain('Bebidas')
+    })
+
 })
