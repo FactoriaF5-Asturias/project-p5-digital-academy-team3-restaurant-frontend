@@ -1,6 +1,7 @@
 import { mount } from "@vue/test-utils";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import ProductCard from "../../src/components/home/ProductCard.vue"
+import { useCart } from "../../src/composables/useCart.js";
 
 describe('ProductCard', () => {
 
@@ -20,6 +21,12 @@ describe('ProductCard', () => {
             }
         })
     }
+
+    beforeEach(() => {
+        localStorage.clear()
+        const { clearCart } = useCart()
+        clearCart()
+    })
 
     it('renderiza el nombre del producto', () => {
         const wrapper = mountProductCard()
@@ -58,6 +65,19 @@ describe('ProductCard', () => {
         const wrapper = mountProductCard()
         await wrapper.find('[data-testid="decrease"]').trigger('click')
         expect(wrapper.find('[data-testid="quantity"]').text()).toBe('1')
+    })
+
+    it('añade el producto al carrito con la cantidad seleccionada', async () => {
+        const wrapper = mountProductCard()
+        await wrapper.find('[data-testid="increase"]').trigger('click')
+        await wrapper.find('[data-testid="add-to-cart"]').trigger('click')
+
+        const { items } = useCart()
+        expect(items.value.length).toBe(1)
+        expect(items.value[0].id).toBe(1)
+        expect(items.value[0].name).toBe('Pizza Margherita')
+        expect(items.value[0].quantity).toBe(2)
+        expect(items.value[0].price).toBe(12.5)
     })
 
 })
