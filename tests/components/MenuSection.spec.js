@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import { beforeEach, describe, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import MenuSection from "../../src/components/home/MenuSection.vue";
 import { getProducts } from "../../src/services/ProductService.js";
 import { useCart } from "../../src/composables/useCart.js";
@@ -25,6 +25,11 @@ describe('MenuSection', () => {
         clearCart()
         getProducts.mockReset()
         getProducts.mockResolvedValue(mockProducts)
+    })
+
+    it('muestra cargando al iniciar', () => {
+        const wrapper = mountSection()
+        expect(wrapper.text()).toContain('Cargando...')
     })
 
 })
