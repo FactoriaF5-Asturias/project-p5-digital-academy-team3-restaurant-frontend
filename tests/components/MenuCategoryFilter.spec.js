@@ -25,4 +25,11 @@ describe('MenuCategoryFilter', () => {
         expect(wrapper.text()).toContain('Bebidas')
     })
 
+    it('emite update:modelValue al pulsar una categoría', async () => {
+        const wrapper = mountMenuFilter()
+        await wrapper.findAll('button')[1].trigger('click')
+        expect(wrapper.emitted('update:modelValue')).toBeTruthy()
+        expect(wrapper.emitted('update:modelValue')[0]).toEqual(['Especialidades'])
+    })
+
 })
