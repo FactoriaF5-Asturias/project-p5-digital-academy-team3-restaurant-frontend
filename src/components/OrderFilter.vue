@@ -43,6 +43,7 @@ const emit = defineEmits(['update:modelValue'])
                     `order-filter__button--${variant}`,
                     {
                         'order-filter__button--active': modelValue === option.value,
+                        'hidden': option.hidden
                     },
                 ]"
                 type="button"
