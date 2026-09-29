@@ -32,4 +32,13 @@ describe('MenuCategoryFilter', () => {
         expect(wrapper.emitted('update:modelValue')[0]).toEqual(['Especialidades'])
     })
 
+    it('marca como activo el botón correspondiente al modelValue', () => {
+        const wrapper = mount(MenuCategoryFilter, {
+            props: { modelValue: 'Postres' }
+        })
+        const buttons = wrapper.findAll('button')
+        expect(buttons[2].classes()).toContain('menu-category-filter__button--active')
+        expect(buttons[0].classes()).not.toContain('menu-category-filter__button--active')
+    })
+
 })
