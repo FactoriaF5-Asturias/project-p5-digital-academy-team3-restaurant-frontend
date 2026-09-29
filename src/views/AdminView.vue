@@ -1,11 +1,15 @@
+<script setup>
+
+    import AdminSidebar from '../components/admin/AdminSidebar.vue'
+
+</script>
+
 <template>
     <div class="admin-page">
         <div class="admin-page__layout">
-            <aside class="admin-page__sidebar">
-                <!-- Navigation -->
-            </aside>
+            <AdminSidebar />
             <main class="admin-page__main">
-                <!-- Products -->
+                <RouterView />
             </main>
         </div>
     </div>
