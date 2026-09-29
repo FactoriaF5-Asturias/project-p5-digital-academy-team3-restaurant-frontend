@@ -38,7 +38,7 @@ describe('ProductCard', () => {
 
     it('renderiza la cantidad inicial a 1', () => {
         const wrapper = mountProductCard()
-        expect(wrapper.text()).toContain('1')
+        expect(wrapper.find('[data-testid="quantity"]').text()).toBe('1')
     })
 
 })

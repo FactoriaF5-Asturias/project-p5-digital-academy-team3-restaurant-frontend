@@ -84,7 +84,7 @@ function decrease() {
                     {{ price }} €
                 </p>
             </div>
-            <button class="w-full bg-bg-brand-darker text-text-on-brand inline-flex items-center justify-center gap-2 rounded-xl p-2 transition-colors hover:bg-bg-brand active:bg-bg-brand-hover" type="button" @click="handleAddToCart">
+            <button class="w-full bg-bg-brand-darker text-text-on-brand inline-flex items-center justify-center gap-2 rounded-xl p-2 transition-colors hover:bg-bg-brand active:bg-bg-brand-hover" type="button" data-testid="add-to-cart" @click="handleAddToCart">
                 <img :src="addToCartIcon" alt="">
                 Añadir a la cesta
             </button>
