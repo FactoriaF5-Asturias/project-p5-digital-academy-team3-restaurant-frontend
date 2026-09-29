@@ -28,17 +28,17 @@ describe('OrderCard', () => {
         expect(wrapper.text()).toContain('Rechazar')
     })
 
-    it('shows order type when order has orderType', () => {
+    it('shows takeaway label when order is takeaway', () => {
         const wrapper = mount(OrderCard, {
             props: {
                 order: {
                     ...baseOrder,
-                    orderType: 'TAKEAWAY',
+                    orderTypeName: 'TAKEAWAY',
                 },
             },
         })
 
-        expect(wrapper.text()).toContain('TAKEAWAY')
+        expect(wrapper.text()).toContain('Para Llevar')
     })
 
     it('does not render time when createdAt is missing', () => {
