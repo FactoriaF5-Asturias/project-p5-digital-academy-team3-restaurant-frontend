@@ -39,4 +39,11 @@ describe('MenuSection', () => {
         expect(wrapper.text()).toContain('Tiramisú')
     })
 
+    it('muestra un mensaje de error si el fetch falla', async () => {
+        getProducts.mockRejectedValue(new Error('Fallo de red'))
+        const wrapper = mountSection()
+        await flushPromises()
+        expect(wrapper.text()).toContain('Fallo de red')
+    })
+
 })
