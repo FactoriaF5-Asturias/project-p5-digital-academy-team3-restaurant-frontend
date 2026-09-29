@@ -2,7 +2,7 @@
 
     defineProps({
         product: {
-        ,    type: Object,
+            type: Object,
             required: true,
         }
     })
@@ -11,7 +11,9 @@
 
     function getImageUrl(path) {
         if (!path) return ''
-        return.path.startsWith('http') ? path : `${apiUrl}${path}`
+        if (/^(https?:|data:|blob:)/i.test(path)) return path
+
+        return `${apiUrl.replace(/\/+$/, '')}/${path.replace(/^\/+/, '')}`
     }
 
     function formatPrice(value) {
@@ -26,9 +28,9 @@
 <template>
     <article class="admin-product-row">
         <img
-            v-if="product.image"
+            v-if="product.imageUrl"
             class="admin-product-row__image"
-            :src="getImageUrl(product.image)"
+            :src="getImageUrl(product.imageUrl)"
             :alt="product.name"
         />
 
@@ -53,3 +55,15 @@
         </div>
     </article>
 </template>
+
+<style scoped>
+@reference '../../main.css';
+
+.admin-product-row {
+    @apply
+    flex flex-col gap-4
+    rounded-xl bg-bg-container
+    p-4 shadow-sm
+    sm:flex-row sm:items-center;
+}
+</style>
