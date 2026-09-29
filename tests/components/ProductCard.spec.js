@@ -36,4 +36,9 @@ describe('ProductCard', () => {
         expect(wrapper.text()).toContain('12.5')
     })
 
+    it('renderiza la cantidad inicial a 1', () => {
+        const wrapper = mountProductCard()
+        expect(wrapper.text()).toContain('1')
+    })
+
 })
