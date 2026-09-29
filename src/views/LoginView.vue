@@ -20,7 +20,7 @@ function togglePassword() { showPassword.value = !showPassword.value }
                 <img :src="loginPhoto" alt="Foto de comida italiana" class="w-full h-full object-cover hidden md:block">
             </div>
             <div class="flex items-center justify-center px-8 md:px-20">
-                <form class="w-full max-w-md">
+                <form class="w-full max-w-md space-y-5">
                     <h1 class="font-display text-3xl text-text-brand font-bold mb-2">Iniciar sesión</h1>
                     <p class="text-text-muted text-base mb-8">Accede a tu cuenta para gestionar tus pedidos y disfrutar de ofertas exclusivas.</p>
                     <div class="flex flex-col gap-2">
@@ -39,8 +39,8 @@ function togglePassword() { showPassword.value = !showPassword.value }
                         </div>
                     </div>
                     <div class="flex items-center gap-2">
-                        <input id="remember" v-model="rememberMe" type="checkbox" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand">
-                        <label for="remember" class="text-sm font-semibold text-text-default uppercase tracking-wide">Recordarme</label>
+                        <input id="remember" v-model="rememberMe" type="checkbox" class="accent-bg-brand w-4 h-4">
+                        <label for="remember" class="text-sm font-semibold text-text-default">Recordarme</label>
                     </div>
                     <button type="submit" class="w-full bg-bg-brand-darker text-text-on-brand py-3 rounded-md font-semibold transition-colors hover:bg-bg-brand">Iniciar sesión</button>
                 </form>
