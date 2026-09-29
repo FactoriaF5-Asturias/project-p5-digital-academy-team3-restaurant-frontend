@@ -31,4 +31,9 @@ describe('ProductCard', () => {
         expect(wrapper.text()).toContain('Salsa de tomate')
     })
 
+    it('renderiza el precio del producto', () => {
+        const wrapper = mountProductCard()
+        expect(wrapper.text()).toContain('12.5')
+    })
+
 })
