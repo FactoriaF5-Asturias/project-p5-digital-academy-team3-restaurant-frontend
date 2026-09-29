@@ -2,6 +2,8 @@
 
     import { onMounted, ref } from 'vue'
     import MenuSearch from '../home/MenuSearch.vue'
+    import AdminProductRow from './AdminProductRow.vue'
+    import AdminProductErrorState from './AdminProductErrorState.vue'
     import { getProducts } from '../../services/ProductService.js'
     
     const searchQuery = ref('')
@@ -32,6 +34,13 @@
                 placeholder="Buscar producto..."
                 aria-label="Buscar productos"
         />
+        <div class="admin-products__list">
+            <AdminProductRow
+                v-for="product in products"
+                :key="product.id"
+                :product="product"
+            />
+        </div>  
         </div>
     </section>
 </template>
