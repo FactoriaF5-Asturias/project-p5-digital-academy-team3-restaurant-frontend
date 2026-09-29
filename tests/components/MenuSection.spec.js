@@ -46,4 +46,16 @@ describe('MenuSection', () => {
         expect(wrapper.text()).toContain('Fallo de red')
     })
 
+    it('filtra por categoría al pulsar Postres', async () => {
+        const wrapper = mountSection()
+        await flushPromises()
+
+        const buttons = wrapper.findAll('button')
+        const postresButton = buttons.find(b => b.text() === 'Postres')
+        await postresButton.trigger('click')
+
+        expect(wrapper.text()).toContain('Tiramisú')
+        expect(wrapper.text()).not.toContain('Pizza Margherita')
+    })
+
 })
