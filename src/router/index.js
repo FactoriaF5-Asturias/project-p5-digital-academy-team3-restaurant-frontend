@@ -20,6 +20,16 @@ const routes = [
         path: '/admin',
         name: 'admin',
         component: () => import('/src/views/AdminView.vue'),
+        children: [
+            {
+                path: 'products',
+                component: () => import('src/components/admin/...')
+            },
+            {
+                path: 'orders',
+                component: () => import('src/comonents/admin/...')
+            }
+        ]
     }
 ]
 
