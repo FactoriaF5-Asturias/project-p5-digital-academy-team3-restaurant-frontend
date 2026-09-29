@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils"
-import { describe } from "vitest"
+import { describe, expect, it } from "vitest"
 import MenuCategoryFilter from "../../src/components/home/MenuCategoryFilter.vue"
 
 describe('MenuCategoryFilter', () => {
@@ -11,5 +11,10 @@ describe('MenuCategoryFilter', () => {
                     }
                 })
             }
+
+    it('renderiza los cuatro botones de categoría', () => {
+        const wrapper = mountMenuFilter()
+        expect(wrapper.findAll('button').length).toBe(4)
+    })
 
 })
