@@ -14,3 +14,24 @@
         </div>
     </div>
 </template>
+
+<style scoped>
+@reference '../main.css';
+
+.admin-page {
+    @apply
+    min-h-screen
+    bg-bg-body;
+}
+
+.admin-page__layout {
+    @apply
+    flex min-h-screen;
+}
+
+.admin-page__main {
+    @apply
+    min-w-0 flex-1
+    p-6 md:p-10;
+}
+</style>
