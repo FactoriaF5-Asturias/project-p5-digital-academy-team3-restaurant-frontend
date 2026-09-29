@@ -54,4 +54,10 @@ describe('ProductCard', () => {
         expect(wrapper.find('[data-testid="quantity"]').text()).toBe('1')
     })
 
+    it('no decrementa por debajo de 1', async () => {
+        const wrapper = mountProductCard()
+        await wrapper.find('[data-testid="decrease"]').trigger('click')
+        expect(wrapper.find('[data-testid="quantity"]').text()).toBe('1')
+    })
+
 })
