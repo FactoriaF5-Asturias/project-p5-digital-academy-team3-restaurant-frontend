@@ -26,4 +26,9 @@ describe('ProductCard', () => {
         expect(wrapper.text()).toContain('Pizza Margherita')
     })
 
+    it('renderiza la descripción del producto', () => {
+        const wrapper = mountProductCard()
+        expect(wrapper.text()).toContain('Salsa de tomate')
+    })
+
 })
