@@ -1,4 +1,4 @@
-import { mount } from "@vue/test-utils";
+import { flushPromises, mount } from "@vue/test-utils";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import MenuSection from "../../src/components/home/MenuSection.vue";
 import { getProducts } from "../../src/services/ProductService.js";
@@ -30,6 +30,13 @@ describe('MenuSection', () => {
     it('muestra cargando al iniciar', () => {
         const wrapper = mountSection()
         expect(wrapper.text()).toContain('Cargando...')
+    })
+
+    it('renderiza los productos cuando el fetch tiene exito', async () => {
+        const wrapper = mountSection()
+        await flushPromises()
+        expect(wrapper.text()).toContain('Pizza Margherita')
+        expect(wrapper.text()).toContain('Tiramisú')
     })
 
 })
