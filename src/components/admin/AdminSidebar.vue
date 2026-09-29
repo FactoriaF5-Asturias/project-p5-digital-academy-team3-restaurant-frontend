@@ -4,8 +4,8 @@
             Giacobello
         </RouterLink>
         <nav class="sidebar-admin__nav" aria-label="Administration">
-            <RouterLink to="/admin/productos">Productos</RouterLink>
-            <RouterLink to="/admin/pedidos">Pedidos</RouterLink>
+            <RouterLink to="/admin/products">Productos</RouterLink>
+            <RouterLink to="/admin/orders">Pedidos</RouterLink>
         </nav>
     </aside>
 </template>
