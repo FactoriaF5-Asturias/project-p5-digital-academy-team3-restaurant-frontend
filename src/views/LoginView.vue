@@ -14,13 +14,13 @@ function togglePassword() { showPassword.value = !showPassword.value }
 
 <template>
     <MainHeader />
-    <main class="min-h-screen">
-        <div class="grid grid-cols-1 md:grid-cols-2 ">
-            <div>
+    <main>
+        <div class="grid grid-cols-1 md:grid-cols-2 min-h-screen">
+            <div class="h-full overflow-hidden">
                 <img :src="loginPhoto" alt="Foto de comida italiana" class="w-full h-full object-cover hidden md:block">
             </div>
-            <div class="flex items-center justify-center px-20 max-w-md">
-                <form>
+            <div class="flex items-center justify-center px-8 md:px-20">
+                <form class="w-full max-w-md">
                     <h1>Iniciar sesión</h1>
                     <p>Accede a tu cuenta para gestionar tus pedidos y disfrutar de ofertas exclusivas.</p>
                     <div>
