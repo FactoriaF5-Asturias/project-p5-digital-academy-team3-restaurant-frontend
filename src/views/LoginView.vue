@@ -1,5 +1,7 @@
 <script setup>
 import MainHeader from '../components/common/MainHeader.vue';
+import loginPhoto from '../assets/login-photo.jpg';
+import eyeIcon from '../assets/eye.svg'
 </script>
 
 <template>
@@ -7,7 +9,7 @@ import MainHeader from '../components/common/MainHeader.vue';
     <main>
         <div>
             <div>
-                <img>
+                <img :src="loginPhoto" alt="Foto de comida italiana">
             </div>
             <div>
                 <form>
@@ -23,7 +25,9 @@ import MainHeader from '../components/common/MainHeader.vue';
                         </div>
                         <div>
                             <input id="password">
-                            <button type="button"></button>
+                            <button type="button">
+                                <img :src="eyeIcon" alt="">
+                            </button>
                         </div>
                     </div>
                     <div>
