@@ -15,7 +15,7 @@ const error = ref(null)
 
 onMounted(async () => {
     try {
-        products.value = await getProducts('api/v1/products')
+        products.value = await getProducts()
     } catch (e) {
         error.value = e.message
     } finally {
@@ -31,7 +31,6 @@ const filteredProducts = computed(() => {
     )
 })
 
-const emit = defineEmits(['add-to-cart'])
 </script>
 
 <template>
@@ -52,7 +51,6 @@ const emit = defineEmits(['add-to-cart'])
                 :category="product.category"
                 :price="product.price"
                 :image-url="product.imageUrl"
-                @add-to-cart="emit('add-to-cart', $event)"
             />
         </div>
     </section>
