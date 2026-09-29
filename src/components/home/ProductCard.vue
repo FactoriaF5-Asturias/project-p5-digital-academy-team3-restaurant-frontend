@@ -70,13 +70,13 @@ function decrease() {
             </p>
             <div class="flex justify-between items-center">
                 <div class="flex items-center h-8 justify-center bg-bg-container-high rounded-2xl overflow-hidden">
-                    <button class="flex items-center justify-center flex-1 px-4 py-2 transition-colors hover:bg-bg-brand-darker hover:text-text-on-brand active:bg-bg-brand" type="button" @click="decrease">
+                    <button class="flex items-center justify-center flex-1 px-4 py-2 transition-colors hover:bg-bg-brand-darker hover:text-text-on-brand active:bg-bg-brand" type="button" data-testid="decrease" @click="decrease">
                         -
                     </button>
-                    <span class="min-w-7 text-center flex-1">
+                    <span class="min-w-7 text-center flex-1" data-testid="quantity">
                         {{ quantity }}
                     </span>
-                    <button class="flex items-center justify-center flex-1 px-4 py-2 transition-colors hover:bg-bg-brand-darker hover:text-text-on-brand active:bg-bg-brand" type="button" @click="increase">
+                    <button class="flex items-center justify-center flex-1 px-4 py-2 transition-colors hover:bg-bg-brand-darker hover:text-text-on-brand active:bg-bg-brand" type="button" data-testid="increase" @click="increase">
                         +
                     </button>
                 </div>
@@ -84,7 +84,7 @@ function decrease() {
                     {{ price }} €
                 </p>
             </div>
-            <button class="w-full bg-bg-brand-darker text-text-on-brand inline-flex items-center justify-center gap-2 rounded-xl p-2 transition-colors hover:bg-bg-brand active:bg-bg-brand-hover" type="button" @click="handleAddToCart">
+            <button class="w-full bg-bg-brand-darker text-text-on-brand inline-flex items-center justify-center gap-2 rounded-xl p-2 transition-colors hover:bg-bg-brand active:bg-bg-brand-hover" type="button" data-testid="add-to-cart" @click="handleAddToCart">
                 <img :src="addToCartIcon" alt="">
                 Añadir a la cesta
             </button>
