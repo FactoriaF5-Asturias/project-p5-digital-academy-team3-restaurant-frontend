@@ -37,4 +37,28 @@ describe('MainFooter', () => {
         expect(wrapper.find('a[href="/"]').exists()).toBe(true)
     })
 
+    it('renderiza los enlaces de los desarrolladores', () => {
+        const wrapper = mountFooter()
+        const developerLinks = wrapper.findAll('a[href^="https://github.com/"]')
+
+        expect(developerLinks).toHaveLength(6)
+    })
+
+    it('los enlaces de desarrolladores se abren en una nueva pestaña', () => {
+        const wrapper = mountFooter()
+        const developerLinks = wrapper.findAll('a[href^="https://github.com/"]')
+
+        developerLinks.forEach((link) => {
+            expect(link.attributes('target')).toBe('_blank')
+            expect(link.attributes('rel')).toBe('noopener noreferrer')
+        })
+    })
+
+    it('renderiza las imagenes de los desarrolladores', () => {
+        const wrapper = mountFooter()
+        const developerImages = wrapper.findAll('a[href^="https://github.com/"] img')
+
+        expect(developerImages).toHaveLength(6)
+    })
+
 })
