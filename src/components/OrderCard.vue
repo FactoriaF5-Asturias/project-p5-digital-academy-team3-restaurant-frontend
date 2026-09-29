@@ -13,8 +13,7 @@ const props = defineProps({
 const emit = defineEmits(['accept', 'reject', 'update-status'])
 
 const orderType = computed(() => {
-  if (props.order.orderType) return props.order.orderType
-  if (props.order.tabletId) return `Mesa ${props.order.tabletId}`
+  if (props.order.orderTypeName === 'TAKEAWAY') return 'Para Llevar'
 
   return ''
 })

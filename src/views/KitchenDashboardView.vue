@@ -41,7 +41,7 @@ const orderTypeOptions = [
   { label: 'Todos', value: 'all' },
   { label: 'Para Llevar', value: 'TAKEAWAY' },
   { label: 'En Sala', value: 'DINE IN' },
-  { label: 'Envío a Domicilio', value: 'DELIVERY' },
+  { label: 'Envío a Domicilio', value: 'DELIVERY', hidden: true },
 ]
 
 const orderStatusOptions = [
