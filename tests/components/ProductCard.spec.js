@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import { describe } from "vitest";
+import { describe, expect, it } from "vitest";
 import ProductCard from "../../src/components/home/ProductCard.vue"
 
 describe('ProductCard', () => {
@@ -20,5 +20,10 @@ describe('ProductCard', () => {
             }
         })
     }
+
+    it('renderiza el nombre del producto', () => {
+        const wrapper = mountProductCard()
+        expect(wrapper.text()).toContain('Pizza Margherita')
+    })
 
 })
