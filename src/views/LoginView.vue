@@ -21,8 +21,8 @@ function togglePassword() { showPassword.value = !showPassword.value }
             </div>
             <div class="flex items-center justify-center px-8 md:px-20">
                 <form class="w-full max-w-md space-y-5">
-                    <h1 class="font-display text-3xl text-text-brand font-bold mb-2">Iniciar sesión</h1>
-                    <p class="text-text-muted text-base mb-8">Accede a tu cuenta para gestionar tus pedidos y disfrutar de ofertas exclusivas.</p>
+                    <h1 class="font-display text-3xl text-text-brand font-bold">Iniciar sesión</h1>
+                    <p class="text-text-muted text-base">Accede a tu cuenta para gestionar tus pedidos y disfrutar de ofertas exclusivas.</p>
                     <div class="flex flex-col gap-2">
                         <label for="email" class="text-sm font-semibold text-text-default uppercase tracking-wide">EMAIL</label>
                         <input id="email" v-model="email" type="email" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand" placeholder="tu@email.com">
