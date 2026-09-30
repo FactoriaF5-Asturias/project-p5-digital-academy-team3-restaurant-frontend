@@ -29,11 +29,25 @@ describe('LoginView', () => {
         expect(passwordInput.attributes('type')).toBe('password')
     })
 
-    it('renderiza el botón de envio', () => {
+    it('renderiza el boton de envio', () => {
         const wrapper = mountLogin()
         const submitButton = wrapper.find('button[type="submit"]')
         expect(submitButton.exists()).toBe(true)
         expect(submitButton.text()).toBe('Iniciar sesión')
+    })
+
+    it('visibilidad de la contraseña al pulsar el boton', async () => {
+        const wrapper = mountLogin()
+        const passwordInput = wrapper.find('input[id="password"]')
+        const toggleButton = wrapper.find('button[type="button"]')
+
+        expect(passwordInput.attributes('type')).toBe('password')
+
+        await toggleButton.trigger('click')
+        expect(passwordInput.attributes('type')).toBe('text')
+
+        await toggleButton.trigger('click')
+        expect(passwordInput.attributes('type')).toBe('password')
     })
 
 })
