@@ -1,6 +1,17 @@
 <script setup>
 import searchIcon from '../../assets/search.svg'
 
+defineProps({
+    placeholder: {
+        type: String,
+        default: 'Buscar plato, ingrediente...',
+    },
+    ariaLabel: {
+        type: String,
+        default: 'Buscar plato o ingrediente',
+    }
+})
+
 const model = defineModel()
 </script>
 <template>
@@ -15,8 +26,8 @@ const model = defineModel()
             v-model="model"
             class="menu-search__input"
             type="search"
-            placeholder="Buscar plato, ingrediente..."
-            aria-label="Buscar plato o ingrediente"
+            :placeholder="placeholder"
+            :aria-label="ariaLabel"
         />
     </label>
 </template>
