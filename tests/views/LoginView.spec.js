@@ -11,9 +11,29 @@ describe('LoginView', () => {
             })
         }
     
-    it('renderiza el título', () => {
+    it('renderiza el titulo', () => {
         const wrapper = mountLogin()
         expect(wrapper.text()).toContain('Iniciar sesión')
+    })
+
+    it('renderiza el input de email', () => {
+        const wrapper = mountLogin()
+        const emailInput = wrapper.find('input[type="email"]')
+        expect(emailInput.exists()).toBe(true)
+        expect(emailInput.attributes('placeholder')).toBe('tu@email.com')
+    })
+
+    it('renderiza el input de contraseña con type password', () => {
+        const wrapper = mountLogin()
+        const passwordInput = wrapper.find('input[id="password"]')
+        expect(passwordInput.attributes('type')).toBe('password')
+    })
+
+    it('renderiza el botón de envio', () => {
+        const wrapper = mountLogin()
+        const submitButton = wrapper.find('button[type="submit"]')
+        expect(submitButton.exists()).toBe(true)
+        expect(submitButton.text()).toBe('Iniciar sesión')
     })
 
 })
