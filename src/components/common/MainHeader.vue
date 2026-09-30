@@ -36,11 +36,6 @@
                             Login
                         </RouterLink>
                     </li>
-                    <li class="px-3">
-                        <RouterLink to="/register" class="hover:underline underline-offset-2 active:text-text-brand-darker">
-                            Register
-                        </RouterLink>
-                    </li>
                 </ul>
                 <ul class="flex items-center gap-4 md:gap-6">
                     <li>
