@@ -5,7 +5,7 @@
     import AdminProductRow from './AdminProductRow.vue'
     import AdminProductErrorState from './AdminProductErrorState.vue'
     import AdminProductForm from './AdminProductForm.vue'
-    import { getProducts, getCategories, updateProducts } from '../../services/ProductService.js'
+    import { getProducts, getCategories, updateProducts, deleteProducts } from '../../services/ProductService.js'
     
     const searchQuery = ref('')
     const products = ref([])
