@@ -11,9 +11,14 @@ describe('OrderSuccessView', () => {
         return shallowMount(OrderSuccessView)
     }
 
-    it('renderiza texto', () => {
+    it('renderiza texto subtitulo', () => {
         const wrapper = mountView()
-        expect(wrapper.text()).toContain('Gracias, hemos recibido tu pedido y el equipo ya está preparándolo en cocina. Ya puedes realizar el pago en caja. ')
+        expect(wrapper.text()).toContain('Gracias, hemos recibido tu pedido y el equipo ya está preparándolo en cocina. Ya puedes realizar el pago en caja.')
+    })
+
+    it('renderiza titulo', () => {
+        const wrapper = mountView()
+        expect(wrapper.text()).toContain('¡Pedido #P5-5 realizado con éxito!')
     })
 
 })
