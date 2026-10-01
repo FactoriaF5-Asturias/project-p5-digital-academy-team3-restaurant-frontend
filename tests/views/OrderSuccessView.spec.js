@@ -8,7 +8,16 @@ vi.mock('vue-router', () => ({
 
 describe('OrderSuccessView', () => {
     function mountView() {
-        return shallowMount(OrderSuccessView)
+        return shallowMount(OrderSuccessView, {
+            global: {
+                stubs: {
+                    RouterLink: {
+                        props: ['to'],
+                        template: '<a :href="to"><slot /></a>'
+                    }
+                }
+            }
+        })
     }
 
     it('renderiza texto subtitulo', () => {
@@ -29,6 +38,11 @@ describe('OrderSuccessView', () => {
     it('renderiza el texto del boton', () => {
         const wrapper = mountView()
         expect(wrapper.text()).toContain('Seguir comprando →')
+    })
+
+    it('el boton envia a home', () => {
+        const wrapper = mountView()
+        expect(wrapper.find('a[href="/"]').exists()).toBe(true)
     })
 
 })
