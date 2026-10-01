@@ -6,5 +6,5 @@
 
     const route = useRoute()
 
-    const formatOrderNumber = computed(() => '#P5-${route.params.id}')
+    const formattedOrderNumber = computed(() => `#P5-${route.params.id}`)
 </script>
