@@ -65,6 +65,14 @@
         }
     }
 
+    // const isProductFormOpen = ref(false)
+    // const selectedProduct = ref(null)
+
+    // function openCreateForm() {
+    //     selectedProduct-value = null
+    //     isProductFormOpen.value = true
+    // }
+
 </script>
 
 <template>
