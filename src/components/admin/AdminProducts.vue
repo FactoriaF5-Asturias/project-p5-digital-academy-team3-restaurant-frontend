@@ -33,14 +33,14 @@
                 v-model="searchQuery"
                 placeholder="Buscar producto..."
                 aria-label="Buscar productos"
-        />
+            />
+        </div>
         <div class="admin-products__list">
             <AdminProductRow
                 v-for="product in products"
                 :key="product.id"
                 :product="product"
             />
-        </div>  
         </div>
     </section>
 </template>
