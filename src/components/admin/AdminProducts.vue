@@ -21,6 +21,12 @@
         }
     }
 
+    function handleToggleStatus(updatedProduct) {
+        products.value = products.value.map((product) =>
+        product.id === updatedProduct.id ? updatedProduct : product
+  )
+}
+
     onMounted(loadProducts)
 
 </script>
@@ -40,6 +46,7 @@
                 v-for="product in products"
                 :key="product.id"
                 :product="product"
+                @toggle-status="handleToggleStatus"
             />
         </div>
     </section>
