@@ -4,16 +4,27 @@
     import MenuSearch from '../home/MenuSearch.vue'
     import AdminProductRow from './AdminProductRow.vue'
     import AdminProductErrorState from './AdminProductErrorState.vue'
-    import { getProducts } from '../../services/ProductService.js'
+    import AdminProductForm from './AdminProductForm.vue'
+    import { getProducts, getCategories, updateProducts } from '../../services/ProductService.js'
     
     const searchQuery = ref('')
     const products = ref([])
     const isLoading = ref(true)
     const error = ref('')
+    const categories = ref([])
 
     async function loadProducts() {
+        isLoading.value = true
+        error.value = ''
+
         try {
-            products.value = await getProducts()
+            const [productList, categoryList] = await Promise.all([
+                getProducts(),
+                getCategories(),
+            ])
+
+            products.value = productList
+            categories.value = categoryList
         } catch (err) {
             error.value = err.message || 'No se pudieron cargar los productos'
         } finally {
@@ -22,6 +33,45 @@
     }
 
     onMounted(loadProducts)
+
+    async function handleToggleStatus(updateProduct) {
+        const category = categories.value.find(
+            (item) => item.name === updateProduct.category
+        )
+
+        if (!category) {
+            error.value = `No se pudo encontrar la categoría ${updateProduct.category}.`
+            return
+        }
+
+        const payload = {
+            name: updateProduct.name,
+            description: updateProduct.description,
+            categoryId: category.id,
+            price: updateProduct.price,
+            imageUrl: updateProduct.imageUrl,
+            status: updateProduct.status,
+        }
+
+
+        try {
+            await updateProducts(updateProduct.id, payload)
+
+            products.value = products.value.map((product) => 
+                product.id === updateProduct.id ? updateProduct : product
+            )
+        } catch (err) {
+            error.value = err.message || `No se pudo actualizar el producto`
+        }
+    }
+
+    // const isProductFormOpen = ref(false)
+    // const selectedProduct = ref(null)
+
+    // function openCreateForm() {
+    //     selectedProduct-value = null
+    //     isProductFormOpen.value = true
+    // }
 
 </script>
 
@@ -33,13 +83,14 @@
                 v-model="searchQuery"
                 placeholder="Buscar producto..."
                 aria-label="Buscar productos"
-        />
+            />
         </div>
         <div class="admin-products__list">
             <AdminProductRow
                 v-for="product in products"
                 :key="product.id"
                 :product="product"
+                @toggle-status="handleToggleStatus"
             />
         </div>
     </section>
@@ -64,5 +115,10 @@
 .admin-products__toolbar {
     @apply
     mb-8;
+}
+
+.admin-products__list {
+    @apply
+    flex flex-col gap-4;
 }
 </style>
