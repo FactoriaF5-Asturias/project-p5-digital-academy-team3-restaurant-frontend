@@ -4,16 +4,26 @@
     import MenuSearch from '../home/MenuSearch.vue'
     import AdminProductRow from './AdminProductRow.vue'
     import AdminProductErrorState from './AdminProductErrorState.vue'
-    import { getProducts } from '../../services/ProductService.js'
+    import { getProducts, getCategories, updateProducts } from '../../services/ProductService.js'
     
     const searchQuery = ref('')
     const products = ref([])
     const isLoading = ref(true)
     const error = ref('')
+    const categories = ref([])
 
     async function loadProducts() {
+        isLoading.value = true
+        error.value = ''
+
         try {
-            products.value = await getProducts()
+            const [productList, categoryList] = await Promise.all([
+                getProducts(),
+                getCategories(),
+            ])
+
+            products.value = productList
+            categories.value = categoryList
         } catch (err) {
             error.value = err.message || 'No se pudieron cargar los productos'
         } finally {
@@ -21,13 +31,38 @@
         }
     }
 
-    function handleToggleStatus(updatedProduct) {
-        products.value = products.value.map((product) =>
-        product.id === updatedProduct.id ? updatedProduct : product
-  )
-}
-
     onMounted(loadProducts)
+
+    async function handleToggleStatus(updateProduct) {
+        const category = categories.value.find(
+            (item) => item.name === updateProduct.category
+        )
+
+        if (!category) {
+            error.value = `No se pudo encontrar la categoría ${updateProduct.category}.`
+            return
+        }
+
+        const payload = {
+            name: updateProduct.name,
+            description: updateProduct.description,
+            categoryId: category.id,
+            price: updateProduct.price,
+            imageUrl: updateProduct.imageUrl,
+            status: updateProduct.status,
+        }
+
+
+        try {
+            await updateProducts(updateProduct.id, payload)
+
+            products.value = products.value.map((product) => 
+                product.id === updateProduct.id ? updateProduct : product
+            )
+        } catch (err) {
+            error.value = err.message || `No se pudo actualizar el producto`
+        }
+    }
 
 </script>
 

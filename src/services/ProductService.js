@@ -21,6 +21,7 @@ export async function getCategories() {
 export async function updateProducts(productId, productData) {
     const response = await fetch(`${API_URL}/api/v1/products/${productId}`, {
         method: 'PUT',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
         },
