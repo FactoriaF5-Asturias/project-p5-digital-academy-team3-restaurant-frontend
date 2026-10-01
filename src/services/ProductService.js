@@ -7,3 +7,13 @@ export async function getProducts() {
     }
     return response.json()
 }
+
+export async function getCategories() {
+    const response = await fetch(`${API_URL}/api/v1/categories`)
+
+    if (!response.ok) {
+        throw new Error(`Error al cargar categorías: ${response.status}`)
+    }
+
+    return response.json()
+}
