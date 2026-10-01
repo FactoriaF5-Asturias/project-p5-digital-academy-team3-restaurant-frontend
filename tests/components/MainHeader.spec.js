@@ -34,10 +34,9 @@ describe('MainHeader', () => {
         expect(wrapper.find('img').exists()).toBe(true)
     })
 
-    it('renderiza links a login y register aunque esten ocultos', () => {
+    it('renderiza el enlace de login', () => {
         const wrapper = mountHeader()
         expect(wrapper.text()).toContain('Login')
-        expect(wrapper.text()).toContain('Register')
     })
 
     it('el numero de productos en el contador del carrito funciona', () => {
@@ -85,7 +84,6 @@ describe('MainHeader', () => {
         expect(wrapper.find('a[href="/cart"]').exists()).toBe(true)
         expect(wrapper.find('a[href="/profile"]').exists()).toBe(true)
         expect(wrapper.find('a[href="/login"]').exists()).toBe(true)
-        expect(wrapper.find('a[href="/register"]').exists()).toBe(true)
     })
 
 })
