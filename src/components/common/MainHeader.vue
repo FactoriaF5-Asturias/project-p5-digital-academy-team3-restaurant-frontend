@@ -36,11 +36,6 @@
                             Login
                         </RouterLink>
                     </li>
-                    <li class="px-3">
-                        <RouterLink to="/register" class="hover:underline underline-offset-2 active:text-text-brand-darker">
-                            Register
-                        </RouterLink>
-                    </li>
                 </ul>
                 <ul class="flex items-center gap-4 md:gap-6">
                     <li>
@@ -64,8 +59,6 @@
         </header>
         <div v-if="isMenuOpen" class="md:hidden absolute top-full right-0 w-64 bg-bg-brand text-text-on-brand flex flex-col items-end gap-4 px-7 py-5 shadow-md" data-testid="mobile-menu">
             <RouterLink class="w-1/2 text-right active:text-text-brand-darker" to="/login" @click="isMenuOpen = false">Login</RouterLink>
-            <div class="w-full h-px bg-white"></div>
-            <RouterLink class="w-1/2 text-right active:text-text-brand-darker" to="/register" @click="isMenuOpen = false">Register</RouterLink>
         </div>
     </div>
 </template>

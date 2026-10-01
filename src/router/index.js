@@ -34,7 +34,17 @@ const routes = [
                 component: () => import('../views/SalesReportView.vue'),
             }
         ]
-    }
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: () => import('/src/views/LoginView.vue'),
+    },
+    {
+        path: '/order-success/:id',
+        name: 'order-success',
+        component: () => import('/src/views/OrderSuccessView.vue')
+    },
 ]
 
 const router = createRouter({ history: createWebHistory(), routes })
