@@ -111,6 +111,37 @@
         }
     }
 
+    const productToDelete = ref(null)
+    const isDeleting = ref(false)
+
+    function openDeleteConfimation(product) {
+        error.value = ''
+        closeProductForm()
+        productToDelete.value = product
+    }
+
+    function closeDeleteConfirmation() {
+        productToDelete.value = null
+    }
+
+    async function handleDeleteProduct() {
+        if (!productToDelete.value) return
+
+        isDeleting.value = true
+        error.value = ''
+
+        try {
+            await deleteProduct(productToDelete.value.id)
+            products.value = products.value.filter(
+                (product) => product.id !== 
+            )
+        } catch (err) {
+            error.value = err.message || 'No se pudo eliminar el producto'
+        } finally {
+             isDeleting.value = false
+        }
+    }
+
 </script>
 
 <template>
