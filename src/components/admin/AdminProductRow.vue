@@ -1,11 +1,13 @@
 <script setup>
 
-    defineProps({
+    const props = defineProps({
         product: {
             type: Object,
             required: true,
         }
     })
+
+    const emit = defineEmits(['toggle-status'])
 
     const apiUrl = import.meta.env.VITE_API_URL
 
@@ -21,6 +23,13 @@
             style: 'currency',
             currency: 'EUR',
         }).format(value)
+    }
+
+    function toggleStatus() {
+        emit('toggle-status', {
+            ...props.product,
+            status !props.product.status,
+        })
     }
 
 </script>
