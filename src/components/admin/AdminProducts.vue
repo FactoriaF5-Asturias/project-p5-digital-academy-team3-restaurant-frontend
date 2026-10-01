@@ -5,7 +5,7 @@
     import AdminProductRow from './AdminProductRow.vue'
     import AdminProductErrorState from './AdminProductErrorState.vue'
     import AdminProductForm from './AdminProductForm.vue'
-    import { getProducts, getCategories, updateProducts, deleteProducts } from '../../services/ProductService.js'
+    import { getProducts, getCategories, updateProducts, deleteProduct } from '../../services/ProductService.js'
     
     const searchQuery = ref('')
     const products = ref([])
@@ -133,7 +133,7 @@
         try {
             await deleteProduct(productToDelete.value.id)
             products.value = products.value.filter(
-                (product) => product.id !== 
+                (product) => product.id !== productToDelete.value.id
             )
         } catch (err) {
             error.value = err.message || 'No se pudo eliminar el producto'
@@ -166,6 +166,7 @@
                     :product="product"
                     @toggle-status="handleToggleStatus"
                     @edit="openEditForm"
+                    @delete="openDeleteConfirmation"
                 />
 
                 <AdminProductForm
@@ -177,18 +178,25 @@
                     @cancel="closeProductForm"
                 />
 
-                <section class="admin-product-delete">
+                <section
+                    v-if="productToDelete?.id === product.id"
+                    class="admin-product-delete"
+                    aria-label="Confirmar eliminación"
+                >
                     <p>¿Eliminar <strong>{{ product.name }}</strong>? Esta acción no se puede deshacer</p>
-                    <button type="button" @click="closeDeleteConfirmation">
-                        Cancelar
-                    </button>
-                    <button
-                        type="button"
-                        :disabled="isDeleting"
-                        @click="handleDeleteProduct"
-                    >
-                        {{ isDeleting ? 'Eliminando...' : 'Eliminar producto' }}
-                    </button>
+
+                    <div class="admin-product-delete__actions">
+                        <button type="button" @click="closeDeleteConfirmation">
+                            Cancelar
+                        </button>
+                        <button
+                            type="button"
+                            :disabled="isDeleting"
+                            @click="handleDeleteProduct"
+                        >
+                            {{ isDeleting ? 'Eliminando...' : 'Eliminar producto' }}
+                        </button>
+                    </div>
                 </section>
             </div>
         </div>
