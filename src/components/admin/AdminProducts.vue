@@ -158,7 +158,7 @@
 
     function openAddForm() {
         error.value = ''
-        closeDeleteConfimation()
+        closeDeleteConfirmation()
         selectedProduct.value = null
         isProductFormOpen.value = true
     }
@@ -182,6 +182,15 @@
             </button>
         </div>
 
+        <AdminProductForm
+                    v-if="isProductFormOpen && !selectedProduct"
+                    :product="null"
+                    :categories="categories"
+                    :is-saving="isSaving"
+                    @submit="handleSaveProduct"
+                    @cancel="closeProductForm"
+        />
+
         <div class="admin-products__list">
             <div
                 v-for="product in products"
@@ -196,7 +205,7 @@
                 />
 
                 <AdminProductForm
-                    v-if="isProductFormOpen && !selectedPrduct"
+                    v-if="isProductFormOpen && selectedProduct?.id === product.id"
                     :product="selectedProduct"
                     :categories="categories"
                     :is-saving="isSaving"
