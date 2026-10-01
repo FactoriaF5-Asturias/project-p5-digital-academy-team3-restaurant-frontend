@@ -28,7 +28,7 @@
     function toggleStatus() {
         emit('toggle-status', {
             ...props.product,
-            status !props.product.status,
+            status: !props.product.status,
         })
     }
 
