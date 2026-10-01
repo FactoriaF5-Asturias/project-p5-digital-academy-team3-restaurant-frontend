@@ -114,7 +114,7 @@
     const productToDelete = ref(null)
     const isDeleting = ref(false)
 
-    function openDeleteConfimation(product) {
+    function openDeleteConfirmation(product) {
         error.value = ''
         closeProductForm()
         productToDelete.value = product
