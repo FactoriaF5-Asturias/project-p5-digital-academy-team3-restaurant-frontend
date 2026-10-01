@@ -65,3 +65,55 @@
     }
 
 </script>
+
+<template>
+    <section class="admin-product-form">
+        <header class="admin-product-form__header">
+            <h2>{{ product ? 'Editar producto' : 'Añadir producto' }}</h2>
+            <button type="button" aria-label="Cerrar" @click="emit('cancel')">
+                x
+            </button>
+        </header>
+
+        <form action="" class="admin-product-form__fields" @submit.prevent="submitForm">
+            <label>
+                Nombre
+                <input v-model="form.name" required />
+            </label>
+
+            <label>
+                Descripción
+                <textarea v-model="form.description" required rows="3"></textarea>
+            </label>
+
+            <label>
+                Categoría
+                <select v-model="form.categoryId" required>
+                    <option disabled value="">Selecciona una categoría</option>
+                    <option
+                        v-for="category in categories"
+                        :key="category.id"
+                        :value="category.id"
+                    >
+                        {{ category.name }}
+                    </option>
+                </select>
+            </label>
+
+            <label>
+                URL de imagen
+                <input v-model="form.imageUrl" type="text" required>
+            </label>
+
+            <label class="admin-product-form__status">
+                <input v-model="form.status" type="checkbox" />
+                En servicio
+            </label>
+
+            <footer class="admin-product-form__actions">
+                <button type="button" @click="emit('cancel')">Cancelar</button>
+                <button type="submit">Guardar</button>
+            </footer>
+        </form>
+    </section>
+</template>
