@@ -33,3 +33,13 @@ export async function updateProducts(productId, productData) {
 
     return response.status === 204 ? null : response.json()
 }
+
+export async function deleteProduct(productId) {
+    const response = await fetch(`${API_URL}/api/v1/products/${productId}`, {
+        method: 'DELETE',
+    })
+
+    if (!response.ok) {
+        throw new Error(`Error al eleminiar producto: ${response.status}`)
+    }
+}
