@@ -30,7 +30,12 @@ const routes = [
             //     component: () => import('src/components/admin/...')
             // }
         ]
-    }
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: () => import('/src/views/LoginView.vue'),
+    },
 ]
 
 const router = createRouter({ history: createWebHistory(), routes })
