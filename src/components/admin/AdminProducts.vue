@@ -176,6 +176,20 @@
                     @submit="isSaving"
                     @cancel="closeProductForm"
                 />
+
+                <section class="admin-product-delete">
+                    <p>¿Eliminar <strong>{{ product.name }}</strong>? Esta acción no se puede deshacer</p>
+                    <button type="button" @click="closeDeleteConfirmation">
+                        Cancelar
+                    </button>
+                    <button
+                        type="button"
+                        :disabled="isDeleting"
+                        @click="handleDeleteProduct"
+                    >
+                        {{ isDeleting ? 'Eliminando...' : 'Eliminar producto' }}
+                    </button>
+                </section>
             </div>
         </div>
     </section>
