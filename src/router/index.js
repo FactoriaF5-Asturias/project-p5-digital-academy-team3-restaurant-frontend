@@ -28,7 +28,11 @@ const routes = [
             // {
             //     path: 'orders',
             //     component: () => import('src/components/admin/...')
-            // }
+            // },
+            {
+                path: 'reports',
+                component: () => import('../views/SalesReportView.vue'),
+            }
         ]
     }
 ]
