@@ -15,7 +15,7 @@ function togglePassword() { showPassword.value = !showPassword.value }
 <template>
     <MainHeader />
     <main>
-        <div class="grid grid-cols-1 py-16 md:py-0 md:grid-cols-2 md:min-h-screen">
+        <div class="grid grid-cols-1 py-16 md:py-0 md:grid-cols-2 md:min-h-[calc(100vh-88px)]">
             <div class="h-full overflow-hidden">
                 <img :src="loginPhoto" alt="Foto de comida italiana" class="w-full h-full object-cover hidden md:block">
             </div>

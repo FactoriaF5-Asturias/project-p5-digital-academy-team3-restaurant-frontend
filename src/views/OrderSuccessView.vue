@@ -11,7 +11,7 @@
 
 <template>
     <MainHeader />
-    <main class="min-h-screen flex items-center justify-center px-8">
+    <main class="min-h-[calc(100vh-88px)] flex items-center justify-center px-8">
         <section class="flex flex-col items-center text-center max-w-3xl gap-5">
             <img :src="orderCheck" alt="" class="w-20 h-20">
             <h1 class="font-display text-5xl text-text-brand font-bold">
