@@ -20,8 +20,8 @@
             <p class="text-text-muted text-xl max-w-2xl">
                 Gracias, hemos recibido tu pedido y el equipo ya está preparándolo en cocina. Ya puedes realizar el pago en caja.
             </p>
-            <RouterLink to="/" class="bg-bg-brand text-text-on-brand px-14 py-3 rounded-md font-semibold inline-flex items-center transition-colors hover:bg-bg-brand-darker">
-                Seguir comprando →
+            <RouterLink to="/" class="bg-bg-brand text-text-on-brand px-14 py-3 rounded-md font-semibold inline-flex items-center gap-2 transition-colors hover:bg-bg-brand-darker">
+                Seguir comprando <span aria-hidden="true" class="text-2xl">→</span>
             </RouterLink>
         </section>
     </main>
