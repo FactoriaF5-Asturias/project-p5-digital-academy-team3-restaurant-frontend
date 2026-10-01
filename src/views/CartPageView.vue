@@ -10,6 +10,7 @@
     import CartErrorState from '../components/CartErrorState.vue'
     import MainHeader from '../components/common/MainHeader.vue'
     import MainFooter from '../components/common/MainFooter.vue'
+import { useRouter } from 'vue-router'
 
     const props = defineProps({
         shippingCost: {
@@ -43,17 +44,20 @@
         items.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
     )
 
+    const router = useRouter()
+
     async function handleCheckout() {
         isSubmitting.value = true
         submitError.value = null
         try {
-            await createOrder({
+            const order = await createOrder({
                 items: items.value,
                 orderTypeName: 'DINE IN',
                 paymentMethodName: 'CASH',
                 tabletId: 2
             })
             clearCart()
+            router.push(`/order-success/${order.id}`)
         } catch (err) {
             submitError.value = err
         } finally {

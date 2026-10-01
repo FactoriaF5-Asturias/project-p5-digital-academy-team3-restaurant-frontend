@@ -1,5 +1,6 @@
 <script setup>
 import MainHeader from '../components/common/MainHeader.vue';
+import MainFooter from '../components/common/MainFooter.vue';
 import loginPhoto from '../assets/login-photo.jpg';
 import eyeIcon from '../assets/eye.svg'
 import { ref } from 'vue';
@@ -15,8 +16,8 @@ function togglePassword() { showPassword.value = !showPassword.value }
 <template>
     <MainHeader />
     <main>
-        <div class="grid grid-cols-1 py-16 md:py-0 md:grid-cols-2 md:min-h-screen">
-            <div class="h-full overflow-hidden">
+        <div class="grid grid-cols-1 py-16 md:py-0 md:grid-cols-2 md:min-h-full">
+            <div class="overflow-hidden md:min-h-[calc(100vh-88px)]">
                 <img :src="loginPhoto" alt="Foto de comida italiana" class="w-full h-full object-cover hidden md:block">
             </div>
             <div class="flex items-center justify-center px-8 md:px-20">
@@ -47,4 +48,5 @@ function togglePassword() { showPassword.value = !showPassword.value }
             </div>
         </div>
     </main>
+    <MainFooter />
 </template>
