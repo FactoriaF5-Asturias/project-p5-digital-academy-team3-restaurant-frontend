@@ -33,7 +33,7 @@
         () => {
             const product = props.product
             const categoryId = props.categories.find(
-                (category) => category.name === product?.category
+                (category) => category.id === product?.categoryId || category.name === product?.category
             )?.id
 
             Object.assign(
@@ -50,7 +50,7 @@
                 : emptyForm()
             )
         },
-        { inmediate: true }
+        { immediate: true }
     )
 
     function submitForm() {
@@ -112,7 +112,9 @@
 
             <footer class="admin-product-form__actions">
                 <button type="button" @click="emit('cancel')">Cancelar</button>
-                <button type="submit">Guardar</button>
+                <button type="submit" :disabled="isSaving">
+                    {{ isSaving ? 'Guardando...' : 'Guardar' }}
+                </button>
             </footer>
         </form>
     </section>
@@ -124,7 +126,7 @@
 
 .admin-product-form {
     @apply
-    w-full max-w-2xl rounded-xl
+    w-full rounded-xl
     bg-bg-container p-6
     shadow-lg
 }

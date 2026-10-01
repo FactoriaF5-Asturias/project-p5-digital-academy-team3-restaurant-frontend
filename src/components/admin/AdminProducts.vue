@@ -65,19 +65,58 @@
         }
     }
 
-    // const isProductFormOpen = ref(false)
-    // const selectedProduct = ref(null)
+    const isProductFormOpen = ref(false)
+    const selectedProduct = ref(null)
+    const isSaving = ref(false)
 
-    // function openCreateForm() {
-    //     selectedProduct-value = null
-    //     isProductFormOpen.value = true
-    // }
+    function openEditForm(product) {
+        error.value = ''
+        selectedProduct.value = product
+        isProductFormOpen.value = true
+    }
+
+    function closeProductForm() {
+        isProductFormOpen.value = false
+        selectedProduct.value = null
+    }
+
+    async function handleUpdateProduct(formData) {
+        if (!selectedProduct.value) return
+
+        const category = categories.value.find(
+            (item) => item.id === formData.categoryId
+        )
+
+        if (!category) {
+            error.value = 'No se pudo encontrar la categoría seleccionada.'
+            return
+        }
+
+        error.value = ''
+        isSaving.value = true
+
+        try {
+            await updateProducts(selectedProduct.value.id, formData)
+
+            products.value = products.value.map((product) =>
+                product.id === selectedProduct.value.id
+                    ? { ...product, ...formData, category: category.name }
+                    : product
+            )
+            closeProductForm()
+        } catch (err) {
+            error.value = err.message || 'No se pudo actualizar el producto.'
+        } finally {
+            isSaving.value = false
+        }
+    }
 
 </script>
 
 <template>
     <section class="admin-products">
         <h1>Productos</h1>
+        <p v-if="error" class="admin-products__error" role="alert">{{ error }}</p>
         <div class="admin-products__toolbar">
             <MenuSearch
                 v-model="searchQuery"
@@ -85,13 +124,28 @@
                 aria-label="Buscar productos"
             />
         </div>
+
         <div class="admin-products__list">
-            <AdminProductRow
+            <div
                 v-for="product in products"
                 :key="product.id"
-                :product="product"
-                @toggle-status="handleToggleStatus"
-            />
+                class="admin-products__item"
+            >
+                <AdminProductRow
+                    :product="product"
+                    @toggle-status="handleToggleStatus"
+                    @edit="openEditForm"
+                />
+
+                <AdminProductForm
+                    v-if="isProductFormOpen && selectedProduct?.id === product.id"
+                    :product="selectedProduct"
+                    :categories="categories"
+                    :is-saving="isSaving"
+                    @submit="isSaving"
+                    @cancel="closeProductForm"
+                />
+            </div>
         </div>
     </section>
 </template>
@@ -120,5 +174,12 @@
 .admin-products__list {
     @apply
     flex flex-col gap-4;
+}
+
+.admin-products__error {
+    @apply
+    mb-4 rounded-lg
+    bg-bg-container-high p-3
+    text-sm text-text-default;
 }
 </style>
