@@ -124,6 +124,35 @@
     font-display text-lg font-bold text-text-brand;
 }
 
+.admin-product-row__status-control {
+    @apply
+    flex items-center gap-2
+    text-xs font-semibold text-text-muted;
+}
+
+.admin-product-row__switch {
+    @apply
+    relative inline-flex h-6 w-11
+    cursor-pointer items-center rounded-full
+    bg-border-strong p-0.5 transition-colors;
+}
+
+.admin-product-row__switch--active {
+    @apply
+    bg-bg-special;
+}
+
+.admin-product-row__switch-thumb {
+    @apply
+    h-5 w-5 rounded-full
+    bg-white shadow transition-transform;
+}
+
+.admin-product-row__switch--active .admin-product-row__switch-thumb {
+    @apply
+    translate-x-5;
+}
+
 .admin-product-row__status {
     @apply
     rounded-full px-3 py-1 text-xs font-semibold;
