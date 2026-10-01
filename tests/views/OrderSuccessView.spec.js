@@ -26,4 +26,9 @@ describe('OrderSuccessView', () => {
         expect(wrapper.find('img').exists()).toBe(true)
     })
 
+    it('renderiza el texto del boton', () => {
+        const wrapper = mountView()
+        expect(wrapper.text()).toContain('Seguir comprando →')
+    })
+
 })
