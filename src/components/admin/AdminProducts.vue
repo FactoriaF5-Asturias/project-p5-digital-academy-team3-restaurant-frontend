@@ -4,6 +4,7 @@
     import MenuSearch from '../home/MenuSearch.vue'
     import AdminProductRow from './AdminProductRow.vue'
     import AdminProductErrorState from './AdminProductErrorState.vue'
+    import AdminProductForm from './AdminProductForm.vue'
     import { getProducts, getCategories, updateProducts } from '../../services/ProductService.js'
     
     const searchQuery = ref('')
