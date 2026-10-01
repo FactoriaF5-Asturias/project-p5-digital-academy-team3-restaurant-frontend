@@ -65,4 +65,9 @@
     @apply
     mb-8;
 }
+
+.admin-products__list {
+    @apply
+    flex flex-col gap-4;
+}
 </style>
