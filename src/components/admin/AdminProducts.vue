@@ -235,4 +235,41 @@
     bg-bg-container-high p-3
     text-sm text-text-default;
 }
+
+.admin-product-delete {
+    @apply
+    flex flex-col gap-4 rounded-lg
+    border border-red-300 bg-bg-container p-5
+    shadow-sm
+    md:flex-row md:items-center md:justify-between;
+}
+
+.admin-product-delete__message {
+    @apply
+    text-sm text-text-default;
+}
+
+.admin-product-delete__actions {
+    @apply
+    flex justify-end gap-3;
+}
+
+.admin-product-delete__actions button {
+    @apply
+    cursor-pointer rounded-lg px-4 py-2
+    text-sm font-semibold transition-colors
+    disabled:cursor-wait disabled:opacity-60;
+}
+
+.admin-product-delete__actions button:first-child {
+    @apply
+    border border-border-default bg-transparent
+    text-text-default hover:bg-bg-container-high;
+}
+
+.admin-product-delete__actions button:last-child {
+    @apply
+    border-0 bg-red-600
+    text-white hover:bg-red-700;
+}
 </style>
