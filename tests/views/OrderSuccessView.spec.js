@@ -21,4 +21,9 @@ describe('OrderSuccessView', () => {
         expect(wrapper.text()).toContain('¡Pedido #P5-5 realizado con éxito!')
     })
 
+    it('renderiza el icono', () => {
+        const wrapper = mountView()
+        expect(wrapper.find('img').exists()).toBe(true)
+    })
+
 })
