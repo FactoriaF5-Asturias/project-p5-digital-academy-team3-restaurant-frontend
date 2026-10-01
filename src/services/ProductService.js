@@ -43,3 +43,19 @@ export async function deleteProduct(productId) {
         throw new Error(`Error al eleminiar producto: ${response.status}`)
     }
 }
+
+export async function createProduct(productData) {
+    const response = await fetch(`${API_URL}/api/v1/products`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'applications/json',
+        },
+        body: JSON.stringify(productData),
+    })
+
+    if (!response.ok) {
+        throw new Erro(`Error al crear producto: {response.status}`)
+    }
+
+    return response.status === 204 ? null : response.json()
+}
