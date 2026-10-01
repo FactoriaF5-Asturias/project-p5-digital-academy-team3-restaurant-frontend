@@ -53,14 +53,21 @@
             <span class="admin-product-row__price">
                 {{ formatPrice(product.price) }}
             </span>
-            <span
-                class="admin-product-row__status"
-                :class="product.status
-                    ? 'admin-product-row__status--active'
-                    : 'admin-product-row__status--inactive'"
-            >
-                {{ product.status ? 'En servicio' : 'Fuera de servicio' }}
-            </span>
+            <div class="admin-product-row__status-control">
+                <button
+                    type="button"
+                    role="switch"
+                    class="admin-product-row__switch"
+                    :class="{ 'admin-product-row__switch--active' : product.status}"
+                    :aria-checked="product.status"
+                    :aria-label="`${product.status ? 'Desactivar' : 'Activar'} ${product.name}`"
+                    @click="toggleStatus"
+                >
+                    <span class="admin-product-row__switch-thumb"></span>
+                </button>
+
+                <span>{{ product.status ? 'En servicio' : 'Fuera de servicio' }}</span>
+            </div>
         </div>
     </article>
 </template>
