@@ -1,10 +1,10 @@
 <script setup>
-import { ref } from 'vue'
-import MenuSearch from '../components/home/MenuSearch.vue'
+import { onMounted, ref, watch } from 'vue'
+import { fetchSalesSummary, fetchReportDocuments } from '../services/ReportService.js'
 import OrderFilter from '../components/OrderFilter.vue'
 import SalesSummaryCard from '../components/reports/SalesSummaryCard.vue'
+import ReportDocumentsSection from '../components/reports/ReportDocumentsSection.vue'
 
-const searchText = ref('')
 const selectedPeriod = ref('day')
 
 const periodOptions = [
@@ -14,13 +14,32 @@ const periodOptions = [
     { label: 'Trimestre', value: 'quarter' },
 ]
 
-const salesSummary = {
-    date: 'Hoy, 24 Oct 2023',
-    totalOrders: 94,
-    income: 4250,
-    previousIncome: 3780,
-    chart: [35, 55, 42, 70, 95],
+const salesSummary = ref(null)
+const reportDocuments = ref([])
+const isLoading = ref(false)
+const errorMessage = ref('')
+
+async function loadReportsData() {
+    try {
+        isLoading.value = true
+        errorMessage.value = ''
+
+        salesSummary.value = await fetchSalesSummary(selectedPeriod.value)
+        reportDocuments.value = await fetchReportDocuments()
+    } catch {
+        errorMessage.value = 'No se pudieron cargar los informes.'
+    } finally {
+        isLoading.value = false
+    }
 }
+
+onMounted(() => {
+    loadReportsData()
+})
+
+watch(selectedPeriod, () => {
+    loadReportsData()
+})
 </script>
 
 <template>
@@ -43,11 +62,30 @@ const salesSummary = {
                     :options="periodOptions"
                     variant="secondary"
                 />
-
-                <MenuSearch v-model="searchText" />
             </section>
 
-            <SalesSummaryCard :summary="salesSummary" />
+            <p
+                v-if="isLoading"
+                class="sales-report__message"
+            >
+                Cargando informes...
+            </p>
+
+            <p
+                v-else-if="errorMessage"
+                class="sales-report__message"
+            >
+                {{ errorMessage }}
+            </p>
+
+            <template v-else>
+                <SalesSummaryCard
+                    v-if="salesSummary"
+                    :summary="salesSummary"
+                />
+
+                <ReportDocumentsSection :reports="reportDocuments" />
+            </template>
         </section>
     </main>
 </template>
@@ -57,31 +95,28 @@ const salesSummary = {
 
 .sales-report {
     @apply
-        min-h-screen
-        bg-bg-body
-        px-6
-        py-16
-        text-text-default
-        md:px-12
-        lg:px-20;
+        text-text-default;
 }
 
 .sales-report__container {
     @apply
         mx-auto
+        w-full
         max-w-5xl;
 }
 
 .sales-report__header {
     @apply
-        mb-8;
+        mb-5
+        md:mb-8;
 }
 
 .sales-report__title {
     @apply
         font-display
-        text-4xl
-        font-bold;
+        text-3xl
+        font-bold
+        md:text-4xl;
 }
 
 .sales-report__subtitle {
@@ -97,9 +132,16 @@ const salesSummary = {
         mb-6
         flex
         flex-col
-        gap-4
+        gap-3
         md:flex-row
         md:items-center
         md:justify-between;
+}
+
+.sales-report__message {
+    @apply
+        mt-8
+        text-sm
+        text-text-muted;
 }
 </style>
