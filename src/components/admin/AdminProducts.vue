@@ -80,9 +80,7 @@
         selectedProduct.value = null
     }
 
-    async function handleUpdateProduct(formData) {
-        if (!selectedProduct.value) return
-
+    async function handleSaveProduct(formData) {
         const category = categories.value.find(
             (item) => item.id === formData.categoryId
         )
@@ -96,16 +94,32 @@
         isSaving.value = true
 
         try {
-            await updateProducts(selectedProduct.value.id, formData)
+            if (selectedProduct.value) {
+                const productId = selectedProduct.value.id
+                await updateProducts(productId, formData)
 
-            products.value = products.value.map((product) =>
-                product.id === selectedProduct.value.id
-                    ? { ...product, ...formData, category: category.name }
-                    : product
-            )
+                products.value = products.value.map((product) => 
+                    product.id === productId
+                        ? { ...product, ...formData, category: category.name }
+                        : product
+                )
+            } else {
+                const createdProduct = await createProduct(formData)
+
+                if (createdProduct) {
+                    products.valeu.push({
+                        ...formData,
+                        ...createdProduct,
+                        category: category.name,
+                    })
+                } else {
+                    await loadProducts()
+                }
+            }
+
             closeProductForm()
         } catch (err) {
-            error.value = err.message || 'No se pudo actualizar el producto.'
+            error.value = err.message || 'No se pudo guardar el producto.'
         } finally {
             isSaving.value = false
         }
@@ -142,6 +156,13 @@
         }
     }
 
+    function openAddForm() {
+        error.value = ''
+        closeDeleteConfimation()
+        selectedProduct.value = null
+        isProductFormOpen.value = true
+    }
+
 </script>
 
 <template>
@@ -154,6 +175,11 @@
                 placeholder="Buscar producto..."
                 aria-label="Buscar productos"
             />
+
+             <button type="button" @click="openAddForm" class="admin-products__add-button">
+                    Añadir producto
+                    <span aria-hidden="true">+</span>
+            </button>
         </div>
 
         <div class="admin-products__list">
@@ -170,11 +196,11 @@
                 />
 
                 <AdminProductForm
-                    v-if="isProductFormOpen && selectedProduct?.id === product.id"
+                    v-if="isProductFormOpen && !selectedPrduct"
                     :product="selectedProduct"
                     :categories="categories"
                     :is-saving="isSaving"
-                    @submit="isSaving"
+                    @submit="handleSaveProduct"
                     @cancel="closeProductForm"
                 />
 
@@ -221,7 +247,8 @@
 
 .admin-products__toolbar {
     @apply
-    mb-8;
+    mb-8 flex items-center
+    justify-between gap-4;
 }
 
 .admin-products__list {
@@ -271,5 +298,16 @@
     @apply
     border-0 bg-red-600
     text-white hover:bg-red-700;
+}
+
+.admin-products__add-button {
+    @apply
+    inline-flex shrink-0 items-center gap-2 rounded-lg
+    bg-bg-brand px-4 py-3
+    font-body text-sm font-semibold text-text-on-brand
+    transition-colors
+    hover:bg-bg-brand-darker hover:cursor-pointer
+    focus-visible:outline-2 focus-visible:outline-offset-2
+    focus-visible:outline-border-brand;
 }
 </style>
