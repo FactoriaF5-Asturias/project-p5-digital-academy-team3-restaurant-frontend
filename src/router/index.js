@@ -10,6 +10,7 @@ const routes = [
         path: '/kitchen',
         name: 'kitchen',
         component: () => import('/src/views/KitchenDashboardView.vue'),
+        meta: { requiresAuth: true, roles: ['KITCHEN'] }
     },
     {
         path: '/cart',
@@ -29,7 +30,8 @@ const routes = [
             //     path: 'orders',
             //     component: () => import('src/components/admin/...')
             // }
-        ]
+        ],
+        meta: { requiresAuth: true, roles: ['ADMIN'] }
     },
     {
         path: '/login',
