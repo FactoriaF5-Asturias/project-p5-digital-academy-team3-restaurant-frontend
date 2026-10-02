@@ -6,6 +6,8 @@
     import profileIcon from '../../assets/profile.svg'
     import { useCart } from '../../composables/useCart.js'
     import burgerIcon from '../../assets/burgermenu.svg'
+import { useAuth } from '../../composables/useAuth.js';
+import { useRouter } from 'vue-router';
 
     const { items } = useCart()
 
@@ -17,6 +19,20 @@
 
     function toggleMenu() {
         isMenuOpen.value = !isMenuOpen.value;
+    }
+
+    const { user, isAuthenticated, logout } = useAuth()
+    const router = useRouter()
+
+    const profileRoute = computed(() => {
+        if (user.value?.roles?.includes('ADMIN')) return '/admin'
+        if (user.value?.roles?.includes('KITCHEN')) return '/kitchen'
+        return '/'
+    })
+
+    function handleLogout() {
+        logout()
+        router.push('/login')
     }
 </script>
 
