@@ -205,7 +205,7 @@
 
         <div class="admin-products__list">
             <div
-                v-for="product in products"
+                v-for="product in filteredProducts"
                 :key="product.id"
                 class="admin-products__item"
             >
@@ -268,8 +268,9 @@
 
 .admin-products__toolbar {
     @apply
-    mb-8 flex items-center
-    justify-between gap-4;
+    mb-8 flex flex-col items-stretch
+    gap-3 md:flex-row md:items-center
+    md:justify-between;
 }
 
 .admin-products__list {
@@ -323,13 +324,14 @@
 
 .admin-products__add-button {
     @apply
-    inline-flex shrink-0 items-center gap-2 rounded-lg
+    inline-flex shrink-0 self-end items-center gap-2 rounded-lg
     bg-bg-brand px-4 py-3
     font-body text-sm font-semibold text-text-on-brand
     transition-colors
     hover:bg-bg-brand-darker hover:cursor-pointer
     focus-visible:outline-2 focus-visible:outline-offset-2
-    focus-visible:outline-border-brand;
+    focus-visible:outline-border-brand
+    md:self-auto;
 }
 
 .admin-product__add-form {

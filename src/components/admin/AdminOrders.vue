@@ -21,7 +21,7 @@
     const orderStatusOptions = [
         { label: 'Todos', value: 'all' },
         { label: 'Listos', value: 'COMPLETED' },
-        { label: 'Cancelados', value: 'CANCELED' },
+        { label: 'Cancelados', value: 'CANCELLED' },
     ]
 
     async function loadOrders() {

@@ -96,15 +96,28 @@
 
 .admin-product-row {
     @apply
-    grid min-w-[58rem]
-    grid-cols-[3rem_minmax(8rem,1.2fr)_minmax(12rem,2fr)_7rem_5rem_8rem_8rem]
-    items-center gap-3 border-b border-border-default
-    bg-bg-container px-4 py-4;
+    grid w-full grid-cols-[3rem_minmax(0,1fr)_auto]
+    items-center gap-x-3 gap-y-2 rounded-xl
+    border border-border-default bg-bg-container
+    p-3 shadow-sm;
+
+    grid-template-areas:
+        'image name actions'
+        'image description description'
+        'category category price'
+        'status status status';
 }
 
 .admin-product-row__image {
     @apply
     h-10 w-10 rounded object-cover;
+
+    grid-area: image;
+}
+
+.admin-product-row__name {
+    grid-area: name;
+    min-width: 0;
 }
 
 .admin-product-row__name h2 {
@@ -115,6 +128,8 @@
 .admin-product-row__description {
     @apply
     line-clamp-3 text-xs text-text-muted;
+
+    grid-area: description;
 }
 
 .admin-product-row__category {
@@ -122,22 +137,32 @@
     rounded-full bg-bg-container-high
     px-2 py-1
     text-center text-xs text-text-muted;
+
+    grid-area: category;
 }
 
 .admin-product-row__price {
     @apply
     text-sm font-semibold text-text-brand;
+
+    grid-area: price;
+    justify-self: end;
 }
 
 .admin-product-row__status-control {
     @apply
     flex items-center gap-2
     text-xs text-text-muted;
+
+    grid-area: status;
 }
 
 .admin-product-row__actions {
     @apply
     flex items-center gap-2;
+
+    grid-area: actions;
+    justify-self: end;
 }
 
 .admin-product-row__actions button {
@@ -188,5 +213,32 @@
 .admin-product-row__status--inactive {
     @apply
     bg-bg-surface text-text-muted;
+}
+
+@media (min-width: 80rem) {
+    .admin-product-row {
+        @apply
+        min-w-[58rem]
+        grid-cols-[3rem_minmax(8rem,1.2fr)_minmax(12rem,2fr)_7rem_5rem_8rem_8rem]
+        gap-3 rounded-none border-0 border-b border-border-default
+        px-4 py-4 shadow-none;
+
+        grid-template-areas: none;
+    }
+
+    .admin-product-row__image,
+    .admin-product-row__name,
+    .admin-product-row__description,
+    .admin-product-row__category,
+    .admin-product-row__price,
+    .admin-product-row__status-control,
+    .admin-product-row__actions {
+        grid-area: auto;
+    }
+
+    .admin-product-row__price,
+    .admin-product-row__actions {
+        justify-self: auto;
+    }
 }
 </style>
