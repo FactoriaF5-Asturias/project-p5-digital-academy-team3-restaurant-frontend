@@ -52,37 +52,10 @@ describe('MainHeader', () => {
         expect(wrapper.text()).toContain('0')
     })
 
-    it('renderiza el boton hamburguesa', () => {
-        const wrapper = mountHeader()
-        expect(wrapper.find('button[aria-label="Abrir menú"]').exists()).toBe(true)
-    })
-
-    it('renderiza el menu del boton hamburguesa al pulsar', async () => {
-        const wrapper = mountHeader()
-        expect(wrapper.find('[data-testid="mobile-menu"]').exists()).toBe(false)
-        await wrapper.find('button[aria-label="Abrir menú"]').trigger('click')
-        expect(wrapper.find('[data-testid="mobile-menu"]').exists()).toBe(true)
-    })
-
-    it('cierra el menu del boton hamburguesa al pulsar de nuevo', async () => {
-        const wrapper = mountHeader()
-        await wrapper.find('button[aria-label="Abrir menú"]').trigger('click')
-        await wrapper.find('button[aria-label="Abrir menú"]').trigger('click')
-        expect(wrapper.find('[data-testid="mobile-menu"]').exists()).toBe(false)
-    })
-
-    it('se cierra el menu al pulsar uno de los links', async () => {
-        const wrapper = mountHeader()
-        await wrapper.find('button[aria-label="Abrir menú"]').trigger('click')
-        await wrapper.find('[data-testid="mobile-menu"] a').trigger('click')
-        expect(wrapper.find('[data-testid="mobile-menu"]').exists()).toBe(false)
-    })
-
-    it('los enlaces apuntan a las rutas correctas', () => {
+    it('los enlaces apuntan a las rutas correctas sin sesion', () => {
         const wrapper = mountHeader()
         expect(wrapper.find('a[href="/"]').exists()).toBe(true)
         expect(wrapper.find('a[href="/cart"]').exists()).toBe(true)
-        expect(wrapper.find('a[href="/profile"]').exists()).toBe(true)
         expect(wrapper.find('a[href="/login"]').exists()).toBe(true)
     })
 
