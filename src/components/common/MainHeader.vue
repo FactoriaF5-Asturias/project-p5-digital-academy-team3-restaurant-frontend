@@ -40,12 +40,12 @@
             </div>
             <nav class="flex items-center gap-4">
                 <ul class="flex items-center">
-                    <li v-if="isAuthenticated" class="px-3">
+                    <li v-if="isAuthenticated" class="pr-3">
                         <button type="button" class="hover:underline underline-offset-2 active:text-text-brand-darker" @click="handleLogout">
                             Logout
                         </button>
                     </li>
-                    <li v-else class="px-3">
+                    <li v-else class="pl-3">
                         <RouterLink to="/login" class="hover:underline underline-offset-2 active:text-text-brand-darker">
                             Login
                         </RouterLink>
