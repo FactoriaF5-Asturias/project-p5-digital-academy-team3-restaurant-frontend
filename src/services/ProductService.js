@@ -8,6 +8,16 @@ export async function getProducts() {
     return response.json()
 }
 
+export async function getAdminProducts() {
+    const response = await fetch(`${API_URL}/api/v1/admin/products`)
+
+    if (!response.ok) {
+        throw new Error(`Error al cargar productos de administración: ${response.status}`)
+    }
+
+    return response.json()
+}
+
 export async function getCategories() {
     const response = await fetch(`${API_URL}/api/v1/categories`)
 
