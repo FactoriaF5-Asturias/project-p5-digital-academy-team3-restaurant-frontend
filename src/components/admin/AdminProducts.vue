@@ -107,7 +107,7 @@
                 const createdProduct = await createProduct(formData)
 
                 if (createdProduct) {
-                    products.valeu.push({
+                    products.value.push({
                         ...formData,
                         ...createdProduct,
                         category: category.name,
@@ -184,6 +184,7 @@
 
         <AdminProductForm
                     v-if="isProductFormOpen && !selectedProduct"
+                    class="admin-product__add-form"
                     :product="null"
                     :categories="categories"
                     :is-saving="isSaving"
@@ -318,5 +319,10 @@
     hover:bg-bg-brand-darker hover:cursor-pointer
     focus-visible:outline-2 focus-visible:outline-offset-2
     focus-visible:outline-border-brand;
+}
+
+.admin-product__add-form {
+    @apply
+    mb-4;
 }
 </style>

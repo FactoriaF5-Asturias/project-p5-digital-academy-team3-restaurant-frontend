@@ -11,6 +11,10 @@
             type: Array,
             default: () => [],
         },
+        isSaving: {
+            type: Boolean,
+            default: false,
+        }
     })
 
     const emit = defineEmits(['submit', 'cancel'])
@@ -103,6 +107,17 @@
             <label>
                 URL de imagen
                 <input v-model="form.imageUrl" type="text" required>
+            </label>
+
+            <label>
+                Precio (€)
+                <input
+                    v-model="form.price"
+                    type="number"
+                    min="0.01"
+                    step="0.01"
+                    required
+                />
             </label>
 
             <label class="admin-product-form__status">

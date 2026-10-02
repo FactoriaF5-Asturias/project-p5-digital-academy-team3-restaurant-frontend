@@ -48,13 +48,13 @@ export async function createProduct(productData) {
     const response = await fetch(`${API_URL}/api/v1/products`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'applications/json',
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(productData),
     })
 
     if (!response.ok) {
-        throw new Erro(`Error al crear producto: {response.status}`)
+        throw new Error(`Error al crear producto: ${response.status}`)
     }
 
     return response.status === 204 ? null : response.json()
