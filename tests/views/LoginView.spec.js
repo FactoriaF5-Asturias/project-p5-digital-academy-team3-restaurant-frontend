@@ -16,11 +16,11 @@ describe('LoginView', () => {
         expect(wrapper.text()).toContain('Iniciar sesión')
     })
 
-    it('renderiza el input de email', () => {
+    it('renderiza el input de usuario', () => {
         const wrapper = mountLogin()
-        const emailInput = wrapper.find('input[type="email"]')
+        const emailInput = wrapper.find('input[type="text"]')
         expect(emailInput.exists()).toBe(true)
-        expect(emailInput.attributes('placeholder')).toBe('tu@email.com')
+        expect(emailInput.attributes('placeholder')).toBe('Tu usuario')
     })
 
     it('renderiza el input de contraseña con type password', () => {

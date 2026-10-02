@@ -1,11 +1,12 @@
 <script setup>
-    import { computed, ref } from 'vue';
+    import { computed } from 'vue';
 
     import restaurantLogo from '../../assets/bella_vita_logo.png'
     import cartIcon from '../../assets/cart.svg'
     import profileIcon from '../../assets/profile.svg'
     import { useCart } from '../../composables/useCart.js'
-    import burgerIcon from '../../assets/burgermenu.svg'
+    import { useAuth } from '../../composables/useAuth.js';
+    import { useRouter } from 'vue-router';
 
     const { items } = useCart()
 
@@ -13,10 +14,18 @@
         items.value.reduce((total, items) => total + items.quantity, 0)
     )
 
-    const isMenuOpen = ref(false)
+    const { user, isAuthenticated, logout } = useAuth()
+    const router = useRouter()
 
-    function toggleMenu() {
-        isMenuOpen.value = !isMenuOpen.value;
+    const profileRoute = computed(() => {
+        if (user.value?.roles?.includes('ADMIN')) return '/admin'
+        if (user.value?.roles?.includes('KITCHEN')) return '/kitchen'
+        return '/'
+    })
+
+    function handleLogout() {
+        logout()
+        router.push('/')
     }
 </script>
 
@@ -29,9 +38,14 @@
                     <span class="font-['Playfair-Display'] text-xl md:text-3xl font-bold">Giacobello</span>
                 </RouterLink>
             </div>
-            <nav class="flex items-center gap-6">
-                <ul class="hidden md:flex items-center divide-x divide-border-brand">
-                    <li class="px-3">
+            <nav class="flex items-center gap-4">
+                <ul class="flex items-center">
+                    <li v-if="isAuthenticated" class="pr-3">
+                        <button type="button" class="hover:underline underline-offset-2 active:text-text-brand-darker" @click="handleLogout">
+                            Logout
+                        </button>
+                    </li>
+                    <li v-else class="pl-3">
                         <RouterLink to="/login" class="hover:underline underline-offset-2 active:text-text-brand-darker">
                             Login
                         </RouterLink>
@@ -46,19 +60,13 @@
                             </span>
                         </RouterLink>
                     </li>
-                    <li>
-                        <RouterLink class="relative rounded-full h-9 w-9 flex items-center justify-center bg-bg-brand transition-opacity hover:opacity-70" to="/profile" aria-label="Ir al perfil">
+                    <li v-if="isAuthenticated">
+                        <RouterLink class="relative rounded-full h-9 w-9 flex items-center justify-center bg-bg-brand transition-opacity hover:opacity-70" :to="profileRoute" aria-label="Ir al perfil">
                             <img class="h-4" :src="profileIcon" alt="">
                         </RouterLink>
                     </li>
                 </ul>
-                <button type="button" class="md:hidden" aria-label="Abrir menú" @click="toggleMenu">
-                    <img class="h-5" :src="burgerIcon">
-                </button>
             </nav>
         </header>
-        <div v-if="isMenuOpen" class="md:hidden absolute top-full right-0 w-64 bg-bg-brand text-text-on-brand flex flex-col items-end gap-4 px-7 py-5 shadow-md" data-testid="mobile-menu">
-            <RouterLink class="w-1/2 text-right active:text-text-brand-darker" to="/login" @click="isMenuOpen = false">Login</RouterLink>
-        </div>
     </div>
 </template>
