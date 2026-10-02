@@ -32,7 +32,7 @@ import { useRouter } from 'vue-router';
 
     function handleLogout() {
         logout()
-        router.push('/login')
+        router.push('/')
     }
 </script>
 
@@ -47,7 +47,12 @@ import { useRouter } from 'vue-router';
             </div>
             <nav class="flex items-center gap-6">
                 <ul class="hidden md:flex items-center divide-x divide-border-brand">
-                    <li class="px-3">
+                    <li v-if="isAuthenticated" class="px-3">
+                        <button type="button" class="hover:underline underline-offset-2 active:text-text-brand-darker" @click="handleLogout">
+                            Cerrar sesión
+                        </button>
+                    </li>
+                    <li v-else class="px-3">
                         <RouterLink to="/login" class="hover:underline underline-offset-2 active:text-text-brand-darker">
                             Login
                         </RouterLink>
@@ -62,8 +67,8 @@ import { useRouter } from 'vue-router';
                             </span>
                         </RouterLink>
                     </li>
-                    <li>
-                        <RouterLink class="relative rounded-full h-9 w-9 flex items-center justify-center bg-bg-brand transition-opacity hover:opacity-70" to="/profile" aria-label="Ir al perfil">
+                    <li v-if="isAuthenticated">
+                        <RouterLink class="relative rounded-full h-9 w-9 flex items-center justify-center bg-bg-brand transition-opacity hover:opacity-70" :to="profileRoute" aria-label="Ir al perfil">
                             <img class="h-4" :src="profileIcon" alt="">
                         </RouterLink>
                     </li>
