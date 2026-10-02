@@ -24,7 +24,7 @@ async function handleSubmit() {
     try{
         await login(user.value, password.value)
         router.push('/')
-    } catch (err) {
+    } catch {
         submitError.value = 'Credenciales incorrectas'
     } finally {
         isSubmitting.value = false
@@ -40,7 +40,7 @@ async function handleSubmit() {
                 <img :src="loginPhoto" alt="Foto de comida italiana" class="w-full h-full object-cover hidden md:block">
             </div>
             <div class="flex items-center justify-center px-8 md:px-20">
-                <form class="w-full max-w-md space-y-5">
+                <form class="w-full max-w-md space-y-5" @submit.prevent="handleSubmit">
                     <h1 class="font-display text-3xl text-text-brand font-bold">Iniciar sesión</h1>
                     <p class="text-text-muted text-base">Accede a tu cuenta para gestionar tus pedidos y disfrutar de ofertas exclusivas.</p>
                     <div class="flex flex-col gap-2">
@@ -62,7 +62,8 @@ async function handleSubmit() {
                         <input id="remember" v-model="rememberMe" type="checkbox" class="accent-bg-brand w-4 h-4">
                         <label for="remember" class="text-sm font-semibold text-text-default">Recordarme</label>
                     </div>
-                    <button type="submit" class="w-full bg-bg-brand-darker text-text-on-brand py-3 rounded-md font-semibold transition-colors hover:bg-bg-brand">Iniciar sesión</button>
+                    <p v-if="submitError">{{ submitError }}</p>
+                    <button type="submit" class="w-full bg-bg-brand-darker text-text-on-brand py-3 rounded-md font-semibold transition-colors hover:bg-bg-brand" :disabled="isSubmitting">Iniciar sesión</button>
                 </form>
             </div>
         </div>
