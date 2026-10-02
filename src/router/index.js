@@ -25,10 +25,10 @@ const routes = [
                 path: 'products',
                 component: () => import('../components/admin/AdminProducts.vue')
             },
-            // {
-            //     path: 'orders',
-            //     component: () => import('src/components/admin/...')
-            // }
+            {
+                path: 'orders',
+                component: () => import('../components/admin/AdminOrders.vue')
+            }
         ]
     }
 ]
