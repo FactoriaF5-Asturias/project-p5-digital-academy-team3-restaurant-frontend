@@ -60,3 +60,44 @@
     )
 
 </script>
+
+<template>
+    <section class="admin-orders">
+        <h1>Pedidos</h1>
+
+        <div class="admin-orders__filters">
+            <OrderFilter
+                v-model="selectedOrderType"
+                label="Filtrar por tipo:"
+                :options="orderTypeOptions"
+                variant="secondary"
+            />
+
+            <OrderFilter 
+                v-model="selectedOrderStatus"
+                label="Filtrar por estado:"
+                :options="orderStatusOption"
+                variant="secondary"
+            />
+        </div>
+
+        <p v-if="isLoading" class="admin-orders__message">
+            Cargando pedidos...
+        </p>
+        <p v-else-if="errorMessage" class="admin-orders__message">
+            {{ errorMessage }}
+        </p>
+        <p v-else-if="filteredOrders.length === 0" class="admin-orders__message">
+            No hay pedidos.
+        </p>
+
+        <section v-else class="admin-orders__list">
+            <OrderCard
+                v-for="order in filteredOrders"
+                :key="order.id"
+                :order="order"
+                @update-status="handleUpdateStatus"
+            />
+        </section>
+    </section>
+</template>
