@@ -5,7 +5,7 @@
     import AdminProductRow from './AdminProductRow.vue'
     import AdminProductErrorState from './AdminProductErrorState.vue'
     import AdminProductForm from './AdminProductForm.vue'
-    import { getProducts, getCategories, updateProducts, deleteProduct, createProduct } from '../../services/ProductService.js'
+    import { getAdminProducts, getCategories, updateProducts, deleteProduct, createProduct } from '../../services/ProductService.js'
     
     const searchQuery = ref('')
     const products = ref([])
@@ -19,7 +19,7 @@
 
         try {
             const [productList, categoryList] = await Promise.all([
-                getProducts(),
+                getAdminProducts(),
                 getCategories(),
             ])
 
