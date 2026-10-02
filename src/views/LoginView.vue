@@ -4,11 +4,15 @@ import MainFooter from '../components/common/MainFooter.vue';
 import loginPhoto from '../assets/login-photo.jpg';
 import eyeIcon from '../assets/eye.svg'
 import { ref } from 'vue';
+import { useAuth } from '../composables/useAuth.js';
+import { useRouter } from 'vue-router';
 
-const email = ref('')
+const user = ref('')
 const password = ref('')
 const rememberMe = ref(false)
 const showPassword = ref(false)
+const isSubmitting = ref(false)
+const submitError = ref(null)
 
 function togglePassword() { showPassword.value = !showPassword.value }
 </script>
@@ -25,8 +29,8 @@ function togglePassword() { showPassword.value = !showPassword.value }
                     <h1 class="font-display text-3xl text-text-brand font-bold">Iniciar sesión</h1>
                     <p class="text-text-muted text-base">Accede a tu cuenta para gestionar tus pedidos y disfrutar de ofertas exclusivas.</p>
                     <div class="flex flex-col gap-2">
-                        <label for="email" class="text-sm font-semibold text-text-default uppercase tracking-wide">EMAIL</label>
-                        <input id="email" v-model="email" type="email" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand" placeholder="tu@email.com">
+                        <label for="user" class="text-sm font-semibold text-text-default uppercase tracking-wide">USUARIO</label>
+                        <input id="user" v-model="user" type="text" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand" placeholder="Tu usuario">
                     </div>
                     <div class="flex flex-col gap-2">
                         <div>
