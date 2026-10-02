@@ -61,6 +61,9 @@ function formatCurrency(value) {
                     <button
                         type="button"
                         class="report-documents__generate-button"
+                        :href="report.downloadUrl"
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
                         <img
                             class="report-documents__action-icon"
@@ -71,17 +74,17 @@ function formatCurrency(value) {
                         <span>Generar</span>
                     </button>
 
-                    <button
-                        type="button"
+                    <a
                         class="report-documents__download-button"
+                        :href="report.downloadUrl"
                         aria-label="Descargar reporte"
                     >
                         <img
-                            class="report-documents__action-icon" 
+                            class="report-documents__action-icon"
                             :src="downloadReportIcon"
                             alt=""
                         >
-                    </button>
+                    </a>
                 </div>
             </article>
         </div>
