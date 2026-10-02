@@ -128,6 +128,26 @@ describe('OrderCard', () => {
         )
     })
 
+    it('disables status button for completed orders', async () => {
+        const wrapper = mount(OrderCard, {
+            props: {
+                order: {
+                    ...baseOrder,
+                    statusName: 'COMPLETED',
+                },
+            },
+        })
+
+        const statusButton = wrapper.find('.order-card__status-select')
+
+        expect(statusButton.attributes('disabled')).toBeDefined()
+        expect(wrapper.classes()).toContain('order-card--completed')
+
+        await statusButton.trigger('click')
+
+        expect(wrapper.find('.order-card__status-menu').exists()).toBe(false)
+    })
+
     it('shows delayed label for delayed orders', () => {
         const wrapper = mount(OrderCard, {
             props: {

@@ -18,6 +18,14 @@
             >
                 Pedidos
             </RouterLink>
+
+            <RouterLink
+                to="/admin/reports"
+                class="sidebar-admin__link"
+                active-class="sidebar-admin__link--active"
+            >
+                Informes
+            </RouterLink>
         </nav>
     </aside>
 </template>

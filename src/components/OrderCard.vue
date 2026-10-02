@@ -30,6 +30,8 @@ const orderTime = computed(() => {
 const orderStatus = computed(() => props.order.statusName)
 const isNewOrder = computed(() => orderStatus.value === 'PENDING')
 const isCancelledOrder = computed(() => orderStatus.value === 'CANCELLED')
+const isCompletedOrder = computed(() => orderStatus.value === 'COMPLETED')
+const isFinalOrder = computed(() => isCancelledOrder.value || isCompletedOrder.value)
 
 const isStatusMenuOpen = ref(false)
 
@@ -55,7 +57,7 @@ const statusSelectClass = computed(() => ({
   'order-card__status-select--delayed': orderStatus.value === 'DELAYED',
   'order-card__status-select--completed': orderStatus.value === 'COMPLETED',
   'order-card__status-select--cancelled': orderStatus.value === 'CANCELLED',
-  'order-card__status-select--disabled': isCancelledOrder.value,
+  'order-card__status-select--disabled': isFinalOrder.value,
 }))
 
 function updateStatus(status) {
@@ -64,7 +66,7 @@ function updateStatus(status) {
 }
 
 function toggleStatusMenu() {
-  if (isCancelledOrder.value) return
+  if (isFinalOrder.value) return
 
   isStatusMenuOpen.value = !isStatusMenuOpen.value
 }
@@ -73,7 +75,10 @@ function toggleStatusMenu() {
 <template>
   <article
     class="order-card"
-    :class="{ 'order-card--cancelled': isCancelledOrder }"
+    :class="{ 
+      'order-card--cancelled': isCancelledOrder,
+      'order-card--completed': isCompletedOrder
+    }"
   >
     <header class="order-card__header">
         <h2 class="order-card__title">
@@ -130,7 +135,7 @@ function toggleStatusMenu() {
           class="order-card__status-select"
           :class="statusSelectClass"
           type="button"
-          :disabled="isCancelledOrder"
+          :disabled="isFinalOrder"
           @click="toggleStatusMenu"
         >
           <span>{{ currentStatusLabel }}</span>
@@ -142,7 +147,7 @@ function toggleStatusMenu() {
         </button>
 
         <div
-          v-if="isStatusMenuOpen && !isCancelledOrder"
+          v-if="isStatusMenuOpen && !isFinalOrder"
           class="order-card__status-menu"
         >
           <button
@@ -472,6 +477,11 @@ function toggleStatusMenu() {
     border-border-default
     bg-bg-surface
     opacity-80;
+}
+
+.order-card--completed {
+  @apply
+    border-text-special;
 }
 
 .order-card--cancelled .order-card__title,
