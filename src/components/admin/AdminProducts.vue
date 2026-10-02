@@ -1,6 +1,6 @@
 <script setup>
 
-    import { onMounted, ref } from 'vue'
+    import { computed, onMounted, ref } from 'vue'
     import MenuSearch from '../home/MenuSearch.vue'
     import AdminProductRow from './AdminProductRow.vue'
     import AdminProductErrorState from './AdminProductErrorState.vue'
@@ -162,6 +162,17 @@
         selectedProduct.value = null
         isProductFormOpen.value = true
     }
+
+    const filteredProducts = computed(() => {
+        const query = searchQuery.value.trim().toLowerCase()
+
+        if (!query) return products.value
+
+        return products.value.filter((product) => 
+            [product.name, product.description, product.category]
+                .some((field) => field?.toLowerCase().includes(query))
+        )
+    })
 
 </script>
 
