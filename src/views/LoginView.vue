@@ -42,7 +42,7 @@ async function handleSubmit() {
             <div class="flex items-center justify-center px-8 md:px-20">
                 <form class="w-full max-w-md space-y-5" @submit.prevent="handleSubmit">
                     <h1 class="font-display text-3xl text-text-brand font-bold">Iniciar sesión</h1>
-                    <p class="text-text-muted text-base">Accede a tu cuenta para gestionar tus pedidos y disfrutar de ofertas exclusivas.</p>
+                    <p class="text-text-muted text-base">Accede a dashboard de Administración o Cocina.</p>
                     <div class="flex flex-col gap-2">
                         <label for="user" class="text-sm font-semibold text-text-default uppercase tracking-wide">USUARIO</label>
                         <input id="user" v-model="user" type="text" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand" placeholder="Tu usuario">
