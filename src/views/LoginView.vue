@@ -13,8 +13,23 @@ const rememberMe = ref(false)
 const showPassword = ref(false)
 const isSubmitting = ref(false)
 const submitError = ref(null)
+const { login } = useAuth()
+const router = useRouter()
 
 function togglePassword() { showPassword.value = !showPassword.value }
+
+async function handleSubmit() {
+    isSubmitting.value = true
+    submitError.value = null
+    try{
+        await login(user.value, password.value)
+        router.push('/')
+    } catch (err) {
+        submitError.value = 'Credenciales incorrectas'
+    } finally {
+        isSubmitting.value = false
+    }
+}
 </script>
 
 <template>
