@@ -76,7 +76,7 @@
             <OrderFilter 
                 v-model="selectedOrderStatus"
                 label="Filtrar por estado:"
-                :options="orderStatusOption"
+                :options="orderStatusOptions"
                 variant="secondary"
             />
         </div>
@@ -101,3 +101,34 @@
         </section>
     </section>
 </template>
+
+<style scoped>
+@reference '../../main.css';
+
+.admin-orders {
+    @apply
+    mx-auto w-full max-w-6xl;
+}
+
+.admin-orders h1 {
+    @apply
+    mb-6 font-display text-3xl
+    font-bold text-text-default md:text-4xl;
+}
+
+.admin-orders__filters {
+    @apply
+    mb-6 flex flex-col gap-4;
+}
+
+.admin-orders__list {
+    @apply
+    grid grid-cols-1 justify-items-center
+    gap-4 md:grid-cols-2 xl:grid-cols-3
+}
+
+.admin-orders__message {
+    @apply
+    mt-8 text-sm text-text-muted;
+}
+</style>
