@@ -48,6 +48,11 @@ const routes = [
         name: 'order-success',
         component: () => import('/src/views/OrderSuccessView.vue')
     },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'not-found',
+        component: () => import('/src/views/NotFoundView.vue')
+    },
 ]
 
 const router = createRouter({ history: createWebHistory(), routes })
