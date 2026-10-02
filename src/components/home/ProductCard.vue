@@ -32,8 +32,9 @@ const props = defineProps({
     }
 })
 
-function getFullImageUrl(relativePath) {
-  return import.meta.env.VITE_API_URL + relativePath
+function getFullImageUrl(path) {
+  if (/^https?:\/\//i.test(path)) return path
+  return import.meta.env.VITE_API_URL + path
 }
 
 const quantity = ref(1)

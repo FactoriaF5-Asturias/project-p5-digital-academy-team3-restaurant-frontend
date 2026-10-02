@@ -80,6 +80,24 @@ describe('ProductCard', () => {
         expect(items.value[0].price).toBe(12.5)
     })
 
+    it('usa la URL de la imagen tal cual cuando ya es absoluta', async () => {
+        const supabaseUrl = 'https://project.supabase.co/storage/v1/object/public/images/Pizza_Margherita.jpg'
+        const wrapper = mountProductCard({ imageUrl: supabaseUrl })
+
+        expect(wrapper.find('img').attributes('src')).toBe(supabaseUrl)
+
+        await wrapper.find('[data-testid="add-to-cart"]').trigger('click')
+        const { items } = useCart()
+        expect(items.value[0].image).toBe(supabaseUrl)
+    })
+
+    it('antepone la URL del backend cuando la imagen es una ruta relativa', () => {
+        const wrapper = mountProductCard({ imageUrl: '/images/products/Pizza_Margherita.jpg' })
+
+        expect(wrapper.find('img').attributes('src'))
+            .toBe(`${import.meta.env.VITE_API_URL}/images/products/Pizza_Margherita.jpg`)
+    })
+
     it('resetea la cantidad a 1 después de añadir al carrito', async () => {
         const wrapper = mountProductCard()
         await wrapper.find('[data-testid="increase"]').trigger('click')
