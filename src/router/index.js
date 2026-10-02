@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useAuth } from '../composables/useAuth'
 
 const routes = [
     {
@@ -46,5 +47,23 @@ const routes = [
 ]
 
 const router = createRouter({ history: createWebHistory(), routes })
+
+router.beforeEach((to) => {
+    const { isAuthenticated, user } = useAuth()
+
+    if (to.meta.requiresAuth && !isAuthenticated.value) {
+        return { name: 'login' }
+    }
+
+    if (to.meta.roles && to.meta.roles.length > 0) {
+        const userRoles = user.value?.roles ?? []
+        const hasRole = to.meta.roles.some(role => userRoles.includes(role))
+        if (!hasRole) {
+            return { name: 'home' }
+        }
+    }
+
+    return true
+})
 
 export default router
