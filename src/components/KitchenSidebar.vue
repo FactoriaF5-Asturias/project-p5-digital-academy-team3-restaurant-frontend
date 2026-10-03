@@ -2,7 +2,7 @@
   <aside class="kitchen-sidebar">
     <div class="kitchen-sidebar__top">
       <div class="kitchen-sidebar__brand">
-        Bella Vita
+        Giacobello
       </div>
 
       <nav class="kitchen-sidebar__nav" aria-label="Navegación principal">
