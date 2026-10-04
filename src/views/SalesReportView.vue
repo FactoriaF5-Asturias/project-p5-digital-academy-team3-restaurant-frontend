@@ -65,14 +65,14 @@ watch(selectedPeriod, () => {
             </section>
 
             <p
-                v-if="isLoading"
+                v-if="isLoading && !salesSummary"
                 class="sales-report__message"
             >
                 Cargando informes...
             </p>
 
             <p
-                v-else-if="errorMessage"
+                v-else-if="errorMessage && !salesSummary"
                 class="sales-report__message"
             >
                 {{ errorMessage }}
@@ -102,7 +102,9 @@ watch(selectedPeriod, () => {
     @apply
         mx-auto
         w-full
-        max-w-5xl;
+        max-w-5xl
+        px-4
+        md:px-0;
 }
 
 .sales-report__header {
