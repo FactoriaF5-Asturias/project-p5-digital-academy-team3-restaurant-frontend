@@ -3,6 +3,7 @@ import { fetchOrders, updateOrderStatus } from '../../src/services/OrderService'
 
 beforeEach(() => {
     global.fetch = vi.fn()
+    localStorage.clear()
 })
 
 describe('OrderService', () => {
@@ -14,13 +15,21 @@ describe('OrderService', () => {
             json: () => Promise.resolve(orders),
         })
 
+        localStorage.setItem('giacobello-token', 'test-token')
+
         const result = await fetchOrders()
 
         expect(fetch).toHaveBeenCalledWith(
             `${import.meta.env.VITE_API_URL}/api/v1/orders`,
+            {
+                headers: {
+                    Authorization: 'Bearer test-token',
+                },
+            },
         )
+
         expect(result).toEqual(orders)
-    })
+})
 
     it('throws an error when fetching orders fails', async () => {
         fetch.mockResolvedValue({
@@ -42,6 +51,8 @@ describe('OrderService', () => {
             json: () => Promise.resolve(updatedOrder),
         })
 
+        localStorage.setItem('giacobello-token', 'test-token')
+
         const result = await updateOrderStatus(5, 'ACCEPTED')
 
         expect(fetch).toHaveBeenCalledWith(
@@ -50,6 +61,7 @@ describe('OrderService', () => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: 'Bearer test-token',
                 },
                 body: JSON.stringify({ statusName: 'ACCEPTED' }),
             },
