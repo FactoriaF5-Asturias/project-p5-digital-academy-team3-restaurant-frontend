@@ -1,6 +1,8 @@
 import { ref, computed } from 'vue'
 import { login as loginService } from '../services/AuthService.js'
 
+import { changePassword as changePasswordService } from '../services/AuthService.js'
+
 const STORAGE_KEY = 'giacobello-token'
 
 const token = ref(localStorage.getItem(STORAGE_KEY) || null)
@@ -35,6 +37,12 @@ export function useAuth() {
         setToken(response.token)
     }
 
+    async function changePassword(username, currentPassword, newPassword) {
+        const response = await changePasswordService(username, currentPassword, newPassword)
+        setToken(response.token)
+        return response
+    }
+
     function logout() {
         clearAuth()
     }
@@ -43,5 +51,5 @@ export function useAuth() {
         return user.value?.roles?.includes(role) ?? false
     }
 
-    return { token, user, isAuthenticated, login, logout, hasRole }
+    return { token, user, isAuthenticated, login, logout, hasRole, changePassword }
 }
