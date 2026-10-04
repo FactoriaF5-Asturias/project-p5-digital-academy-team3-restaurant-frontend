@@ -34,6 +34,10 @@ const routes = [
             {
                 path: 'orders',
                 component: () => import('../components/admin/AdminOrders.vue')
+            },
+            {
+                path: 'password',
+                component: () => import('../components/admin/AdminPassword.vue')
             }
         ],
         meta: { requiresAuth: true, roles: ['ADMIN'] }
