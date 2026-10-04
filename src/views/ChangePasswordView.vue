@@ -13,11 +13,16 @@ const username = ref('')
 const currentPassword = ref('')
 const newPassword = ref('')
 const confirmPassword = ref('')
-const showPassword = ref(false)
 const isSubmitting = ref(false)
 const submitError = ref(null)
 
-function togglePassword() { showPassword.value = !showPassword.value }
+const showCurrentPassword = ref(false)
+const showNewPassword = ref(false)
+const showConfirmPassword = ref(false)
+
+function toggleCurrentPassword() { showCurrentPassword.value = !showCurrentPassword.value }
+function toggleNewPassword() { showNewPassword.value = !showNewPassword.value }
+function toggleConfirmPassword() { showConfirmPassword.value = !showConfirmPassword.value }
 
 async function handleSubmit() {
     submitError.value = null
@@ -55,7 +60,7 @@ async function handleSubmit() {
 <template>
     <div class="flex flex-col min-h-screen">
         <MainHeader />
-        <main class="flex-1">
+        <main class="flex-1 py-6">
                 <div class="flex items-center justify-center px-8 md:px-20">
                     <form class="w-full max-w-md space-y-5" @submit.prevent="handleSubmit">
                         <h1 class="font-display text-3xl text-text-brand font-bold">Cambio de contraseña</h1>
@@ -69,8 +74,8 @@ async function handleSubmit() {
                                 <label for="currentPassword" class="text-sm font-semibold text-text-default uppercase tracking-wide">CONTRASEÑA ACTUAL</label>
                             </div>
                             <div class="relative">
-                                <input id="currentPassword" v-model="currentPassword" :type="showPassword ? 'text' : 'password'" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand">
-                                <button type="button" :aria-label="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"  @click="togglePassword">
+                                <input id="currentPassword" v-model="currentPassword" :type="showCurrentPassword ? 'text' : 'password'" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand">
+                                <button type="button" :aria-label="showCurrentPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"  @click="toggleCurrentPassword">
                                     <img :src="eyeIcon" alt="">
                                 </button>
                             </div>
@@ -78,8 +83,8 @@ async function handleSubmit() {
                                 <label for="newPassword" class="text-sm font-semibold text-text-default uppercase tracking-wide">NUEVA CONTRASEÑA</label>
                             </div>
                             <div class="relative">
-                                <input id="newPassword" v-model="newPassword" :type="showPassword ? 'text' : 'password'" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand">
-                                <button type="button" :aria-label="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"  @click="togglePassword">
+                                <input id="newPassword" v-model="newPassword" :type="showNewPassword ? 'text' : 'password'" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand">
+                                <button type="button" :aria-label="showNewPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"  @click="toggleNewPassword">
                                     <img :src="eyeIcon" alt="">
                                 </button>
                             </div>
@@ -87,8 +92,8 @@ async function handleSubmit() {
                                 <label for="confirmPassword" class="text-sm font-semibold text-text-default uppercase tracking-wide">REPETIR CONTRASEÑA</label>
                             </div>
                             <div class="relative">
-                                <input id="confirmPassword" v-model="confirmPassword" :type="showPassword ? 'text' : 'password'" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand">
-                                <button type="button" :aria-label="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"  @click="togglePassword">
+                                <input id="confirmPassword" v-model="confirmPassword" :type="showConfirmPassword ? 'text' : 'password'" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand">
+                                <button type="button" :aria-label="showConfirmPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"  @click="toggleConfirmPassword">
                                     <img :src="eyeIcon" alt="">
                                 </button>
                             </div>
