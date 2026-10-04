@@ -62,8 +62,8 @@ async function handleSubmit() {
                         <p class="text-text-muted text-base">Es necesario cambiar tu contraseña la primera vez que inicias sesión como administrador.</p>
                         <div class="flex flex-col gap-2">
                             <div class="flex flex-col gap-2">
-                                <label for="user" class="text-sm font-semibold text-text-default uppercase tracking-wide">USUARIO</label>
-                                <input id="user" v-model="user" type="text" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand" placeholder="Tu usuario">
+                                <label for="username" class="text-sm font-semibold text-text-default uppercase tracking-wide">USUARIO</label>
+                                <input id="username" v-model="username" type="text" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand" placeholder="Tu usuario">
                             </div>
                             <div>
                                 <label for="currentPassword" class="text-sm font-semibold text-text-default uppercase tracking-wide">CONTRASEÑA ACTUAL</label>
