@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import { useAuth } from '../composables/useAuth.js'
 import { useRouter } from 'vue-router'
+import MainHeader from '../components/common/MainHeader.vue'
+import MainFooter from '../components/common/MainFooter.vue'
 
 const { changePassword } = useAuth()
 const router = useRouter()
@@ -48,3 +50,49 @@ async function handleSubmit() {
     }
 }
 </script>
+
+<template>
+    <div class="flex flex-col min-h-screen">
+        <MainHeader />
+        <main class="flex-1">
+                <div class="flex items-center justify-center px-8 md:px-20">
+                    <form class="w-full max-w-md space-y-5" @submit.prevent="handleSubmit">
+                        <h1 class="font-display text-3xl text-text-brand font-bold">Cambio de contraseña</h1>
+                        <p class="text-text-muted text-base">Es necesario cambiar tu contraseña la primera vez que inicias sesión como administrador.</p>
+                        <div class="flex flex-col gap-2">
+                            <div>
+                                <label for="password" class="text-sm font-semibold text-text-default uppercase tracking-wide">CONTRASEÑA ACTUAL</label>
+                            </div>
+                            <div class="relative">
+                                <input id="currentPassword" v-model="currentPassword" :type="showPassword ? 'text' : 'password'" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand">
+                                <button type="button" :aria-label="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"  @click="togglePassword">
+                                    <img :src="eyeIcon" alt="">
+                                </button>
+                            </div>
+                            <div>
+                                <label for="password" class="text-sm font-semibold text-text-default uppercase tracking-wide">NUEVA CONTRASEÑA</label>
+                            </div>
+                            <div class="relative">
+                                <input id="newPassword" v-model="newPassword" :type="showPassword ? 'text' : 'password'" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand">
+                                <button type="button" :aria-label="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"  @click="togglePassword">
+                                    <img :src="eyeIcon" alt="">
+                                </button>
+                            </div>
+                            <div>
+                                <label for="password" class="text-sm font-semibold text-text-default uppercase tracking-wide">REPETIR CONTRASEÑA</label>
+                            </div>
+                            <div class="relative">
+                                <input id="confirmPassword" v-model="confirmPassword" :type="showPassword ? 'text' : 'password'" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand">
+                                <button type="button" :aria-label="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'" class="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"  @click="togglePassword">
+                                    <img :src="eyeIcon" alt="">
+                                </button>
+                            </div>
+                        </div>
+                        <p v-if="submitError">{{ submitError }}</p>
+                        <button type="submit" class="w-full bg-bg-brand-darker text-text-on-brand py-3 rounded-md font-semibold transition-colors hover:bg-bg-brand" :disabled="isSubmitting">Cambiar contraseña</button>
+                    </form>
+                </div>
+        </main>
+        <MainFooter />
+    </div>
+</template>
