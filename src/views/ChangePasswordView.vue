@@ -4,6 +4,7 @@ import { useAuth } from '../composables/useAuth.js'
 import { useRouter } from 'vue-router'
 import MainHeader from '../components/common/MainHeader.vue'
 import MainFooter from '../components/common/MainFooter.vue'
+import eyeIcon from '../assets/eye.svg'
 
 const { changePassword } = useAuth()
 const router = useRouter()
@@ -60,8 +61,12 @@ async function handleSubmit() {
                         <h1 class="font-display text-3xl text-text-brand font-bold">Cambio de contraseña</h1>
                         <p class="text-text-muted text-base">Es necesario cambiar tu contraseña la primera vez que inicias sesión como administrador.</p>
                         <div class="flex flex-col gap-2">
+                            <div class="flex flex-col gap-2">
+                                <label for="user" class="text-sm font-semibold text-text-default uppercase tracking-wide">USUARIO</label>
+                                <input id="user" v-model="user" type="text" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand" placeholder="Tu usuario">
+                            </div>
                             <div>
-                                <label for="password" class="text-sm font-semibold text-text-default uppercase tracking-wide">CONTRASEÑA ACTUAL</label>
+                                <label for="currentPassword" class="text-sm font-semibold text-text-default uppercase tracking-wide">CONTRASEÑA ACTUAL</label>
                             </div>
                             <div class="relative">
                                 <input id="currentPassword" v-model="currentPassword" :type="showPassword ? 'text' : 'password'" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand">
@@ -70,7 +75,7 @@ async function handleSubmit() {
                                 </button>
                             </div>
                             <div>
-                                <label for="password" class="text-sm font-semibold text-text-default uppercase tracking-wide">NUEVA CONTRASEÑA</label>
+                                <label for="newPassword" class="text-sm font-semibold text-text-default uppercase tracking-wide">NUEVA CONTRASEÑA</label>
                             </div>
                             <div class="relative">
                                 <input id="newPassword" v-model="newPassword" :type="showPassword ? 'text' : 'password'" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand">
@@ -79,7 +84,7 @@ async function handleSubmit() {
                                 </button>
                             </div>
                             <div>
-                                <label for="password" class="text-sm font-semibold text-text-default uppercase tracking-wide">REPETIR CONTRASEÑA</label>
+                                <label for="confirmPassword" class="text-sm font-semibold text-text-default uppercase tracking-wide">REPETIR CONTRASEÑA</label>
                             </div>
                             <div class="relative">
                                 <input id="confirmPassword" v-model="confirmPassword" :type="showPassword ? 'text' : 'password'" class="w-full p-3 rounded-md border border-border-default bg-bg-input text-text-default focus:outline-none focus:border-border-brand">
