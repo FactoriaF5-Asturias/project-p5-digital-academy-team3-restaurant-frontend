@@ -35,10 +35,6 @@ const routes = [
                 path: 'orders',
                 component: () => import('../components/admin/AdminOrders.vue')
             },
-            {
-                path: 'password',
-                component: () => import('../components/admin/AdminPassword.vue')
-            }
         ],
         meta: { requiresAuth: true, roles: ['ADMIN'] }
     },
@@ -51,6 +47,11 @@ const routes = [
         path: '/order-success/:id',
         name: 'order-success',
         component: () => import('/src/views/OrderSuccessView.vue')
+    },
+    {
+        path: '/change-password',
+        name: 'change password',
+        component: () => import('/src/views/ChangePasswordView.vue')
     },
     {
         path: '/:pathMatch(.*)*',
