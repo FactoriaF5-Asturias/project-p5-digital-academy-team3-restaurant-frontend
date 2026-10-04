@@ -39,4 +39,28 @@ describe('ChangePasswordView', () => {
         expect(wrapper.find('input#confirmPassword').exists()).toBe(true)
     })
 
+    it('muestra error si las contraseñas no coinciden y no llama al servicio', async () => {
+        const wrapper = mountView()
+        await wrapper.find('input#username').setValue('Admin')
+        await wrapper.find('input#currentPassword').setValue('actual123')
+        await wrapper.find('input#newPassword').setValue('nueva12345')
+        await wrapper.find('input#confirmPassword').setValue('otra12345')
+        await wrapper.find('form').trigger('submit.prevent')
+
+        expect(wrapper.text()).toContain('Las contraseñas no coinciden')
+        expect(changePasswordMock).not.toHaveBeenCalled()
+    })
+
+    it('muestra error si la nueva contraseña es muy corta y no llama al servicio', async () => {
+        const wrapper = mountView()
+        await wrapper.find('input#username').setValue('Admin')
+        await wrapper.find('input#currentPassword').setValue('actual123')
+        await wrapper.find('input#newPassword').setValue('corta')
+        await wrapper.find('input#confirmPassword').setValue('corta')
+        await wrapper.find('form').trigger('submit.prevent')
+
+        expect(wrapper.text()).toContain('al menos 8 caracteres')
+        expect(changePasswordMock).not.toHaveBeenCalled()
+    })
+
 })
