@@ -13,3 +13,17 @@ export async function login(username, password) {
     }
     return response.json()
 }
+
+export async function changePassword(username, currentPassword, newPassword) {
+    const response = await fetch(`${BASE_URL}/api/v1/auth/change-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, currentPassword, newPassword })
+    })
+    if (!response.ok) {
+        const error = new Error('Change password failed')
+        error.status = response.status
+        throw error
+    }
+    return response.json()
+}
