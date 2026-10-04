@@ -1,5 +1,13 @@
 const API_URL = import.meta.env.VITE_API_URL
 
+function getAuthHeaders() {
+    const token = localStorage.getItem('giacobello-token')
+
+    return token
+        ? { Authorization: `Bearer ${token}` }
+        : {}
+}
+
 function buildUrl(path) {
     return `${API_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`
 }
@@ -59,7 +67,9 @@ function getPeriodDateLabel(period) {
 }
 
 async function fetchInvoices() {
-    const response = await fetch(buildUrl('api/v1/invoices'))
+    const response = await fetch(buildUrl('api/v1/invoices'), {
+        headers: getAuthHeaders(),
+    })
 
     if (!response.ok) {
         throw new Error(`Error al cargar facturas: ${response.status}`)
@@ -173,7 +183,9 @@ function buildChartLabels(period) {
 }
 
 export async function fetchSalesSummary(period) {
-    const totalsResponse = await fetch(buildUrl('api/v1/invoices/totals'))
+    const totalsResponse = await fetch(buildUrl('api/v1/invoices/totals'), {
+        headers: getAuthHeaders(),
+    })
 
     if (!totalsResponse.ok) {
         throw new Error(`Error al cargar resumen de ventas: ${totalsResponse.status}`)
@@ -226,7 +238,9 @@ const reportDocumentsMock = [
 ]
 
 export async function fetchReportDocuments() {
-    const response = await fetch(buildUrl('api/v1/invoices/totals'))
+    const response = await fetch(buildUrl('api/v1/invoices/totals'), {
+        headers: getAuthHeaders(),
+    })
 
     if (!response.ok) {
         throw new Error(`Error al cargar documentos de ventas: ${response.status}`)
@@ -248,4 +262,39 @@ export async function fetchReportDocuments() {
             amount: data.yearly,
         },
     ]
+}
+
+export async function downloadReportPdf(downloadUrl, fileName) {
+    const response = await fetch(downloadUrl, {
+        headers: getAuthHeaders(),
+    })
+
+    if (!response.ok) {
+        throw new Error(`Error al descargar reporte: ${response.status}`)
+    }
+
+    const blob = await response.blob()
+    const objectUrl = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+
+    link.href = objectUrl
+    link.download = fileName
+    link.click()
+
+    URL.revokeObjectURL(objectUrl)
+}
+
+export async function openReportPdf(downloadUrl) {
+    const response = await fetch(downloadUrl, {
+        headers: getAuthHeaders(),
+    })
+
+    if (!response.ok) {
+        throw new Error(`Error al abrir reporte: ${response.status}`)
+    }
+
+    const blob = await response.blob()
+    const objectUrl = URL.createObjectURL(blob)
+
+    window.open(objectUrl, '_blank')
 }

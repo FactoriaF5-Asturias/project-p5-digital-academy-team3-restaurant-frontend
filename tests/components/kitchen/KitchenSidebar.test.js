@@ -6,7 +6,7 @@ describe('KitchenSidebar', () => {
     it('renders sidebar content', () => {
         const wrapper = mount(KitchenSidebar)
 
-        expect(wrapper.text()).toContain('Bella Vita')
+        expect(wrapper.text()).toContain('Giacobello')
         expect(wrapper.text()).toContain('Dashboard')
         expect(wrapper.text()).toContain('Executive Chef')
         expect(wrapper.text()).toContain('Staff ID #204')

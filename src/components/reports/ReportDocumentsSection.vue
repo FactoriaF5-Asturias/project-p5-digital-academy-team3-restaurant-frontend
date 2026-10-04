@@ -2,6 +2,7 @@
 import reportDocumentIcon from '../../assets/reports/report-document.svg'
 import generateReportIcon from '../../assets/reports/generate-report.svg'
 import downloadReportIcon from '../../assets/reports/download-report.svg'
+import { downloadReportPdf, openReportPdf } from '../../services/ReportService.js'
 
 defineProps({
     reports: {
@@ -15,6 +16,14 @@ function formatCurrency(value) {
         style: 'currency',
         currency: 'EUR',
     }).format(value)
+}
+
+function handleDownload(report) {
+    downloadReportPdf(report.downloadUrl, `${report.id}-report.pdf`)
+}
+
+function handleOpenReport(report) {
+    openReportPdf(report.downloadUrl)
 }
 </script>
 
@@ -61,9 +70,7 @@ function formatCurrency(value) {
                     <button
                         type="button"
                         class="report-documents__generate-button"
-                        :href="report.downloadUrl"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        @click="handleOpenReport(report)"
                     >
                         <img
                             class="report-documents__action-icon"
@@ -74,17 +81,18 @@ function formatCurrency(value) {
                         <span>Generar</span>
                     </button>
 
-                    <a
+                    <button
+                        type="button"
                         class="report-documents__download-button"
-                        :href="report.downloadUrl"
                         aria-label="Descargar reporte"
+                        @click="handleDownload(report)"
                     >
                         <img
                             class="report-documents__action-icon"
                             :src="downloadReportIcon"
                             alt=""
                         >
-                    </a>
+                    </button>
                 </div>
             </article>
         </div>
@@ -217,6 +225,7 @@ function formatCurrency(value) {
 .report-documents__generate-button {
     @apply
         flex
+        cursor-pointer
         items-center
         gap-2
         text-sm
