@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import { describe, vi, beforeEach } from 'vitest'
+import { describe, vi, beforeEach, it, expect } from 'vitest'
 import ChangePasswordView from '../../src/views/ChangePasswordView.vue'
 
 const { changePasswordMock, pushMock } = vi.hoisted(() => ({
@@ -24,6 +24,19 @@ describe('ChangePasswordView', () => {
     beforeEach(() => {
         changePasswordMock.mockReset()
         pushMock.mockReset()
+    })
+
+    it('renderiza el titulo', () => {
+        const wrapper = mountView()
+        expect(wrapper.text()).toContain('Cambio de contraseña')
+    })
+
+    it('renderiza los inputs', () => {
+        const wrapper = mountView()
+        expect(wrapper.find('input#username').exists()).toBe(true)
+        expect(wrapper.find('input#currentPassword').exists()).toBe(true)
+        expect(wrapper.find('input#newPassword').exists()).toBe(true)
+        expect(wrapper.find('input#confirmPassword').exists()).toBe(true)
     })
 
 })
