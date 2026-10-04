@@ -58,4 +58,30 @@ describe('SalesReportView', () => {
 
         expect(wrapper.text()).toContain('No se pudieron cargar los informes.')
     })
+
+    it('loads data again when selected period changes', async () => {
+        fetchSalesSummary.mockResolvedValue({
+            date: '04 oct 2026',
+            totalOrders: 12,
+            income: 4250,
+            previousIncome: 3780,
+            showComparison: true,
+            chart: [20, 60, 100],
+            chartLabels: [],
+            chartPeriod: 'day',
+        })
+
+        fetchReportDocuments.mockResolvedValue([])
+
+        const wrapper = mount(SalesReportView)
+
+        await flushPromises()
+
+        const periodFilter = wrapper.findComponent({ name: 'OrderFilter' })
+        await periodFilter.vm.$emit('update:modelValue', 'month')
+
+        await flushPromises()
+
+        expect(fetchSalesSummary).toHaveBeenCalledWith('month')
+    })
 })
