@@ -5,10 +5,6 @@
             type: Number,
             required: true
         },
-        shipping: {
-            type: Number,
-            required: true
-        },
         total: {
             type: Number,
             required: true
@@ -27,8 +23,7 @@
 
     const deliveryOptions = [
         { value: 'dine-in', label: 'Comer en el restaurante' },
-        { value: 'takeaway', label: 'Para llevar' },
-        { value: 'delivery', label: 'Envío a domicilio' }
+        { value: 'takeaway', label: 'Para llevar' }
     ]
 
     function formatPrice(value) {
@@ -48,13 +43,6 @@
                 <div class="cart-summary_line">
                     <dt>Subtotal</dt>
                     <dd>{{ formatPrice(subtotal) }}</dd>
-                </div>
-                <div class="cart-summary_line">
-                    <dt>
-                        Envío
-                        <span class="cart-summary_info" title="Coste calculado según el método de entrega">ⓘ</span>
-                    </dt>
-                    <dd>{{ formatPrice(shipping) }}</dd>
                 </div>
             </dl>
 

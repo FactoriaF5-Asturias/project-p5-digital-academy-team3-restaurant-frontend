@@ -57,7 +57,7 @@
 
 
         try {
-            await updateProducts(updateProduct.id, payload)
+            await updateProducts(updateProduct.id, payload, token.value)
 
             products.value = products.value.map((product) => 
                 product.id === updateProduct.id ? updateProduct : product
@@ -98,7 +98,7 @@
         try {
             if (selectedProduct.value) {
                 const productId = selectedProduct.value.id
-                await updateProducts(productId, formData)
+                await updateProducts(productId, formData, token.value)
 
                 products.value = products.value.map((product) => 
                     product.id === productId
@@ -106,7 +106,7 @@
                         : product
                 )
             } else {
-                const createdProduct = await createProduct(formData)
+                const createdProduct = await createProduct(formData, token.value)
 
                 if (createdProduct) {
                     products.value.push({
@@ -147,7 +147,7 @@
         error.value = ''
 
         try {
-            await deleteProduct(productToDelete.value.id)
+            await deleteProduct(productToDelete.value.id, token.value)
             products.value = products.value.filter(
                 (product) => product.id !== productToDelete.value.id
             )

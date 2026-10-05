@@ -34,10 +34,10 @@ describe('ProductService', () => {
 
     it('updates a product with JSON and supports an empty 204 response', async () => {
         fetch.mockResolvedValue({ ok: true, status: 204 })
-        await expect(updateProducts(4, { name: 'New' })).resolves.toBeNull()
+        await expect(updateProducts(4, { name: 'New' }, 'token-123')).resolves.toBeNull()
         expect(fetch).toHaveBeenCalledWith(`${import.meta.env.VITE_API_URL}/api/v1/products/4`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', Authorization: 'Bearer token-123' },
             body: JSON.stringify({ name: 'New' }),
         })
     })
@@ -45,23 +45,30 @@ describe('ProductService', () => {
     it('creates a product and parses the response', async () => {
         const product = { id: 3, name: 'Pizza' }
         fetch.mockResolvedValue({ ok: true, status: 201, json: () => Promise.resolve(product) })
-        await expect(createProduct(product)).resolves.toEqual(product)
-        expect(fetch).toHaveBeenCalledWith(`${import.meta.env.VITE_API_URL}/api/v1/products`, expect.objectContaining({ method: 'POST' }))
+        await expect(createProduct(product, 'token-123')).resolves.toEqual(product)
+        expect(fetch).toHaveBeenCalledWith(`${import.meta.env.VITE_API_URL}/api/v1/products`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: 'Bearer token-123' },
+            body: JSON.stringify(product),
+        })
     })
 
     it('deletes a product', async () => {
         fetch.mockResolvedValue({ ok: true })
-        await expect(deleteProduct(8)).resolves.toBeUndefined()
-        expect(fetch).toHaveBeenCalledWith(`${import.meta.env.VITE_API_URL}/api/v1/products/8`, { method: 'DELETE' })
+        await expect(deleteProduct(8, 'token-123')).resolves.toBeUndefined()
+        expect(fetch).toHaveBeenCalledWith(`${import.meta.env.VITE_API_URL}/api/v1/products/8`, {
+            method: 'DELETE',
+            headers: { Authorization: 'Bearer token-123' },
+        })
     })
 
     it.each([
         ['getProducts', () => getProducts(), 'Error al cargar productos: 500'],
         ['getAdminProducts', () => getAdminProducts('t'), /500/],
         ['getCategories', () => getCategories(), /500/],
-        ['updateProducts', () => updateProducts(1, {}), 'Error al actualizar producto: 500'],
-        ['deleteProduct', () => deleteProduct(1), /500/],
-        ['createProduct', () => createProduct({}), 'Error al crear producto: 500'],
+        ['updateProducts', () => updateProducts(1, {}, 't'), 'Error al actualizar producto: 500'],
+        ['deleteProduct', () => deleteProduct(1, 't'), /500/],
+        ['createProduct', () => createProduct({}, 't'), 'Error al crear producto: 500'],
     ])('%s rejects on an unsuccessful response', async (_name, call, error) => {
         fetch.mockResolvedValue({ ok: false, status: 500 })
         await expect(call()).rejects.toThrow(error)
