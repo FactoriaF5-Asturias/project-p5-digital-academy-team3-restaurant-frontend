@@ -4,6 +4,7 @@
     import OrderFilter from '../OrderFilter.vue'
     import OrderCard from '../OrderCard.vue'
     import { fetchOrders, updateOrderStatus } from '../../services/OrderService.js'
+    import { useAuth } from '../../composables/useAuth.js'
 
     const orders = ref([])
     const isLoading = ref(true)
@@ -24,12 +25,14 @@
         { label: 'Cancelados', value: 'CANCELLED' },
     ]
 
+    const { token } = useAuth()
+
     async function loadOrders() {
         isLoading.value = true
         errorMessage.value = ''
 
         try {
-            orders.value = await fetchOrders()
+            orders.value = await fetchOrders(token.value)
         } catch (err) {
             errorMessage.value = err.message || `No se pudieron cargar los pedidos.`
         } finally {

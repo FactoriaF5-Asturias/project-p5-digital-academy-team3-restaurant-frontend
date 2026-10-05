@@ -1,10 +1,13 @@
 <script setup>
 
     import AdminSidebar from '../components/admin/AdminSidebar.vue'
+    import MainFooter from '../components/common/MainFooter.vue'
+    import MainHeader from '../components/common/MainHeader.vue'
 
 </script>
 
 <template>
+    <MainHeader />
     <div class="admin-page">
         <div class="admin-page__layout">
             <AdminSidebar />
@@ -13,6 +16,7 @@
             </main>
         </div>
     </div>
+    <MainFooter />
 </template>
 
 <style scoped>

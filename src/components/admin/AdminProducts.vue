@@ -6,12 +6,14 @@
     import AdminProductErrorState from './AdminProductErrorState.vue'
     import AdminProductForm from './AdminProductForm.vue'
     import { getAdminProducts, getCategories, updateProducts, deleteProduct, createProduct } from '../../services/ProductService.js'
+    import { useAuth } from '../../composables/useAuth.js'
     
     const searchQuery = ref('')
     const products = ref([])
     const isLoading = ref(true)
     const error = ref('')
     const categories = ref([])
+    const { token } = useAuth()
 
     async function loadProducts() {
         isLoading.value = true
@@ -19,7 +21,7 @@
 
         try {
             const [productList, categoryList] = await Promise.all([
-                getAdminProducts(),
+                getAdminProducts(token.value),
                 getCategories(),
             ])
 
