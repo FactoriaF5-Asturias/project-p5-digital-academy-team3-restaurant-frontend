@@ -1,6 +1,6 @@
 <script setup>
 
-    import { ref, computed, onMounted } from 'vue'
+    import { ref, computed } from 'vue'
     import { useCart } from '../composables/useCart.js'
     import { createOrder } from '../services/CartService.js'
     import CartItemsSection from '../components/CartItemsSection.vue'
@@ -10,20 +10,13 @@
     import CartErrorState from '../components/CartErrorState.vue'
     import MainHeader from '../components/common/MainHeader.vue'
     import MainFooter from '../components/common/MainFooter.vue'
-import { useRouter } from 'vue-router'
-
-    const props = defineProps({
-        shippingCost: {
-            type: Number,
-            default: 3.5
-        }
-    })
+    import { useRouter } from 'vue-router'
 
     defineEmits(['checkout'])
 
     const { items, incrementQty, decrementQty, removeItem, clearCart } = useCart()
 
-    const deliveryMethod = ref('delivery')
+    const deliveryMethod = ref('dine-in')
     const isSubmitting = ref(false)
     const submitError = ref(null)
     
@@ -34,11 +27,7 @@ import { useRouter } from 'vue-router'
         loadError.value = null
     }
 
-    const total = computed(() => subtotal.value + shipping.value)
-
-    const shipping = computed(() =>
-        deliveryMethod.value === 'delivery' ? props.shippingCost : 0
-    )
+    const total = computed(() => subtotal.value)
 
     const subtotal = computed(() =>
         items.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
@@ -52,7 +41,7 @@ import { useRouter } from 'vue-router'
         try {
             const order = await createOrder({
                 items: items.value,
-                orderTypeName: 'DINE IN',
+                orderTypeName: deliveryMethod.value === 'takeaway' ? 'TAKEAWAY' : 'DINE IN',
                 paymentMethodName: 'CASH',
                 tabletId: 2
             })
@@ -99,7 +88,6 @@ import { useRouter } from 'vue-router'
             <CartSummary
                 v-if="!isLoading && !loadError && items.length > 0"
                 :subtotal="subtotal"
-                :shipping="shipping"
                 :total="total"
                 :delivery-method="deliveryMethod"
                 :disabled="items.length === 0 || isSubmitting"
