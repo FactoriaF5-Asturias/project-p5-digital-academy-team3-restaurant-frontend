@@ -55,7 +55,7 @@
                     <li>
                         <RouterLink class="relative rounded-full h-9 w-9 flex items-center justify-center bg-bg-container-high transition-opacity hover:opacity-70" to="/cart" aria-label="Ir al carrito">
                             <img class="h-5" :src="cartIcon" alt="">
-                            <span class="absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs font-semibold bg-bg-brand text-text-on-brand flex items-center justify-center">
+                            <span data-testid="cart-counter" class="absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs font-semibold bg-bg-brand text-text-on-brand flex items-center justify-center">
                                 {{ counter }}
                             </span>
                         </RouterLink>
