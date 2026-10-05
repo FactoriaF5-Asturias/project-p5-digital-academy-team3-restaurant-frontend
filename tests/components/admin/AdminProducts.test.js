@@ -37,7 +37,7 @@ describe('AdminProducts', () => {
         await wrapper.get('.admin-products__add-button').trigger('click')
         await wrapper.findComponent({ name: 'AdminProductForm' }).vm.$emit('submit', { name: 'Soup', description: 'Hot', categoryId: 1, price: 5, imageUrl: '', status: true })
         await flushPromises()
-        expect(createProduct).toHaveBeenCalledWith(expect.objectContaining({ name: 'Soup' }))
+        expect(createProduct).toHaveBeenCalledWith(expect.objectContaining({ name: 'Soup' }), 'admin-token')
         expect(wrapper.text()).toContain('Soup')
     })
 
@@ -47,7 +47,7 @@ describe('AdminProducts', () => {
         await wrapper.get('[aria-label="Eliminar Pizza"]').trigger('click')
         await wrapper.get('.admin-product-delete__actions button:last-child').trigger('click')
         await flushPromises()
-        expect(deleteProduct).toHaveBeenCalledWith(1)
+        expect(deleteProduct).toHaveBeenCalledWith(1, 'admin-token')
         expect(wrapper.text()).not.toContain('Cheese pizza')
     })
 
