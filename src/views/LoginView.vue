@@ -24,8 +24,12 @@ async function handleSubmit() {
     try{
         await login(user.value, password.value)
         router.push('/')
-    } catch {
-        submitError.value = 'Credenciales incorrectas'
+    } catch (err) {
+        if (err.status === 409) {
+            router.push('/change-password')
+        } else {
+            submitError.value = 'Credenciales incorrectas'
+        }
     } finally {
         isSubmitting.value = false
     }

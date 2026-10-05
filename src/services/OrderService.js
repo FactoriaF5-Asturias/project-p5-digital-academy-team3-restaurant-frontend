@@ -1,10 +1,16 @@
 const API_URL = import.meta.env.VITE_API_URL
 
-export async function fetchOrders(token) {
+function getAuthHeaders() {
+    const token = localStorage.getItem('giacobello-token')
+
+    return token
+        ? { Authorization: `Bearer ${token}` }
+        : {}
+}
+
+export async function fetchOrders() {
     const response = await fetch(API_URL + '/api/v1/orders', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
+        headers: getAuthHeaders(),
     })
 
     if (!response.ok) {
@@ -19,6 +25,7 @@ export async function updateOrderStatus(orderId, statusName) {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
+      ...getAuthHeaders(),
     },
     body: JSON.stringify({ statusName }),
   })

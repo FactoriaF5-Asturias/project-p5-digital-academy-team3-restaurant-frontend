@@ -52,18 +52,35 @@ function formatCurrency(value) {
                 {{ formatCurrency(summary.income) }}
             </strong>
 
-            <span class="sales-summary-card__income-compare">
+            <span
+                v-if="summary.showComparison"
+                class="sales-summary-card__income-compare"
+            >
                 vs {{ formatCurrency(summary.previousIncome) }} ayer
             </span>
         </div>
 
-        <div class="sales-summary-card__chart">
+        <div
+            class="sales-summary-card__chart"
+            :class="`sales-summary-card__chart--${summary.chartPeriod}`"
+        >
             <div
                 v-for="(value, index) in summary.chart"
                 :key="index"
-                class="sales-summary-card__chart-bar"
-                :style="{ height: `${value}%` }"
-            ></div>
+                class="sales-summary-card__chart-item"
+            >
+                <div
+                    class="sales-summary-card__chart-bar"
+                    :style="{ height: `${value}%` }"
+                ></div>
+
+                <span
+                    v-if="summary.chartLabels[index]"
+                    class="sales-summary-card__chart-label"
+                >
+                    {{ summary.chartLabels[index] }}
+                </span>
+            </div>
         </div>
     </section>
 </template>
@@ -73,13 +90,13 @@ function formatCurrency(value) {
 
 .sales-summary-card {
     @apply
-        mb-10
+        mb-8
         flex
-        min-h-[320px]
+        min-h-[360px]
         flex-col
         rounded-3xl
         bg-bg-container
-        p-5
+        p-4
         shadow-xl
         md:min-h-[420px]
         md:p-8;
@@ -90,8 +107,7 @@ function formatCurrency(value) {
         flex
         items-start
         justify-between
-        gap-3
-        md:gap-6;
+        gap-3;
 }
 
 .sales-summary-card__title {
@@ -172,21 +188,90 @@ function formatCurrency(value) {
     @apply
         mt-auto
         flex
-        h-28
+        h-32
         w-full
         items-end
-        justify-center
-        gap-3
+        justify-start
+        gap-2
+        overflow-x-auto
+        md:overflow-x-visible
+        pb-3
         md:h-44
-        md:justify-end
-        md:gap-4;
+        md:justify-center;
+}
+
+.sales-summary-card__chart--day,
+.sales-summary-card__chart--quarter {
+    @apply
+        justify-between
+        overflow-x-hidden;
+}
+
+.sales-summary-card__chart::-webkit-scrollbar {
+    height: 6px;
+}
+
+.sales-summary-card__chart::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sales-summary-card__chart::-webkit-scrollbar-thumb {
+    @apply
+        rounded-full
+        bg-border-default;
+}
+
+.sales-summary-card__chart::-webkit-scrollbar-thumb:hover {
+    @apply
+        bg-border-brand;
+}
+
+@media (min-width: 768px) {
+    .sales-summary-card__chart {
+        scrollbar-width: none;
+    }
+
+    .sales-summary-card__chart::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.sales-summary-card__chart-item {
+    @apply
+        flex
+        h-full
+        flex-col
+        items-center
+        justify-end
+        gap-2;
+}
+
+.sales-summary-card__chart-label {
+    @apply
+        text-[9px]
+        text-text-muted;
 }
 
 .sales-summary-card__chart-bar {
     @apply
+        w-3
+        shrink-0
+        rounded-t-md
+        bg-bg-brand
+        md:w-5;
+}
+
+.sales-summary-card__chart--quarter .sales-summary-card__chart-bar {
+    @apply
+        w-12
+        rounded-t-xl
+        md:w-24;
+}
+
+.sales-summary-card__chart--year .sales-summary-card__chart-bar {
+    @apply
         w-7
         rounded-t-xl
-        bg-bg-brand
         md:w-14;
 }
 </style>
