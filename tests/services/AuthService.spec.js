@@ -1,5 +1,5 @@
 import { describe, vi, afterEach, it, expect } from 'vitest';
-import { changePassword, login } from '../src/services/AuthService';
+import { changePassword, login } from '../../src/services/AuthService';
 
 describe('AuthService', () => {
 

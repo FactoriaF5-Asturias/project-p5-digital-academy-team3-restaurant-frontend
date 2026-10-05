@@ -18,6 +18,7 @@ describe('OrderService', () => {
 
         expect(fetch).toHaveBeenCalledWith(
             `${import.meta.env.VITE_API_URL}/api/v1/orders`,
+            { headers: expect.any(Object) }
         )
         expect(result).toEqual(orders)
     })
