@@ -1,9 +1,12 @@
 <template>
   <aside class="kitchen-sidebar">
     <div class="kitchen-sidebar__top">
-      <div class="kitchen-sidebar__brand">
+      <RouterLink
+        to="/"
+        class="kitchen-sidebar__brand"
+      >
         Giacobello
-      </div>
+      </RouterLink>
 
       <nav class="kitchen-sidebar__nav" aria-label="Navegación principal">
         <div class="kitchen-sidebar__link">
@@ -31,7 +34,7 @@
 }
 
 .kitchen-sidebar__brand {
-  @apply text-lg font-bold text-text-brand;
+  @apply text-lg font-bold text-text-brand transition-colors hover:text-text-brand-darker;
 }
 
 .kitchen-sidebar__nav {

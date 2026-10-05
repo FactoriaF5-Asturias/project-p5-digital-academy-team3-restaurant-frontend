@@ -1,5 +1,7 @@
 <script setup>
 import userIcon from '../assets/user.svg'
+import { useRouter } from 'vue-router'
+import { useAuth } from '../composables/useAuth'
 
 defineProps({
   summary: {
@@ -7,6 +9,14 @@ defineProps({
     required: true,
   },
 })
+
+const router = useRouter()
+const { logout } = useAuth()
+
+function handleLogout() {
+  logout()
+  router.push({ name: 'login' })
+}
 </script>
 
 <template>
@@ -41,18 +51,27 @@ defineProps({
           <p class="kitchen-header__status-value">OPERATIONAL</p>
         </div>
       </div>
+      <div class="kitchen-header__actions">
+        <button
+          class="kitchen-header__logout-button"
+          type="button"
+          @click="handleLogout"
+        >
+          Logout
+        </button>
 
-      <button
-        class="kitchen-header__profile-button"
-        type="button"
-        aria-label="Perfil de usuario"
-      >
-        <img
-          :src="userIcon"
-          alt=""
-          class="kitchen-header__profile-icon"
-        />
-      </button>
+        <button
+          class="kitchen-header__profile-button"
+          type="button"
+          aria-label="Perfil de usuario"
+        >
+          <img
+            :src="userIcon"
+            alt=""
+            class="kitchen-header__profile-icon"
+          />
+        </button>
+      </div>
     </div>
   </header>
 </template>
@@ -114,5 +133,13 @@ defineProps({
 
 .kitchen-header__profile-icon {
   @apply h-4 w-4;
+}
+
+.kitchen-header__actions {
+  @apply flex items-center gap-3;
+}
+
+.kitchen-header__logout-button {
+  @apply cursor-pointer rounded-md px-3 py-2 text-sm font-semibold text-text-brand underline-offset-2 hover:underline active:text-text-brand-darker;
 }
 </style>
