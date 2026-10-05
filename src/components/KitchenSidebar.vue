@@ -34,7 +34,7 @@
 }
 
 .kitchen-sidebar__brand {
-  @apply text-lg font-bold text-text-brand transition-colors hover:text-text-brand-darker;
+  @apply text-lg font-bold text-text-brand transition-colors hover:underline;
 }
 
 .kitchen-sidebar__nav {
