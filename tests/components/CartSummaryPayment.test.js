@@ -36,4 +36,24 @@ describe('CartSummary payment method selector', () => {
     it('renders the payment-details slot', () => {
         expect(mountSummary().find('.slot-content').exists()).toBe(true)
     })
+
+    it('links the disabled card option to its explanation', () => {
+        const wrapper = mountSummary({ cardAvailable: false })
+        const describedBy = wrapper.findAll('input[name="payment"]')[1].attributes('aria-describedby')
+        expect(wrapper.get(`#${describedBy}`).text()).toContain('no está disponible')
+    })
+
+    it('disables every radio while controlsDisabled is set', () => {
+        const wrapper = mountSummary({ controlsDisabled: true })
+        const radios = wrapper.findAll('input[type="radio"]')
+        expect(radios).toHaveLength(4)
+        radios.forEach((radio) => expect(radio.attributes('disabled')).toBeDefined())
+    })
+
+    it('locks the payment method to card when lockPaymentMethod is set', () => {
+        const wrapper = mountSummary({ lockPaymentMethod: true, paymentMethod: 'card' })
+        const radios = wrapper.findAll('input[name="payment"]')
+        expect(radios[0].attributes('disabled')).toBeDefined()
+        expect(radios[1].attributes('disabled')).toBeUndefined()
+    })
 })

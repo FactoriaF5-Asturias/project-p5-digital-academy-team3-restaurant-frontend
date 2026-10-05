@@ -24,6 +24,14 @@
         disabled: {
             type: Boolean,
             default: false
+        },
+        controlsDisabled: {
+            type: Boolean,
+            default: false
+        },
+        lockPaymentMethod: {
+            type: Boolean,
+            default: false
         }
     })
 
@@ -40,7 +48,13 @@
     ]
 
     function isPaymentOptionDisabled(option) {
+        if (props.controlsDisabled) return true
+        if (props.lockPaymentMethod) return option.value !== 'card'
         return option.value === 'card' && !props.cardAvailable
+    }
+
+    function describedBy(option) {
+        return option.value === 'card' && !props.cardAvailable ? 'card-unavailable-note' : undefined
     }
 
     function formatPrice(value) {
@@ -85,6 +99,7 @@
                         name="delivery"
                         :value="option.value"
                         :checked="deliveryMethod === option.value"
+                        :disabled="controlsDisabled"
                         @change="$emit('update:deliveryMethod', option.value)"
                     >
                     <span>{{ option.label }}</span>
@@ -109,12 +124,13 @@
                         :value="option.value"
                         :checked="paymentMethod === option.value"
                         :disabled="isPaymentOptionDisabled(option)"
+                        :aria-describedby="describedBy(option)"
                         @change="$emit('update:paymentMethod', option.value)"
                     >
                     <span>{{ option.label }}</span>
                 </label>
 
-                <p v-if="!cardAvailable" class="cart-summary_payment-note">
+                <p v-if="!cardAvailable" id="card-unavailable-note" class="cart-summary_payment-note">
                     El pago con tarjeta no está disponible ahora mismo.
                 </p>
             </fieldset>
