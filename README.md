@@ -111,19 +111,21 @@ Playwright arranca automáticamente el servidor de Vite. Los tests mockean el ba
 ```text
 project-p5-digital-academy-team3-restaurant-frontend/
 ├── public/                     # Archivos estáticos servidos sin transformación
-├── docs/                       # Documentación con decisiones técnicas del proyecto
+├── docs/                       # Documentación del proyecto (wiki)
+├── e2e/                        # Tests end-to-end con Playwright
 ├── src/                        # Código fuente de la aplicación
-│   ├── assets/                 # Imágenes, iconos, fuentes y estilos procesados por Vite
+│   ├── assets/                 # Imágenes, iconos y fuentes procesados por Vite
 │   ├── components/             # Componentes Vue reutilizables
-│   ├── core/                   # Infraestructura y configuración global de la aplicación
+│   ├── composables/            # Composables de Vue (useAuth, useCart)
 │   ├── router/                 # Definición de rutas y guardas de navegación
-│   ├── shared/                 # Utilidades, constantes y recursos compartidos
-│   ├── stores/                 # Stores globales de Pinia
-│   ├── views/                  # Vistas asociadas a las rutas de la aplicación
+│   ├── services/               # Servicios de comunicación con la API
+│   ├── styles/                 # Tokens de Tailwind y fuentes
+│   ├── views/                  # Vistas asociadas a las rutas
 │   ├── App.vue                 # Componente raíz
-│   ├── main.js                 # Punto de entrada y montaje de Vue
-│   └── style.css               # Estilos globales
-├── .vscode/                    # Recomendaciones y ajustes compartidos de VS Code
+│   ├── main.css                # Importación de Tailwind y estilos globales
+│   └── main.js                 # Punto de entrada y montaje de Vue
+├── tests/                      # Tests unitarios con Vitest
+├── .env                        # Variables de entorno (no se sube a Git)
 ├── .gitignore                  # Archivos y carpetas excluidos de Git
 ├── .prettierignore             # Archivos que Prettier no debe procesar
 ├── .prettierrc.json            # Reglas de formato de Prettier
@@ -131,6 +133,7 @@ project-p5-digital-academy-team3-restaurant-frontend/
 ├── index.html                  # Documento HTML de entrada utilizado por Vite
 ├── package.json                # Scripts, dependencias y metadatos del proyecto
 ├── package-lock.json           # Versiones exactas del árbol de dependencias
+├── playwright.config.js        # Configuración de Playwright
 ├── vite.config.js              # Configuración de Vite y sus plugins
 └── README.md                   # Documentación del frontend
 ```
