@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { fetchOrders, updateOrderStatus } from '../../src/services/OrderService'
+import { fetchOrders, updateOrderStatus, payOrder } from '../../src/services/OrderService'
 
 beforeEach(() => {
     global.fetch = vi.fn()
@@ -29,7 +29,48 @@ describe('OrderService', () => {
         )
 
         expect(result).toEqual(orders)
-})
+     })
+
+    it('marks order as paid', async () => {
+        const invoice = {
+            id: 10,
+            orderId: 5,
+            totalAmount: 25,
+        }
+
+        fetch.mockResolvedValue({
+            ok: true,
+            status: 200,
+            json: () => Promise.resolve(invoice),
+        })
+
+        localStorage.setItem('giacobello-token', 'test-token')
+
+        const result = await payOrder(5)
+
+        expect(fetch).toHaveBeenCalledWith(
+            `${import.meta.env.VITE_API_URL}/api/v1/orders/5/pay`,
+            {
+                method: 'PUT',
+                headers: {
+                    Authorization: 'Bearer test-token',
+                },
+            },
+        )
+
+        expect(result).toEqual(invoice)
+     })
+
+    it('throws an error when paying order fails', async () => {
+        fetch.mockResolvedValue({
+            ok: false,
+            status: 409,
+        })
+
+        await expect(payOrder(5)).rejects.toThrow(
+            'Error al marcar pedido como pagado: 409',
+        )
+    })
 
     it('throws an error when fetching orders fails', async () => {
         fetch.mockResolvedValue({

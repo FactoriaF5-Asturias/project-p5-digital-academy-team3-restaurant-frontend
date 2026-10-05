@@ -217,4 +217,66 @@ describe('OrderCard', () => {
 
         expect(wrapper.emitted('reject')).toEqual([[5]])
     })
+
+    it('shows pay button for completed unpaid orders when payment action is enabled', () => {
+        const wrapper = mount(OrderCard, {
+            props: {
+                order: {
+                    ...baseOrder,
+                    statusName: 'COMPLETED',
+                    paidAt: null,
+                },
+                showPaymentAction: true,
+            },
+        })
+
+        expect(wrapper.text()).toContain('Marcar como pagado')
+    })
+
+    it('emits pay event when pay button is clicked', async () => {
+        const wrapper = mount(OrderCard, {
+            props: {
+                order: {
+                    ...baseOrder,
+                    statusName: 'COMPLETED',
+                    paidAt: null,
+                },
+                showPaymentAction: true,
+            },
+        })
+
+        await wrapper.find('.order-card__button--pay').trigger('click')
+
+        expect(wrapper.emitted('pay')).toEqual([[5]])
+    })
+
+    it('shows paid label for completed paid orders', () => {
+        const wrapper = mount(OrderCard, {
+            props: {
+                order: {
+                    ...baseOrder,
+                    statusName: 'COMPLETED',
+                    paidAt: '2026-10-05T10:00:00',
+                },
+                showPaymentAction: true,
+            },
+        })
+
+        expect(wrapper.text()).toContain('Pagado')
+        expect(wrapper.text()).not.toContain('Marcar como pagado')
+    })
+
+    it('does not show payment action when payment action is disabled', () => {
+        const wrapper = mount(OrderCard, {
+            props: {
+                order: {
+                    ...baseOrder,
+                    statusName: 'COMPLETED',
+                    paidAt: null,
+                },
+            },
+        })
+
+        expect(wrapper.text()).not.toContain('Marcar como pagado')
+    })
 })
