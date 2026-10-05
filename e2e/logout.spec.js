@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-test('logout limpia la sesion y vuelve a login', async ({ page }) => {
+test('logout limpia la sesion', async ({ page }) => {
     const fakeToken = 'header.' + btoa(JSON.stringify({
         sub: 'Admin',
         roles: ['ADMIN'],
