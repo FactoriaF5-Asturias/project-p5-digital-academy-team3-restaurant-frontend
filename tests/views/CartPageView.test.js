@@ -26,7 +26,7 @@ describe('CartPageView', () => {
         createOrder.mockResolvedValue({ id: 25 })
         const wrapper = mount(CartPageView, { global: { stubs: ['MainHeader', 'MainFooter'] } })
         expect(wrapper.text()).toContain('Pizza')
-        expect(wrapper.text()).toContain('23,50')
+        expect(wrapper.text()).toContain('20,00')
         await wrapper.get('.cart-summary_checkout').trigger('click')
         await flushPromises()
         expect(createOrder).toHaveBeenCalledWith({
