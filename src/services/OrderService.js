@@ -36,3 +36,20 @@ export async function updateOrderStatus(orderId, statusName) {
 
   return response.json()
 }
+
+export async function payOrder(orderId) {
+  const response = await fetch(API_URL + `/api/v1/orders/${orderId}/pay`, {
+    method: 'PUT',
+    headers: getAuthHeaders(),
+  })
+
+  if (!response.ok) {
+    throw new Error(`Error al marcar pedido como pagado: ${response.status}`)
+  }
+
+  if (response.status === 204) {
+    return null
+  }
+
+  return response.json()
+}
