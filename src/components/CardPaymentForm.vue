@@ -7,26 +7,36 @@
     const cardError = ref(null)
     const isReady = ref(false)
 
+    const LOAD_ERROR = 'No se pudo cargar el pago con tarjeta'
+    const NOT_READY_ERROR = 'El formulario de tarjeta no está listo.'
+    const NETWORK_ERROR = 'No se pudo completar el pago. Comprueba tu conexión e inténtalo de nuevo.'
+
     let stripe = null
     let cardElement = null
+    let unmounted = false
 
     onMounted(async () => {
-        stripe = await getStripe()
+        try {
+            stripe = await getStripe()
+        } catch {
+            stripe = null
+        }
+        if (unmounted) return
         if (!stripe || !mountPoint.value) {
-            cardError.value = 'No se pudo cargar el formulario de tarjeta.'
+            cardError.value = LOAD_ERROR
             return
         }
         cardElement = stripe.elements().create('card', { hidePostalCode: true })
         cardElement.mount(mountPoint.value)
-        cardElement.on('ready', () => {
-            isReady.value = true
-        })
         cardElement.on('change', (event) => {
             cardError.value = event.error ? event.error.message : null
         })
+        isReady.value = true
     })
 
     onBeforeUnmount(() => {
+        unmounted = true
+        isReady.value = false
         if (cardElement) {
             cardElement.destroy()
             cardElement = null
@@ -34,27 +44,33 @@
     })
 
     async function pay(clientSecret) {
+        cardError.value = null
         if (!stripe || !cardElement) {
-            return { error: { message: 'El formulario de tarjeta no está listo.' } }
+            return { error: { message: NOT_READY_ERROR } }
         }
-        const result = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: { card: cardElement }
-        })
-        if (result.error) {
-            cardError.value = result.error.message
+        try {
+            const result = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: { card: cardElement }
+            })
+            if (result.error) {
+                cardError.value = result.error.message
+            }
+            return result
+        } catch {
+            cardError.value = NETWORK_ERROR
+            return { error: { message: NETWORK_ERROR } }
         }
-        return result
     }
 
-    defineExpose({ pay })
+    defineExpose({ pay, isReady })
 
 </script>
 
 <template>
     <div class="card-payment-form">
-        <label id="card-element-label" class="card-payment-form_label">
+        <span id="card-element-label" class="card-payment-form_label">
             Datos de la tarjeta
-        </label>
+        </span>
         <div
             ref="mountPoint"
             class="card-payment-form_element"

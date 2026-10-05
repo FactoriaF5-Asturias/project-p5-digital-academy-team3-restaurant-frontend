@@ -79,4 +79,59 @@ describe('CardPaymentForm', () => {
         const result = await wrapper.vm.pay('secret_1')
         expect(result.error).toBeDefined()
     })
+
+    it('exposes isReady once the element is mounted', async () => {
+        const wrapper = mount(CardPaymentForm)
+        expect(wrapper.vm.isReady).toBe(false)
+        await flushPromises()
+        expect(wrapper.vm.isReady).toBe(true)
+    })
+
+    it('does not mount an element when unmounted while Stripe loads', async () => {
+        let resolveStripe
+        getStripe.mockReturnValue(new Promise((resolve) => { resolveStripe = resolve }))
+        const wrapper = mount(CardPaymentForm)
+        wrapper.unmount()
+        resolveStripe(stripe)
+        await flushPromises()
+        expect(stripe.elements).not.toHaveBeenCalled()
+        expect(cardElement.mount).not.toHaveBeenCalled()
+    })
+
+    it('shows a load error and stays not ready when Stripe fails to load', async () => {
+        getStripe.mockRejectedValue(new Error('blocked'))
+        const wrapper = mount(CardPaymentForm)
+        await flushPromises()
+        expect(wrapper.get('[role="alert"]').text()).toBe('No se pudo cargar el pago con tarjeta')
+        expect(wrapper.vm.isReady).toBe(false)
+    })
+
+    it('shows an error when confirmCardPayment rejects', async () => {
+        stripe.confirmCardPayment.mockRejectedValue(new Error('network'))
+        const wrapper = mount(CardPaymentForm)
+        await flushPromises()
+        const result = await wrapper.vm.pay('secret_1')
+        await flushPromises()
+        expect(result.error).toBeDefined()
+        expect(wrapper.get('[role="alert"]').exists()).toBe(true)
+    })
+
+    it('clears the previous error when paying again', async () => {
+        stripe.confirmCardPayment
+            .mockResolvedValueOnce({ error: { message: 'Tarjeta rechazada' } })
+            .mockResolvedValueOnce({ paymentIntent: { status: 'succeeded' } })
+        const wrapper = mount(CardPaymentForm)
+        await flushPromises()
+        await wrapper.vm.pay('s')
+        await flushPromises()
+        await wrapper.vm.pay('s')
+        await flushPromises()
+        expect(wrapper.find('[role="alert"]').exists()).toBe(false)
+    })
+
+    it('does not use a label element for the card field heading', async () => {
+        const wrapper = mount(CardPaymentForm)
+        await flushPromises()
+        expect(wrapper.find('label').exists()).toBe(false)
+    })
 })
