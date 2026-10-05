@@ -33,4 +33,13 @@ describe('StripeService', () => {
         expect(loadStripe).toHaveBeenCalledTimes(1)
         expect(loadStripe).toHaveBeenCalledWith('pk_test_123')
     })
+
+    it('allows a retry after the load fails', async () => {
+        vi.stubEnv('VITE_STRIPE_PUBLISHABLE_KEY', 'pk_test_123')
+        const stripe = { elements: vi.fn() }
+        loadStripe.mockRejectedValueOnce(new Error('network')).mockResolvedValueOnce(stripe)
+        await expect(service.getStripe()).rejects.toThrow('network')
+        expect(await service.getStripe()).toBe(stripe)
+        expect(loadStripe).toHaveBeenCalledTimes(2)
+    })
 })

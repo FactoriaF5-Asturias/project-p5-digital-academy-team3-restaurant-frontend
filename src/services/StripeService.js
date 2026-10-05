@@ -11,7 +11,10 @@ export function getStripe() {
         return Promise.resolve(null)
     }
     if (!stripePromise) {
-        stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY)
+        stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY).catch((error) => {
+            stripePromise = null
+            throw error
+        })
     }
     return stripePromise
 }
