@@ -11,7 +11,7 @@ test('muestra error con credenciales incorrectas', async ({ page }) => {
     await expect(page.getByText('Credenciales incorrectas')).toBeVisible()
 })
 
-test('login exitoso redirige a home y guarda token', async ({ page }) => {
+test('login exitoso redirige por rol y guarda token', async ({ page }) => {
     const fakeToken = 'header.' + btoa(JSON.stringify({
         sub: 'Admin',
         roles: ['ADMIN'],
@@ -31,7 +31,7 @@ test('login exitoso redirige a home y guarda token', async ({ page }) => {
     await page.fill('input#password', 'Admin')
     await page.click('button[type="submit"]')
 
-    await expect(page).toHaveURL('/')
+    await expect(page).toHaveURL('/admin')
     const token = await page.evaluate(() => localStorage.getItem('giacobello-token'))
     expect(token).toBe(fakeToken)
 })
