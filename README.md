@@ -21,7 +21,7 @@ Aplicación web del proyecto **P5 Digital Academy - Restaurante**, desarrollada 
 
 - Node.js `^20.19.0` o `>=22.12.0`
 - npm, incluido con Node.js
-- Backend corriendo en `http://localhost:8080` (ver [repositorio backend]([https://github.com/FactoriaF5-Asturias/project-p5-digital-academy-team3-restaurant-backend]))
+- Backend corriendo en `http://localhost:8080` (ver [repositorio backend](https://github.com/FactoriaF5-Asturias/project-p5-digital-academy-team3-restaurant-backend))
 
 ---
 
@@ -149,11 +149,16 @@ project-p5-digital-academy-team3-restaurant-frontend/
 
 ## Documentación
 
-- [Wiki del proyecto]([URL_WIKI]) — arquitectura, flujos de usuario, diseño, convenciones.
-- [Repositorio backend]([URL_REPO_BACKEND]) — API y modelo de datos.
+- [Wiki del proyecto](https://github.com/FactoriaF5-Asturias/project-p5-digital-academy-team3-restaurant-frontend/wiki) — arquitectura, flujos de usuario, diseño, convenciones.
+- [Repositorio backend](https://github.com/FactoriaF5-Asturias/project-p5-digital-academy-team3-restaurant-backend) — API y modelo de datos.
 
 ---
 
 ## Equipo
 
-- 
+- [Ekaterina Zotova](https://github.com/zookatt)
+- [Iulian Timofei](https://github.com/iulian640)
+- [José Ángel Peña Díaz](https://github.com/joseang1)
+- [Hanna Frolova](https://github.com/hannafr14)
+- [Ruben Campal López](https://github.com/ruben-campal-1996)
+- [Simone Ávila Arranz](https://github.com/simoneavilarranz)
