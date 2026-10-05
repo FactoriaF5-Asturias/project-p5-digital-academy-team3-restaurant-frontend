@@ -1,5 +1,5 @@
 <script setup>
-    import restaurantLogo from '../../assets/bella_vita_logo.png'
+    import restaurantLogo from '../../assets/logo.png'
     import hannaAvatar from '../../assets/developers/hannafr14.jpg'
     import iulianAvatar from '../../assets/developers/iulian640.jpg'
     import joseAvatar from '../../assets/developers/joseang1.png'

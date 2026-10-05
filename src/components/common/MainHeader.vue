@@ -1,7 +1,7 @@
 <script setup>
     import { computed } from 'vue';
 
-    import restaurantLogo from '../../assets/bella_vita_logo.png'
+    import restaurantLogo from '../../assets/logo.png'
     import cartIcon from '../../assets/cart.svg'
     import profileIcon from '../../assets/profile.svg'
     import { useCart } from '../../composables/useCart.js'
