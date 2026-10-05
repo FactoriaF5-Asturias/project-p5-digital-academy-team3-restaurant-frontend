@@ -59,7 +59,22 @@
                 return matchesType && matchesStatus
                 
             })
-            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .sort((a, b) => {
+                const getPriority = (order) => {
+                    if (order.statusName === 'CANCELLED') return 3
+                    if (order.paidAt) return 2
+
+                    return 1
+                }
+
+                const priorityDifference = getPriority(a) - getPriority(b)
+
+                if (priorityDifference !== 0) {
+                    return priorityDifference
+                }
+
+                return new Date(b.createdAt) - new Date(a.createdAt)
+            })
     )
 
     async function handlePayOrder(orderId) {

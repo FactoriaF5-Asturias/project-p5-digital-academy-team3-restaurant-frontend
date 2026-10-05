@@ -30,7 +30,7 @@
 
 .admin-page__layout {
     @apply
-    flex min-h-screen;
+    flex min-h-screen flex-col md:flex-row;
 }
 
 .admin-page__main {

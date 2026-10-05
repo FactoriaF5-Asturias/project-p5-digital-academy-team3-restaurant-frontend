@@ -35,26 +35,26 @@
 
 .sidebar-admin {
     @apply
-    flex w-full shrink-0 flex-col gap-8
-    bg-bg-container p-5 shadow-sm
-    md:sticky md:top-0 md:h-screen
-    md:w-64 md:p-6;
+    flex w-full shrink-0 flex-col gap-4
+    border-b border-border-default bg-bg-container p-4 shadow-sm
+    md:sticky md:top-0 md:h-screen md:w-64
+    md:gap-8 md:border-b-0 md:p-6;
 }
 
 .sidebar-admin__brand {
     @apply
-    font-display text-2xl font-bold
-    text-text-brand no-underline;
+    hidden font-display text-2xl font-bold
+    text-text-brand no-underline md:block;
 }
 
 .sidebar-admin__nav {
     @apply
-    flex flex-col gap-2;
+    flex gap-2 overflow-x-auto md:flex-col;
 }
 
 .sidebar-admin__link {
     @apply
-    rounded-lg px-4 py-3 font-body text-sm font-semibold
+    shrink-0 rounded-lg px-4 py-3 font-body text-sm font-semibold
     text-text-muted no-underline transition-colors
     hover:bg-bg-container-high hover:text-text-brand;
 }
