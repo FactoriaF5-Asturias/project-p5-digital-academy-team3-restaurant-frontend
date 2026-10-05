@@ -12,8 +12,12 @@ export async function getProducts() {
     return response.json()
 }
 
-export async function getAdminProducts() {
-    const response = await fetch(`${API_URL}/api/v1/admin/products`)
+export async function getAdminProducts(token) {
+    const response = await fetch(`${API_URL}/api/v1/admin/products`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
 
     if (!response.ok) {
         throw new Error(`Error al cargar productos de administración: ${response.status}`)
