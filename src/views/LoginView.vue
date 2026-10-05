@@ -13,7 +13,7 @@ const rememberMe = ref(false)
 const showPassword = ref(false)
 const isSubmitting = ref(false)
 const submitError = ref(null)
-const { login } = useAuth()
+const { login, user: authUser } = useAuth()
 const router = useRouter()
 
 function togglePassword() { showPassword.value = !showPassword.value }
@@ -23,6 +23,17 @@ async function handleSubmit() {
     submitError.value = null
     try{
         await login(user.value, password.value)
+
+        if (authUser.value?.roles?.includes('KITCHEN')) {
+            router.push('/kitchen')
+            return
+        }
+
+        if (authUser.value?.roles?.includes('ADMIN')) {
+            router.push('/admin')
+            return
+        }
+
         router.push('/')
     } catch (err) {
         if (err.status === 409) {

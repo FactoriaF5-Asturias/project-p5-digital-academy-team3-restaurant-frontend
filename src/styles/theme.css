@@ -18,6 +18,7 @@
 
     --color-text-default: var(--text-default);
     --color-text-brand: var(--text-brand);
+    --color-text-brand-darker: var(--text-brand-darker);
     --color-text-on-brand: var(--text-on-brand);
     --color-text-special: var(--text-special);
     --color-text-on-special: var(--text-on-special);
@@ -56,6 +57,7 @@
 
     --text-default: #1a1a1a;
     --text-brand: #8b0000;
+    --text-brand-darker: #610000;
     --text-on-brand: #ffffff;            /* Texto sobre fondo */
     --text-special: #556b2f;       
     --text-on-special: #ffffff;          /* Texto sobre fondo */
