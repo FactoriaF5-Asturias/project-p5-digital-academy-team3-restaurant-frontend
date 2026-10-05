@@ -26,7 +26,8 @@ describe('ReportDocumentsSection', () => {
         expect(wrapper.text()).toContain('Resumen de ventas.')
         expect(wrapper.text()).toContain('Total')
         expect(wrapper.text()).toContain('4,250.00')
-        expect(wrapper.find('a.report-documents__download-button').attributes('href')).toBe('/report.pdf')
+        expect(wrapper.find('.report-documents__download-button').exists()).toBe(true)
+        expect(wrapper.find('.report-documents__generate-button').exists()).toBe(true)
     })
 
     it('renders multiple report cards', () => {

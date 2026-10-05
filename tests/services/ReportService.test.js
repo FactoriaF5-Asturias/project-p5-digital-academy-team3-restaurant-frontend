@@ -42,9 +42,11 @@ describe('ReportService', () => {
 
         expect(fetch).toHaveBeenCalledWith(
             `${import.meta.env.VITE_API_URL}/api/v1/invoices/totals`,
+            { headers: {} },
         )
         expect(fetch).toHaveBeenCalledWith(
             `${import.meta.env.VITE_API_URL}/api/v1/invoices`,
+            { headers: {} },
         )
         expect(result.income).toBe(100)
         expect(result.totalOrders).toBe(2)
