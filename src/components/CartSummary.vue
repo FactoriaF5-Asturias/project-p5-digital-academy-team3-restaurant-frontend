@@ -27,8 +27,7 @@
 
     const deliveryOptions = [
         { value: 'dine-in', label: 'Comer en el restaurante' },
-        { value: 'takeaway', label: 'Para llevar' },
-        { value: 'delivery', label: 'Envío a domicilio' }
+        { value: 'takeaway', label: 'Para llevar' }
     ]
 
     function formatPrice(value) {
