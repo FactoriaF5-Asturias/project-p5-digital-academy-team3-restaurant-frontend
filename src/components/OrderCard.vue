@@ -8,9 +8,14 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+
+  showPaymentAction: {
+    type: Boolean,
+    default: false,
+  },
 })
 
-const emit = defineEmits(['accept', 'reject', 'update-status'])
+const emit = defineEmits(['accept', 'reject', 'update-status', 'pay'])
 
 const orderType = computed(() => {
   if (props.order.orderTypeName === 'TAKEAWAY') return 'Para Llevar'
@@ -32,6 +37,10 @@ const isNewOrder = computed(() => orderStatus.value === 'PENDING')
 const isCancelledOrder = computed(() => orderStatus.value === 'CANCELLED')
 const isCompletedOrder = computed(() => orderStatus.value === 'COMPLETED')
 const isFinalOrder = computed(() => isCancelledOrder.value || isCompletedOrder.value)
+const isPaid = computed(() => Boolean(props.order.paidAt))
+const canBePaid = computed(() =>
+  props.showPaymentAction && isCompletedOrder.value && !isPaid.value
+)
 
 const isStatusMenuOpen = ref(false)
 
@@ -182,6 +191,27 @@ function toggleStatusMenu() {
       >
         Aceptar
       </button>
+    </div>
+
+    <div
+      v-if="showPaymentAction && isCompletedOrder"
+      class="order-card__payment"
+    >
+      <button
+        v-if="canBePaid"
+        class="order-card__button order-card__button--pay"
+        type="button"
+        @click="emit('pay', order.id)"
+      >
+        Marcar como pagado
+      </button>
+
+      <p
+        v-else
+        class="order-card__paid-label"
+      >
+        Pagado
+      </p>
     </div>
   </article>
 </template>
@@ -495,6 +525,18 @@ function toggleStatusMenu() {
 .order-card--cancelled .order-card__item-name {
   @apply
     line-through;
+}
+
+.order-card__payment {
+  @apply mt-4 border-t border-border-default pt-4;
+}
+
+.order-card__button--pay {
+  @apply bg-bg-brand-darker text-text-on-brand hover:bg-bg-brand;
+}
+
+.order-card__paid-label {
+  @apply text-sm font-semibold text-text-special;
 }
 
 </style>

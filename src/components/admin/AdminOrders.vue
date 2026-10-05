@@ -3,7 +3,7 @@
     import { computed, onMounted, ref } from 'vue'
     import OrderFilter from '../OrderFilter.vue'
     import OrderCard from '../OrderCard.vue'
-    import { fetchOrders, updateOrderStatus } from '../../services/OrderService.js'
+    import { fetchOrders, updateOrderStatus, payOrder } from '../../services/OrderService.js'
     import { useAuth } from '../../composables/useAuth.js'
 
     const orders = ref([])
@@ -16,7 +16,7 @@
         { label: 'Todos', value: 'all' },
         { label: 'Para llevar', value: 'TAKEAWAY' },
         { label: 'En sala', value: 'DINE IN' },
-        { label: 'A domicilio', value: 'DELIVERY' },
+        { label: 'A domicilio', value: 'DELIVERY', hidden: true },
     ]
 
     const orderStatusOptions = [
@@ -45,7 +45,7 @@
     const filteredOrders = computed(() => 
         orders.value
             .filter((order) => 
-                ['COMPLETED', 'CANCELED'].includes(order.statusName)
+                ['COMPLETED', 'CANCELLED'].includes(order.statusName)
             )
             .filter((order) => {
                 const matchesType =
@@ -61,6 +61,19 @@
             })
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     )
+
+    async function handlePayOrder(orderId) {
+        const confirmed = window.confirm('¿Marcar este pedido como pagado? Esta acción generará una factura.')
+
+        if (!confirmed) return
+
+        try {
+            await payOrder(orderId)
+            await loadOrders()
+        } catch (err) {
+            errorMessage.value = err.message || 'No se pudo marcar el pedido como pagado.'
+        }
+    }
 
 </script>
 
@@ -99,7 +112,9 @@
                 v-for="order in filteredOrders"
                 :key="order.id"
                 :order="order"
+                show-payment-action
                 @update-status="handleUpdateStatus"
+                @pay="handlePayOrder"
             />
         </section>
     </section>
