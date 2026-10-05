@@ -36,11 +36,12 @@ export async function getCategories() {
     return response.json()
 }
 
-export async function updateProducts(productId, productData) {
+export async function updateProducts(productId, productData, token) {
     const response = await fetch(`${API_URL}/api/v1/products/${productId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(productData),
     })
@@ -52,9 +53,12 @@ export async function updateProducts(productId, productData) {
     return response.status === 204 ? null : response.json()
 }
 
-export async function deleteProduct(productId) {
+export async function deleteProduct(productId, token) {
     const response = await fetch(`${API_URL}/api/v1/products/${productId}`, {
         method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
     })
 
     if (!response.ok) {
@@ -62,11 +66,12 @@ export async function deleteProduct(productId) {
     }
 }
 
-export async function createProduct(productData) {
+export async function createProduct(productData, token) {
     const response = await fetch(`${API_URL}/api/v1/products`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(productData),
     })
