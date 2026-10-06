@@ -5,6 +5,10 @@
             type: Object,
             required: true,
             // se espera: { id, name, description, price, quantity, image }
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
     })
 
@@ -32,6 +36,7 @@
                 <button
                     class="cart-item_remove"
                     type="button"
+                    :disabled="disabled"
                     :aria-label="`Quitar ${item.name} de la cesta`"
                     @click="$emit('remove', item.id)"
                 >
@@ -48,7 +53,7 @@
                     <button
                         type="button"
                         class="qty-control_btn"
-                        :disabled="item.quantity <= 1"
+                        :disabled="disabled || item.quantity <= 1"
                         :aria-label="`Reducir cantidad de ${item.name}`"
                         @click="$emit('decrement', item.id)"
                     >
@@ -58,6 +63,7 @@
                     <button
                         type="button"
                         class="qty-control_btn"
+                        :disabled="disabled"
                         :aria-label="`Aumentar cantidad de ${item.name}`"
                         @click="$emit('increment', item.id)"
                     >

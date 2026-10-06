@@ -13,18 +13,49 @@
             type: String,
             required: true
         },
+        paymentMethod: {
+            type: String,
+            default: 'cash'
+        },
+        cardAvailable: {
+            type: Boolean,
+            default: true
+        },
         disabled: {
+            type: Boolean,
+            default: false
+        },
+        controlsDisabled: {
+            type: Boolean,
+            default: false
+        },
+        lockPaymentMethod: {
             type: Boolean,
             default: false
         }
     })
 
-    defineEmits(['update:deliveryMethod', 'checkout'])
+    defineEmits(['update:deliveryMethod', 'update:paymentMethod', 'checkout'])
 
     const deliveryOptions = [
         { value: 'dine-in', label: 'Comer en el restaurante' },
         { value: 'takeaway', label: 'Para llevar' }
     ]
+
+    const paymentOptions = [
+        { value: 'cash', label: 'Efectivo' },
+        { value: 'card', label: 'Tarjeta' }
+    ]
+
+    function isPaymentOptionDisabled(option) {
+        if (props.controlsDisabled) return true
+        if (props.lockPaymentMethod) return option.value !== 'card'
+        return option.value === 'card' && !props.cardAvailable
+    }
+
+    function describedBy(option) {
+        return option.value === 'card' && !props.cardAvailable ? 'card-unavailable-note' : undefined
+    }
 
     function formatPrice(value) {
         return new Intl.NumberFormat('es-ES', {
@@ -68,11 +99,43 @@
                         name="delivery"
                         :value="option.value"
                         :checked="deliveryMethod === option.value"
+                        :disabled="controlsDisabled"
                         @change="$emit('update:deliveryMethod', option.value)"
                     >
                     <span>{{ option.label }}</span>
                 </label>
             </fieldset>
+
+            <fieldset class="cart-summary_payment">
+                <legend>Método de pago</legend>
+
+                <label
+                    v-for="option in paymentOptions"
+                    :key="option.value"
+                    class="cart-summary_payment-option"
+                    :class="{
+                        'cart-summary_payment-option--active': paymentMethod === option.value,
+                        'cart-summary_payment-option--disabled': isPaymentOptionDisabled(option)
+                    }"
+                >
+                    <input
+                        type="radio"
+                        name="payment"
+                        :value="option.value"
+                        :checked="paymentMethod === option.value"
+                        :disabled="isPaymentOptionDisabled(option)"
+                        :aria-describedby="describedBy(option)"
+                        @change="$emit('update:paymentMethod', option.value)"
+                    >
+                    <span>{{ option.label }}</span>
+                </label>
+
+                <p v-if="!cardAvailable" id="card-unavailable-note" class="cart-summary_payment-note">
+                    El pago con tarjeta no está disponible ahora mismo.
+                </p>
+            </fieldset>
+
+            <slot name="payment-details" />
         </div>
 
         <button
@@ -168,6 +231,42 @@
 .cart-summary_delivery-option--active span {
     @apply
     font-semibold;
+}
+
+.cart-summary_payment {
+    @apply
+    mt-2 border-none p-6;
+}
+
+.cart-summary_payment legend {
+    @apply
+    pb-3 font-display font-bold text-text-default;
+}
+
+.cart-summary_payment-option {
+    @apply
+    flex cursor-pointer items-center gap-2.5 py-2
+    font-body text-sm text-text-default;
+}
+
+.cart-summary_payment-option input {
+    @apply
+    h-4 w-4 accent-bg-brand;
+}
+
+.cart-summary_payment-option--active span {
+    @apply
+    font-semibold;
+}
+
+.cart-summary_payment-option--disabled {
+    @apply
+    cursor-not-allowed opacity-50;
+}
+
+.cart-summary_payment-note {
+    @apply
+    font-body text-xs text-text-muted;
 }
 
 .cart-summary_checkout {

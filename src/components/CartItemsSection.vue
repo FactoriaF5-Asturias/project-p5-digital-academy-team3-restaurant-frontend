@@ -6,6 +6,10 @@
         items: {
             type: Array,
             required: true
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
     })
 
@@ -25,6 +29,7 @@
                 v-for="item in items"
                 :key="item.id"
                 :item="item"
+                :disabled="disabled"
                 @increment="$emit('increment', $event)"
                 @decrement="$emit('decrement', $event)"
                 @remove="$emit('remove', $event)"
