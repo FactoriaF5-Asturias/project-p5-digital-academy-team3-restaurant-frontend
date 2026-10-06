@@ -11,7 +11,7 @@ Aplicación web del proyecto **P5 Digital Academy - Restaurante**, desarrollada 
 - **Tailwind CSS** para estilos
 - **Vue Router** para enrutado
 - **Pinia** para estado global
-- **Axios** para comunicación con la API
+- **Fetch** para comunicación con la API
 - **Vitest** para tests unitarios
 - **Playwright** para tests e2e
 
@@ -144,8 +144,6 @@ project-p5-digital-academy-team3-restaurant-frontend/
 - **`components/`**: piezas de interfaz reutilizables. Por ejemplo, botones, tarjetas de producto, cabeceras o formularios.
 - **`core/`**: elementos centrales que se configuran una sola vez, como el cliente HTTP de Axios, interceptores, autenticación o configuración de la API.
 - **`router/`**: instancia de Vue Router, listado de rutas y guardas para controlar el acceso a vistas protegidas.
-- **`shared/`**: código sin responsabilidad de negocio específica que se utiliza en varios módulos: constantes, helpers, validaciones o composables comunes.
-- **`stores/`**: estado global administrado con Pinia. Aquí pueden vivir los stores de autenticación, carrito, productos y pedidos.
 - **`views/`**: componentes que representan páginas completas y que normalmente se enlazan desde Vue Router.
 
 ---
